@@ -147,6 +147,10 @@
                 </div>
                 
                 <button type="submit" class="login-btn">Sign In</button>
+<div class="register-option" style="margin-top: 15px; text-align: center;">
+    <span style="color: #7f8c8d;">Don't have an account?</span>
+    <a href="{{ route('register') }}" style="color: #3498db; text-decoration: none; margin-left: 5px; font-weight: 500;">Register here</a>
+</div>
                 
                 <div class="additional-options">
                     <a href="#" class="forgot-password">Forgot password?</a>

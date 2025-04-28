@@ -35,7 +35,4 @@ Route::middleware('auth:admin')->group(function () {
     });
 });
 
-// Default route
-Route::get('/', function () {
-    return view('welcome');
-});
+
