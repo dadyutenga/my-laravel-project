@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superadmin Dashboard</title>
+    <title>Admin Dashboard</title>
 </head>
 <body>
-    <h1>Welcome Superadmin</h1>
-    <p>You are logged in as a superadmin user.</p>
+    <h1>Welcome Admin</h1>
+    <p>You are logged in as an admin user.</p>
     
     <form method="POST" action="{{ route('logout') }}">
         @csrf

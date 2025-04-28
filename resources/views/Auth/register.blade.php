@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prototype System Login</title>
+    <title>Prototype System Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -22,13 +22,13 @@
             color: #333;
         }
 
-        .login-container {
+        .register-container {
             width: 100%;
             max-width: 400px;
             padding: 20px;
         }
 
-        .login-card {
+        .register-card {
             background: white;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -37,7 +37,7 @@
             transition: transform 0.3s ease;
         }
 
-        .login-card:hover {
+        .register-card:hover {
             transform: translateY(-5px);
         }
 
@@ -67,7 +67,7 @@
             font-weight: 500;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e0e0e0;
@@ -76,12 +76,12 @@
             transition: border 0.3s ease;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #3498db;
         }
 
-        .login-btn {
+        .register-btn {
             width: 100%;
             padding: 14px;
             background: linear-gradient(135deg, #3498db, #2980b9);
@@ -95,28 +95,28 @@
             margin-top: 10px;
         }
 
-        .login-btn:hover {
+        .register-btn:hover {
             background: linear-gradient(135deg, #2980b9, #3498db);
             box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
         }
 
-        .additional-options {
+        .login-link {
             margin-top: 20px;
             font-size: 13px;
         }
 
-        .forgot-password {
-            color: #7f8c8d;
+        .login-link a {
+            color: #3498db;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .forgot-password:hover {
-            color: #3498db;
+        .login-link a:hover {
+            color: #2980b9;
         }
 
         @media (max-width: 480px) {
-            .login-card {
+            .register-card {
                 padding: 30px 20px;
             }
             
@@ -127,17 +127,22 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
+    <div class="register-container">
+        <div class="register-card">
             <div class="welcome-message">
-                <h1>Welcome to the prototype system</h1>
-                <p>Please sign in to continue</p>
+                <h1>Create New Account</h1>
+                <p>Please fill in your details to register</p>
             </div>
             
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required placeholder="Enter your email">
                 </div>
                 
@@ -145,39 +150,27 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required placeholder="Enter your password">
                 </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Confirm your password">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="admin">Admin</option>
+                        <option value="superadmin">Super Admin</option>
+                    </select>
+                </div>
                 
-                <button type="submit" class="login-btn">Sign In</button>
+                <button type="submit" class="register-btn">Register</button>
                 
-                <div class="additional-options">
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                <div class="login-link">
+                    Already have an account? <a href="{{ route('login') }}">Login here</a>
                 </div>
             </form>
         </div>
     </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Simple validation
-            if(username.trim() === '' || password.trim() === '') {
-                alert('Please enter both username and password');
-                return;
-            }
-            
-            // Here you would typically send the data to a server
-            // For this prototype, we'll just show a success message
-            alert('Login successful! Welcome to the prototype system.');
-            
-            // Reset the form
-            this.reset();
-            
-            // In a real application, you would redirect to another page
-            // window.location.href = 'dashboard.html';
-        });
-    </script>
 </body>
 </html>
