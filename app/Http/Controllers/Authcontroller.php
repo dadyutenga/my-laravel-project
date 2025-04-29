@@ -43,29 +43,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:admins',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,superadmin'
-        ]);
-
-        $admin = Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'is_active' => true
-        ]);
-
-        return redirect()->route('login')->with('success', 'Registration successful');
-    }
-
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
 }
