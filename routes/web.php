@@ -5,7 +5,11 @@ use App\Http\Controllers\AuthController;
 
 // Default route redirects to login
 Route::get('/', function () {
-    return redirect()->route('login');
+    return redirect('/login');
+});
+
+Route::get('/home', function () {
+    return redirect('/login');
 });
 
 // Guest routes
