@@ -38,4 +38,9 @@ class Admin extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function details()
+    {
+        return $this->hasOne(AdminDetails::class, 'admin_id');
+    }
 }
