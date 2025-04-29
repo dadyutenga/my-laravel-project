@@ -886,66 +886,66 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-title">Total Revenue</div>
+                            <div class="stat-title">Total Users</div>
                             <div class="stat-icon purple">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                        </div>
-                        <div class="stat-value">$24,780</div>
-                        <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                12.5%
-                            </div>
-                            vs previous month
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">Total Orders</div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-shopping-bag"></i>
-                            </div>
-                        </div>
-                        <div class="stat-value">1,482</div>
-                        <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                8.2%
-                            </div>
-                            vs previous month
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">New Customers</div>
-                            <div class="stat-icon blue">
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
-                        <div class="stat-value">385</div>
+                        <div class="stat-value">2,458</div>
                         <div class="stat-description">
                             <div class="stat-trend up">
                                 <i class="fas fa-arrow-up"></i>
-                                4.7%
+                                8.5%
                             </div>
-                            vs previous month
+                            Active accounts
                         </div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header">
-                            <div class="stat-title">Conversion Rate</div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-chart-pie"></i>
+                            <div class="stat-title">Admin Users</div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-user-shield"></i>
                             </div>
                         </div>
-                        <div class="stat-value">3.42%</div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-description">
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i>
+                                2 new
+                            </div>
+                            Active admins
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">System Load</div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-server"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">42%</div>
                         <div class="stat-description">
                             <div class="stat-trend down">
                                 <i class="fas fa-arrow-down"></i>
-                                1.8%
+                                3.2%
                             </div>
-                            vs previous month
+                            Server usage
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Support Tickets</div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">18</div>
+                        <div class="stat-description">
+                            <div class="stat-trend down">
+                                <i class="fas fa-arrow-down"></i>
+                                5 resolved
+                            </div>
+                            Open tickets
                         </div>
                     </div>
                 </div>
@@ -962,38 +962,38 @@
                         <div class="activity-list">
                             <div class="activity-item">
                                 <div class="activity-icon purple">
-                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-user-plus"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <div class="activity-title">New order #1234 from John Doe</div>
-                                    <div class="activity-time">5 minutes ago</div>
+                                    <div class="activity-title">New admin user created</div>
+                                    <div class="activity-time">10 minutes ago</div>
                                 </div>
                             </div>
                             <div class="activity-item">
                                 <div class="activity-icon green">
-                                    <i class="fas fa-user-plus"></i>
+                                    <i class="fas fa-key"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <div class="activity-title">New customer registered</div>
+                                    <div class="activity-title">System permissions updated</div>
                                     <div class="activity-time">1 hour ago</div>
                                 </div>
                             </div>
                             <div class="activity-item">
                                 <div class="activity-icon blue">
-                                    <i class="fas fa-comment"></i>
+                                    <i class="fas fa-shield-alt"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <div class="activity-title">New comment on product #5678</div>
-                                    <div class="activity-time">3 hours ago</div>
+                                    <div class="activity-title">Security audit completed</div>
+                                    <div class="activity-time">2 hours ago</div>
                                 </div>
                             </div>
                             <div class="activity-item">
                                 <div class="activity-icon orange">
-                                    <i class="fas fa-truck"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
                                 </div>
                                 <div class="activity-content">
-                                    <div class="activity-title">Order #9012 has been shipped</div>
-                                    <div class="activity-time">5 hours ago</div>
+                                    <div class="activity-title">System alert resolved</div>
+                                    <div class="activity-time">4 hours ago</div>
                                 </div>
                             </div>
                         </div>
@@ -1003,7 +1003,7 @@
                 <!-- Recent Orders Table -->
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <h3 class="card-title">Recent Orders</h3>
+                        <h3 class="card-title">System Logs</h3>
                         <div class="card-actions">
                             <button class="card-action">View All</button>
                         </div>
@@ -1011,99 +1011,73 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
+                                <th>Log ID</th>
+                                <th>User</th>
+                                <th>Action</th>
                                 <th>Date</th>
-                                <th>Amount</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>#ORD-1234</td>
-                                <td>John Doe</td>
-                                <td>May 15, 2023</td>
-                                <td>$125.00</td>
-                                <td><span class="status-badge completed">Completed</span></td>
-                                <td>
-                                    <i class="fas fa-ellipsis-h table-action"></i>
-                                </td>
+                                <td>#LOG-1234</td>
+                                <td>admin@system.com</td>
+                                <td>User Permission Update</td>
+                                <td>{{ now()->format('M d, Y') }}</td>
+                                <td><span class="status-badge completed">Success</span></td>
+                                <td><i class="fas fa-eye table-action"></i></td>
                             </tr>
                             <tr>
-                                <td>#ORD-1235</td>
-                                <td>Jane Smith</td>
-                                <td>May 14, 2023</td>
-                                <td>$245.99</td>
+                                <td>#LOG-1235</td>
+                                <td>security@system.com</td>
+                                <td>Security Scan</td>
+                                <td>{{ now()->subHours(2)->format('M d, Y') }}</td>
                                 <td><span class="status-badge in-progress">In Progress</span></td>
-                                <td>
-                                    <i class="fas fa-ellipsis-h table-action"></i>
-                                </td>
+                                <td><i class="fas fa-eye table-action"></i></td>
                             </tr>
                             <tr>
-                                <td>#ORD-1236</td>
-                                <td>Robert Johnson</td>
-                                <td>May 14, 2023</td>
-                                <td>$89.50</td>
-                                <td><span class="status-badge pending">Pending</span></td>
-                                <td>
-                                    <i class="fas fa-ellipsis-h table-action"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-1237</td>
-                                <td>Emily Davis</td>
-                                <td>May 13, 2023</td>
-                                <td>$352.75</td>
-                                <td><span class="status-badge completed">Completed</span></td>
-                                <td>
-                                    <i class="fas fa-ellipsis-h table-action"></i>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#ORD-1238</td>
-                                <td>Michael Wilson</td>
-                                <td>May 13, 2023</td>
-                                <td>$78.25</td>
-                                <td><span class="status-badge cancelled">Cancelled</span></td>
-                                <td>
-                                    <i class="fas fa-ellipsis-h table-action"></i>
-                                </td>
+                                <td>#LOG-1236</td>
+                                <td>system@admin.com</td>
+                                <td>Backup Creation</td>
+                                <td>{{ now()->subHours(5)->format('M d, Y') }}</td>
+                                <td><span class="status-badge completed">Success</span></td>
+                                <td><i class="fas fa-eye table-action"></i></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Quick Actions -->
-                <h2 class="dashboard-title">Quick Actions</h2>
+                <h2 class="dashboard-title">Administrative Actions</h2>
                 <div class="quick-actions">
-                    <div class="quick-action-card">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="quick-action-title">Add Product</div>
-                        <div class="quick-action-description">Create a new product listing</div>
-                    </div>
                     <div class="quick-action-card">
                         <div class="quick-action-icon">
                             <i class="fas fa-user-plus"></i>
                         </div>
-                        <div class="quick-action-title">Add Customer</div>
-                        <div class="quick-action-description">Create a new customer account</div>
+                        <div class="quick-action-title">Create Admin</div>
+                        <div class="quick-action-description">Add new administrator</div>
                     </div>
                     <div class="quick-action-card">
                         <div class="quick-action-icon">
-                            <i class="fas fa-file-invoice"></i>
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div class="quick-action-title">Create Invoice</div>
-                        <div class="quick-action-description">Generate a new invoice</div>
+                        <div class="quick-action-title">Security Check</div>
+                        <div class="quick-action-description">Run security audit</div>
                     </div>
                     <div class="quick-action-card">
                         <div class="quick-action-icon">
-                            <i class="fas fa-chart-bar"></i>
+                            <i class="fas fa-database"></i>
                         </div>
-                        <div class="quick-action-title">View Reports</div>
-                        <div class="quick-action-description">Access detailed analytics</div>
+                        <div class="quick-action-title">Backup System</div>
+                        <div class="quick-action-description">Create system backup</div>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="quick-action-title">System Settings</div>
+                        <div class="quick-action-description">Configure system</div>
                     </div>
                 </div>
             </div>
