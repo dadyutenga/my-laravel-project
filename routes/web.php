@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Superadmin\CreateAdminController;
 
 // Default route redirects to login
 Route::get('/', function () {
@@ -36,6 +37,18 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/superadmin/dashboard', function () {
             return view('superadmin.dashboard');
         })->name('superadmin.dashboard');
+
+        // Admin management routes
+        Route::prefix('superadmin/admins')->name('superadmin.admins.')->group(function () {
+            Route::get('/', [CreateAdminController::class, 'index'])->name('index');
+            Route::get('/create', [CreateAdminController::class, 'create'])->name('create');
+            Route::post('/', [CreateAdminController::class, 'store'])->name('store');
+            Route::get('/{admin}', [CreateAdminController::class, 'show'])->name('show');
+            Route::get('/{admin}/edit', [CreateAdminController::class, 'edit'])->name('edit');
+            Route::put('/{admin}', [CreateAdminController::class, 'update'])->name('update');
+            Route::delete('/{admin}', [CreateAdminController::class, 'destroy'])->name('destroy');
+            Route::patch('/{admin}/toggle-status', [CreateAdminController::class, 'toggleStatus'])->name('toggle-status');
+        });
     });
 });
 
