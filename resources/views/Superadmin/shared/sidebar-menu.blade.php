@@ -28,7 +28,7 @@
             <div class="menu-section-title">User Management</div>
             <a href="{{ route('superadmin.admins.index') }}" class="menu-item {{ request()->routeIs('superadmin.admins.*') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-user-shield"></i></div>
-                <div class="menu-text">Admin Accounts</div>
+                <div class="menu-text">Admin Management</div>
             </a>
             <a href="/superadmin/users" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-users"></i></div>
