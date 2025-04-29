@@ -6,7 +6,6 @@
     <title>Dashboard | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-color: #4f46e5;
@@ -488,7 +487,7 @@
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -537,11 +536,6 @@
         .card-action.active {
             background-color: var(--primary-color);
             color: white;
-        }
-
-        .chart-container {
-            height: 300px;
-            position: relative;
         }
 
         .activity-list {
@@ -960,20 +954,6 @@
                 <div class="dashboard-grid">
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3 class="card-title">Revenue Overview</h3>
-                            <div class="card-actions">
-                                <button class="card-action">Day</button>
-                                <button class="card-action">Week</button>
-                                <button class="card-action active">Month</button>
-                                <button class="card-action">Year</button>
-                            </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="revenueChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-header">
                             <h3 class="card-title">Recent Activity</h3>
                             <div class="card-actions">
                                 <button class="card-action">View All</button>
@@ -1150,91 +1130,6 @@
             sidebarOverlay.addEventListener('click', function() {
                 sidebar.classList.remove('collapsed');
                 sidebarOverlay.classList.remove('active');
-            });
-            
-            // Revenue Chart
-            const ctx = document.getElementById('revenueChart').getContext('2d');
-            const revenueChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{
-                        label: 'Revenue',
-                        data: [18500, 19200, 18300, 19800, 20500, 21000, 22000, 23500, 24200, 24780, 25100, 26000],
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        borderColor: '#4f46e5',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#4f46e5',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#fff',
-                            titleColor: '#1f2937',
-                            bodyColor: '#6b7280',
-                            titleFont: {
-                                size: 14,
-                                weight: 'bold'
-                            },
-                            bodyFont: {
-                                size: 13
-                            },
-                            padding: 12,
-                            boxWidth: 10,
-                            boxHeight: 10,
-                            boxPadding: 3,
-                            usePointStyle: true,
-                            borderColor: '#e5e7eb',
-                            borderWidth: 1,
-                            displayColors: true,
-                            callbacks: {
-                                label: function(context) {
-                                    return `Revenue: $${context.parsed.y}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    size: 12
-                                },
-                                color: '#6b7280'
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: '#e5e7eb'
-                            },
-                            ticks: {
-                                font: {
-                                    size: 12
-                                },
-                                color: '#6b7280',
-                                callback: function(value) {
-                                    return '$' + value.toLocaleString();
-                                }
-                            }
-                        }
-                    }
-                }
             });
             
             // Card actions

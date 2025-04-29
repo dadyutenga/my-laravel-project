@@ -22,14 +22,10 @@
                 <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="menu-text">Analytics</div>
             </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-shopping-cart"></i></div>
-                <div class="menu-text">Orders</div>
-                <div class="menu-badge">5</div>
-            </a>
+           
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-users"></i></div>
-                <div class="menu-text">Customers</div>
+                <div class="menu-text">Create admin Accounts </div>
             </a>
         </div>
         <div class="menu-section">
