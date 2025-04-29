@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Management | Prototype System</title>
+    <title>Edit Admin Password | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -523,6 +523,59 @@
             visibility: visible;
         }
 
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .breadcrumb-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
@@ -566,6 +619,11 @@
                 display: flex;
                 margin-right: 15px;
             }
+
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
@@ -579,203 +637,6 @@
                 display: none;
             }
         }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -15px;
-            margin-right: -15px;
-        }
-
-        .col-md-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .col-md-6 {
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .breadcrumb-item {
-            display: flex;
-            align-items: center;
-        }
-
-        .breadcrumb-item:not(:last-child)::after {
-            content: '/';
-            margin-left: 10px;
-            color: var(--text-muted);
-        }
-
-        .breadcrumb-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .breadcrumb-link:hover {
-            color: var(--primary-color);
-        }
-
-        .breadcrumb-current {
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        /* Profile Picture Styling */
-        .profile-container {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            overflow: hidden;
-            background-color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-placeholder {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            border: 2px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Table cell alignment for profile */
-        .data-table td:first-child {
-            padding: 8px 15px;
-        }
-
-        /* Table Improvements */
-        .data-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 1rem;
-        }
-
-        .data-table th {
-            background-color: var(--secondary-color);
-            padding: 12px 15px;
-            font-weight: 600;
-            text-align: left;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .data-table td {
-            padding: 12px 15px;
-            vertical-align: middle;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* Profile column width */
-        .data-table th:first-child,
-        .data-table td:first-child {
-            width: 80px;
-        }
-
-        /* Status badge improvements */
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .status-badge.active {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
-
-        .status-badge.inactive {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--error-color);
-        }
-
-        /* Action Buttons Styling */
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-md);
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .action-btn i {
-            font-size: 14px;
-        }
-
-        .action-btn.edit {
-            background-color: var(--warning-color);
-            color: white;
-        }
-
-        .action-btn.edit:hover {
-            background-color: #e28743;
-        }
-
-        .action-btn.toggle {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .action-btn.toggle.deactivate {
-            background-color: var(--error-color);
-        }
-
-        .action-btn.toggle:hover {
-            opacity: 0.9;
-        }
-
-        .action-btn.delete {
-            background-color: var(--error-color);
-            color: white;
-        }
-
-        .action-btn.delete:hover {
-            background-color: #dc2626;
-        }
     </style>
 </head>
 <body>
@@ -788,13 +649,13 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Admin Management</h1>
+                    <h1 class="page-title">Edit Admin Password</h1>
                 </div>
                 <div class="header-right">
-            <a href="{{ route('superadmin.admins.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Create New Admin
-            </a>
-        </div>
+                    <a href="{{ route('superadmin.admins.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
             </header>
 
             <div class="dashboard-content">
@@ -803,108 +664,74 @@
                         <a href="/superadmin/dashboard" class="breadcrumb-link">Dashboard</a>
                     </div>
                     <div class="breadcrumb-item">
-                        <span class="breadcrumb-current">Admin Management</span>
+                        <a href="{{ route('superadmin.admins.index') }}" class="breadcrumb-link">Admin Management</a>
                     </div>
-        </div>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">Edit Password</span>
+                    </div>
+                </div>
 
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <h3 class="card-title">Admin List</h3>
+                        <h3 class="card-title">Change Password for {{ $admin->name }}</h3>
                     </div>
-                <div class="table-responsive">
-                        <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Profile</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Country</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($admins as $admin)
-                                <tr>
-                                    <td>
-                                        @if($admin->details && $admin->details->picture)
-                                            <div class="profile-container">
-                                                <img src="{{ Storage::url($admin->details->picture) }}" 
-                                                     alt="{{ $admin->name }}'s Profile Picture" 
-                                                     class="profile-img">
-                                            </div>
-                                        @else
-                                            <div class="profile-placeholder">
-                                                <i class="fas fa-user"></i>
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td>{{ $admin->name }}</td>
-                                    <td>{{ $admin->email }}</td>
-                                    <td>{{ $admin->details->phone_number ?? 'N/A' }}</td>
-                                    <td>{{ $admin->details->country ?? 'N/A' }}</td>
-                                    <td>
-                                            <span class="status-badge {{ $admin->is_active ? 'active' : 'inactive' }}">
-                                            {{ $admin->is_active ? 'Active' : 'Inactive' }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <a href="{{ route('superadmin.admins.edit', $admin) }}" 
-                                               class="action-btn edit" 
-                                               title="Edit Admin Password">
-                                                <i class="fas fa-key"></i>
-                                            </a>
-                                            <form action="{{ route('superadmin.admins.toggle-status', $admin) }}" 
-                                                  method="POST" 
-                                                  style="margin: 0;">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" 
-                                                        class="action-btn toggle {{ $admin->is_active ? 'deactivate' : '' }}"
-                                                        title="{{ $admin->is_active ? 'Deactivate' : 'Activate' }} Admin">
-                                                    <i class="fas {{ $admin->is_active ? 'fa-ban' : 'fa-check' }}"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('superadmin.admins.destroy', $admin) }}" 
-                                                  method="POST" 
-                                                  class="delete-form"
-                                                  style="margin: 0;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" 
-                                                        class="action-btn delete" 
-                                                        title="Delete Admin"
-                                                        onclick="return confirm('Are you sure you want to delete this admin?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7" class="text-center">No admin accounts found.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                    
+                    <form action="{{ route('superadmin.admins.update', $admin) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="form-section">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">New Password</label>
+                                        <input type="password" 
+                                               name="password" 
+                                               id="password" 
+                                               class="form-control @error('password') is-invalid @enderror" 
+                                               required>
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                                        <input type="password" 
+                                               name="password_confirmation" 
+                                               id="password_confirmation" 
+                                               class="form-control" 
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Password
+                            </button>
+                            <a href="{{ route('superadmin.admins.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

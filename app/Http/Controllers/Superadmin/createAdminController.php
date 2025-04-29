@@ -105,7 +105,7 @@ class CreateAdminController extends Controller
     public function edit(Admin $admin)
     {
         $admin->load('details');
-        return view('superadmin.admins.edit', compact('admin'));
+        return view('superadmin.adminmanagement.edit', compact('admin'));
     }
 
     /**
@@ -114,60 +114,15 @@ class CreateAdminController extends Controller
     public function update(Request $request, Admin $admin)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:admins,email,' . $admin->id],
-            'password' => ['nullable', Password::defaults()],
-            'phone_number' => ['required', 'string', 'max:20'],
-            'address' => ['required', 'string', 'max:255'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'in:male,female,other'],
-            'country' => ['required', 'string', 'max:100'],
-            'region' => ['required', 'string', 'max:100'],
-            'postal_code' => ['required', 'string', 'max:20'],
-            'picture' => ['nullable', 'image', 'max:2048'],
+            'password' => 'required|min:8|confirmed',
         ]);
 
-        try {
-            DB::beginTransaction();
+        $admin->update([
+            'password' => Hash::make($request->password)
+        ]);
 
-            // Update admin basic info
-            $admin->update([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
-
-            // Update password if provided
-            if ($request->filled('password')) {
-                $admin->update(['password' => Hash::make($request->password)]);
-            }
-
-            // Handle profile picture upload
-            if ($request->hasFile('picture')) {
-                $picturePath = $request->file('picture')->store('admin-pictures', 'public');
-            }
-
-            // Update admin details
-            $admin->details()->update([
-                'phone_number' => $request->phone_number,
-                'address' => $request->address,
-                'picture' => $request->hasFile('picture') ? $picturePath : $admin->details->picture,
-                'date_of_birth' => $request->date_of_birth,
-                'gender' => $request->gender,
-                'country' => $request->country,
-                'region' => $request->region,
-                'postal_code' => $request->postal_code,
-            ]);
-
-            DB::commit();
-
-            return redirect()->route('superadmin.admins.index')
-                ->with('success', 'Admin account updated successfully');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', 'Failed to update admin account. Please try again.')
-                ->withInput();
-        }
+        return redirect()->route('superadmin.admins.index')
+            ->with('success', 'Admin password updated successfully.');
     }
 
     /**

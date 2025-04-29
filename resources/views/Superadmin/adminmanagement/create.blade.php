@@ -723,6 +723,141 @@
             color: var(--text-color);
             font-weight: 500;
         }
+
+        /* Form Layout Improvements */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -10px;  /* Negative margin to offset padding */
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 10px;
+        }
+
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        /* Form Control Styling */
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: #ffffff;
+            background-clip: padding-box;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            color: var(--text-color);
+            background-color: #ffffff;
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem var(--primary-light);
+        }
+
+        /* Select Input Styling */
+        select.form-control {
+            padding-right: 2.5rem;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            appearance: none;
+        }
+
+        /* File Input Styling */
+        input[type="file"].form-control {
+            padding: 0.375rem 0.75rem;
+        }
+
+        input[type="file"].form-control::file-selector-button {
+            padding: 0.375rem 0.75rem;
+            margin: -0.375rem -0.75rem;
+            margin-right: 0.75rem;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            border: 0 solid;
+            border-right: 1px solid var(--border-color);
+            border-radius: 0;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+        /* Invalid State Styling */
+        .form-control.is-invalid {
+            border-color: var(--error-color);
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        .invalid-feedback {
+            display: block;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+            color: var(--error-color);
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Button Group Styling */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -777,127 +912,150 @@
                     </div>
                     <form action="{{ route('superadmin.admins.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="row">
-                            <!-- Basic Information -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                        <!-- Basic Information Section -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">Basic Information</h4>
+                            <div class="row">
+                                <!-- Basic Information fields -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <!-- Contact Information -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="phone_number" class="form-label">Phone Number</label>
-                                    <input type="text" name="phone_number" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}">
-                                    @error('phone_number')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="date_of_birth" class="form-label">Date of Birth</label>
-                                    <input type="date" name="date_of_birth" id="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror" value="{{ old('date_of_birth') }}">
-                                    @error('date_of_birth')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror">
-                                        <option value="">Select Gender</option>
-                                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                                        <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
-                                    </select>
-                                    @error('gender')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Address Information -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}">
-                                    @error('address')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="country" class="form-label">Country</label>
-                                    <input type="text" name="country" id="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}">
-                                    @error('country')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="region" class="form-label">Region</label>
-                                    <input type="text" name="region" id="region" class="form-control @error('region') is-invalid @enderror" value="{{ old('region') }}">
-                                    @error('region')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="postal_code" class="form-label">Postal Code</label>
-                                    <input type="text" name="postal_code" id="postal_code" class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}">
-                                    @error('postal_code')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Profile Picture -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="picture" class="form-label">Profile Picture</label>
-                                    <input type="file" name="picture" id="picture" class="form-control @error('picture') is-invalid @enderror" accept="image/*">
-                                    @error('picture')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group mt-4">
+                        <!-- Contact Information Section -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">Contact Information</h4>
+                            <div class="row">
+                                <!-- Contact Information fields -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone_number" class="form-label">Phone Number</label>
+                                        <input type="text" name="phone_number" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}">
+                                        @error('phone_number')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                        <input type="date" name="date_of_birth" id="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror" value="{{ old('date_of_birth') }}">
+                                        @error('date_of_birth')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror">
+                                            <option value="">Select Gender</option>
+                                            <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                            <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                            <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                        </select>
+                                        @error('gender')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Information Section -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">Address Information</h4>
+                            <div class="row">
+                                <!-- Address Information fields -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}">
+                                        @error('address')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="country" class="form-label">Country</label>
+                                        <input type="text" name="country" id="country" class="form-control @error('country') is-invalid @enderror" value="{{ old('country') }}">
+                                        @error('country')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="region" class="form-label">Region</label>
+                                        <input type="text" name="region" id="region" class="form-control @error('region') is-invalid @enderror" value="{{ old('region') }}">
+                                        @error('region')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="postal_code" class="form-label">Postal Code</label>
+                                        <input type="text" name="postal_code" id="postal_code" class="form-control @error('postal_code') is-invalid @enderror" value="{{ old('postal_code') }}">
+                                        @error('postal_code')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture Section -->
+                        <div class="form-section">
+                            <h4 class="form-section-title">Profile Picture</h4>
+                            <div class="row">
+                                <!-- Profile Picture field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="picture" class="form-label">Profile Picture</label>
+                                        <input type="file" name="picture" id="picture" class="form-control @error('picture') is-invalid @enderror" accept="image/*">
+                                        @error('picture')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Create Admin
                             </button>
