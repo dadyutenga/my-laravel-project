@@ -891,11 +891,11 @@
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
-                        <div class="stat-value">2,458</div>
+                        <div class="stat-value">{{ number_format($totalUsers) }}</div>
                         <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                8.5%
+                            <div class="stat-trend {{ $userGrowth >= 0 ? 'up' : 'down' }}">
+                                <i class="fas fa-arrow-{{ $userGrowth >= 0 ? 'up' : 'down' }}"></i>
+                                {{ abs($userGrowth) }}%
                             </div>
                             Active accounts
                         </div>

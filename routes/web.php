@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Superadmin\CreateAdminController;
+use App\Http\Controllers\Superadmin\DashboardController;
 
 // Default route redirects to login
 Route::get('/', function () {
@@ -48,6 +49,10 @@ Route::middleware('auth:admin')->group(function () {
             Route::put('/{admin}', [CreateAdminController::class, 'update'])->name('update');
             Route::delete('/{admin}', [CreateAdminController::class, 'destroy'])->name('destroy');
             Route::patch('/{admin}/toggle-status', [CreateAdminController::class, 'toggleStatus'])->name('toggle-status');
+        });
+
+        Route::prefix('superadmin')->name('superadmin.')->middleware(['auth:admin'])->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         });
     });
 });
