@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Mapendekezo extends Model
 {
-    use HasFactory;
+    protected $table = 'mapendekezo';
+
+    protected $fillable = [
+        'maelezo',
+        'maeneo',
+        'created_by',
+    ];
+
+    public function createdBy()
+    {
+        return $this->belongsTo(Mwenyekiti::class, 'created_by');
+    }
 }
