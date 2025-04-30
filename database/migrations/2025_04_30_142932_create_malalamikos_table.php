@@ -6,22 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('malalamikos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('malalamiko', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('first_name', 255);
+            $table->string('middle_name', 255)->nullable();
+            $table->string('last_name', 255);
+            $table->string('phone', 255);
+            $table->string('mtaa', 255);
+            $table->string('jinsia', 255);
+            $table->text('malalamiko');
+            $table->enum('status', ['pending', 'resolved'])->default('pending');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('malalamikos');
+        Schema::dropIfExists('malalamiko');
     }
 };

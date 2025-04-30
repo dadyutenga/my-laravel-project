@@ -6,22 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('mapendekezos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('mapendekezo', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('maelezo');
+            $table->text('maeneo');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
+
+            $table->foreign('created_by')->references('id')->on('mwenyekiti')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('mapendekezos');
+        Schema::dropIfExists('mapendekezo');
     }
 };

@@ -6,20 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('balozi_auths', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('balozi_id')->unique();
+            $table->string('username', 255)->unique();
+            $table->string('password', 255);
+            $table->string('remember_token', 100)->nullable();
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
+
+            $table->foreign('balozi_id')->references('id')->on('balozi')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('balozi_auths');

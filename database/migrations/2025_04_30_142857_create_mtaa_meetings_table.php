@@ -6,20 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mtaa_meetings', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('title', 255);
+            $table->string('title_sw', 255);
+            $table->text('agenda');
+            $table->date('meeting_date');
+            $table->string('mtaa', 255);
+            $table->unsignedBigInteger('organizer_id');
+            $table->text('outcome')->nullable();
             $table->timestamps();
+
+            $table->foreign('organizer_id')->references('id')->on('mwenyekiti')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mtaa_meetings');
