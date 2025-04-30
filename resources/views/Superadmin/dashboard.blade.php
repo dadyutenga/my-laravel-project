@@ -923,13 +923,24 @@
                                 <i class="fas fa-server"></i>
                             </div>
                         </div>
-                        <div class="stat-value">42%</div>
+                        <div class="stat-value">{{ $systemLoad['percentage'] }}%</div>
                         <div class="stat-description">
-                            <div class="stat-trend down">
-                                <i class="fas fa-arrow-down"></i>
-                                3.2%
+                            <div class="stat-trend {{ $systemLoad['trend'] >= 0 ? 'up' : 'down' }}">
+                                <i class="fas fa-arrow-{{ $systemLoad['trend'] >= 0 ? 'up' : 'down' }}"></i>
+                                {{ abs($systemLoad['trend']) }}%
                             </div>
                             Server usage
+                        </div>
+                        <div class="system-details">
+                            <div class="detail-item">
+                                <span>CPU: {{ $systemLoad['details']['cpu']['load'] }}%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Memory: {{ $systemLoad['details']['memory']['percentage'] }}%</span>
+                            </div>
+                            <div class="detail-item">
+                                <span>Disk: {{ $systemLoad['details']['disk']['percentage'] }}%</span>
+                            </div>
                         </div>
                     </div>
                     <div class="stat-card">
