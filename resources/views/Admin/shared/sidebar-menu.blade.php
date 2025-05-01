@@ -3,9 +3,9 @@
     <div class="sidebar-header">
         <div class="logo">
             <div class="logo-icon">
-                <i class="fas fa-cube"></i>
+                <i class="fas fa-shield-alt"></i>
             </div>
-            <div class="logo-text">Prototype</div>
+            <div class="logo-text">SuperAdmin</div>
         </div>
         <div class="sidebar-toggle" id="sidebar-toggle">
             <i class="fas fa-chevron-left"></i>
@@ -14,52 +14,65 @@
     <div class="sidebar-menu">
         <div class="menu-section">
             <div class="menu-section-title">Main</div>
-            <a href="#" class="menu-item active">
-                <div class="menu-icon"><i class="fas fa-th-large"></i></div>
+            <a href="/superadmin/dashboard" class="menu-item active">
+                <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
                 <div class="menu-text">Dashboard</div>
             </a>
-            <a href="#" class="menu-item">
+            <a href="/superadmin/analytics" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="menu-text">Analytics</div>
             </a>
-           
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-users"></i></div>
-                <div class="menu-text">Create admin Accounts </div>
-            </a>
         </div>
+
         <div class="menu-section">
-            <div class="menu-section-title">Management</div>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-box"></i></div>
-                <div class="menu-text">Products</div>
+            <div class="menu-section-title">User Management</div>
+                <a href="/superadmin/users" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-users"></i></div>
+                <div class="menu-text">User Accounts</div>
             </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-tag"></i></div>
-                <div class="menu-text">Categories</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-truck"></i></div>
-                <div class="menu-text">Shipping</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-percent"></i></div>
-                <div class="menu-text">Discounts</div>
+            <a href="/superadmin/roles" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-user-tag"></i></div>
+                <div class="menu-text">Roles & Permissions</div>
             </a>
         </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">System</div>
+            <a href="/superadmin/logs" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">Activity Logs</div>
+            </a>
+            <a href="/superadmin/security" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-lock"></i></div>
+                <div class="menu-text">Security Settings</div>
+            </a>
+            <a href="/superadmin/backup" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-database"></i></div>
+                <div class="menu-text">Backup & Restore</div>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Support</div>
+            <a href="/superadmin/tickets" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="menu-text">Support Tickets</div>
+            </a>
+            <a href="/superadmin/announcements" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-bullhorn"></i></div>
+                <div class="menu-text">Announcements</div>
+            </a>
+        </div>
+
         <div class="menu-section">
             <div class="menu-section-title">Settings</div>
-            <a href="#" class="menu-item">
+            <a href="/superadmin/profile" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-user-circle"></i></div>
-                <div class="menu-text">Account</div>
+                <div class="menu-text">My Profile</div>
             </a>
-            <a href="#" class="menu-item">
+            <a href="/superadmin/settings" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                <div class="menu-text">Settings</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-question-circle"></i></div>
-                <div class="menu-text">Help Center</div>
+                <div class="menu-text">System Settings</div>
             </a>
             <a href="{{ route('logout') }}" class="menu-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
