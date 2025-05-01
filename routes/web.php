@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Superadmin\CreateAdminController;
 use App\Http\Controllers\Superadmin\DashboardController;
+use App\Http\Controllers\Admin\MwenyekitiController;
+use App\Http\Controllers\Admin\BaloziController;
+use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\ProfileController;
 
 // Default route redirects to login
 Route::get('/', function () {
@@ -31,6 +35,22 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/admin/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+
+        // User Management Routes
+        Route::prefix('admin')->name('admin.')->group(function () {
+            // Mwenyekiti Routes
+            Route::get('/mwenyekiti/create', [MwenyekitiController::class, 'create'])->name('mwenyekiti.create');
+            Route::get('/mwenyekiti/manage', [MwenyekitiController::class, 'manage'])->name('mwenyekiti.manage');
+            
+            // Balozi Routes
+            Route::get('/balozi/manage', [BaloziController::class, 'manage'])->name('balozi.manage');
+            
+            // Support Tickets Routes
+            Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
+            
+            // Profile Routes
+            Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+        });
     });
 
     // Superadmin dashboard routes

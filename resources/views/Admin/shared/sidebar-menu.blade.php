@@ -5,7 +5,7 @@
             <div class="logo-icon">
                 <i class="fas fa-shield-alt"></i>
             </div>
-            <div class="logo-text">SuperAdmin</div>
+            <div class="logo-text">Admin</div>
         </div>
         <div class="sidebar-toggle" id="sidebar-toggle">
             <i class="fas fa-chevron-left"></i>
@@ -14,65 +14,41 @@
     <div class="sidebar-menu">
         <div class="menu-section">
             <div class="menu-section-title">Main</div>
-            <a href="/superadmin/dashboard" class="menu-item active">
+            <a href="{{ route('admin.dashboard') }}" class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
                 <div class="menu-text">Dashboard</div>
-            </a>
-            <a href="/superadmin/analytics" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="menu-text">Analytics</div>
             </a>
         </div>
 
         <div class="menu-section">
             <div class="menu-section-title">User Management</div>
-                <a href="/superadmin/users" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-users"></i></div>
-                <div class="menu-text">User Accounts</div>
+            <a href="{{ route('admin.mwenyekiti.create') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.create') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
+                <div class="menu-text">Create Mwenyekiti Accounts</div>
             </a>
-            <a href="/superadmin/roles" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-user-tag"></i></div>
-                <div class="menu-text">Roles & Permissions</div>
+            <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
+                <div class="menu-text">Manage Balozi Accounts</div>
             </a>
-        </div>
-
-        <div class="menu-section">
-            <div class="menu-section-title">System</div>
-            <a href="/superadmin/logs" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
-                <div class="menu-text">Activity Logs</div>
-            </a>
-            <a href="/superadmin/security" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-lock"></i></div>
-                <div class="menu-text">Security Settings</div>
-            </a>
-            <a href="/superadmin/backup" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-database"></i></div>
-                <div class="menu-text">Backup & Restore</div>
+            <a href="{{ route('admin.mwenyekiti.manage') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.manage') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
+                <div class="menu-text">Manage Mwenyekiti Accounts</div>
             </a>
         </div>
 
         <div class="menu-section">
             <div class="menu-section-title">Support</div>
-            <a href="/superadmin/tickets" class="menu-item">
+            <a href="{{ route('admin.tickets') }}" class="menu-item {{ request()->routeIs('admin.tickets') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
                 <div class="menu-text">Support Tickets</div>
-            </a>
-            <a href="/superadmin/announcements" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-bullhorn"></i></div>
-                <div class="menu-text">Announcements</div>
             </a>
         </div>
 
         <div class="menu-section">
             <div class="menu-section-title">Settings</div>
-            <a href="/superadmin/profile" class="menu-item">
+            <a href="{{ route('admin.profile') }}" class="menu-item {{ request()->routeIs('admin.profile') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-user-circle"></i></div>
                 <div class="menu-text">My Profile</div>
-            </a>
-            <a href="/superadmin/settings" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                <div class="menu-text">System Settings</div>
             </a>
             <a href="{{ route('logout') }}" class="menu-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
