@@ -8,12 +8,15 @@ use App\Models\MwenyekitiAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use SalimMbise\TanzaniaRegions\TanzaniaRegions;
 
 class MwenyekitiController extends Controller
 {
     public function create()
     {
-        return view('Admin.mwenyekiti.create');
+        $tanzaniaRegions = new TanzaniaRegions();
+        $regions = $tanzaniaRegions->getRegions();
+        return view('Admin.mwenyekiti.create', compact('regions'));
     }
 
     public function store(Request $request)
@@ -27,6 +30,8 @@ class MwenyekitiController extends Controller
             'date_of_birth' => 'required|date',
             'gender' => 'required|in:male,female,other',
             'national_id' => 'required|string|max:50|unique:mwenyekiti,national_id',
+            'region' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
             'ward' => 'required|string|max:255',
             'mtaa' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -192,5 +197,21 @@ class MwenyekitiController extends Controller
         }
         return redirect()->route('admin.mwenyekiti.manage')
             ->with('error', 'No account found to delete.');
+    }
+
+    public function getDistricts($region)
+    {
+        $tanzaniaRegions = new TanzaniaRegions();
+        $districts = $tanzaniaRegions->getDistricts($region);
+        return response()->json($districts);
+    }
+
+    public function getWards($district)
+    {
+        $tanzaniaRegions = new TanzaniaRegions();
+        // Assuming the package has a method to get wards by district.
+        // Adjust this based on the actual package documentation or method availability.
+        $wards = $tanzaniaRegions->getWards($district);
+        return response()->json($wards);
     }
 }

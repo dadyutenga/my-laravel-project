@@ -720,8 +720,31 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="region">Region</label>
+                                <select name="region" id="region" class="form-control @error('region') is-invalid @enderror" required>
+                                    <option value="">Select Region</option>
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region }}" {{ old('region') == $region ? 'selected' : '' }}>{{ $region }}</option>
+                                    @endforeach
+                                </select>
+                                @error('region')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="district">District</label>
+                                <select name="district" id="district" class="form-control @error('district') is-invalid @enderror" required disabled>
+                                    <option value="">Select District (Choose Region First)</option>
+                                </select>
+                                @error('district')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label for="ward">Ward</label>
-                                <input type="text" name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" value="{{ old('ward') }}" required>
+                                <input type="text" name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" value="{{ old('ward') }}" required placeholder="Enter Ward Manually">
                                 @error('ward')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -780,6 +803,53 @@
             sidebarOverlay.addEventListener('click', function() {
                 sidebar.classList.add('collapsed');
                 sidebarOverlay.classList.remove('active');
+            });
+
+            // Region selection change event
+            const regionSelect = document.getElementById('region');
+            const districtSelect = document.getElementById('district');
+            const wardSelect = document.getElementById('ward');
+
+            regionSelect.addEventListener('change', function() {
+                const selectedRegion = this.value;
+                if (selectedRegion) {
+                    districtSelect.innerHTML = '<option value="">Loading Districts...</option>';
+                    districtSelect.disabled = false;
+                    
+                    // Fetch districts for the selected region
+                    fetch(`/api/regions/${encodeURIComponent(selectedRegion)}/districts`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            districtSelect.innerHTML = '<option value="">Select District</option>';
+                            if (Array.isArray(data) && data.length > 0) {
+                                data.forEach(district => {
+                                    districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
+                                });
+                            } else {
+                                districtSelect.innerHTML += '<option value="">No Districts Found</option>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching districts:', error);
+                            districtSelect.innerHTML = '<option value="">Error Loading Districts: ' + error.message + '</option>';
+                        });
+                } else {
+                    districtSelect.innerHTML = '<option value="">Select District (Choose Region First)</option>';
+                    districtSelect.disabled = true;
+                    wardSelect.innerHTML = '<option value="">Select Ward (Choose District First)</option>';
+                    wardSelect.disabled = true;
+                }
+            });
+
+            districtSelect.addEventListener('change', function() {
+                // Temporarily do nothing or just log the selection
+                console.log('District selected:', this.value);
+                // Optionally enable a text input for ward if needed
             });
         });
     </script>

@@ -19,6 +19,7 @@ class Mwenyekiti extends Model
         'national_id',
         'ward',
         'mtaa',
+        'region',
         'photo',
         'is_active',
         'last_synced_at',

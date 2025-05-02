@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\RegionController;
+use App\Http\Controllers\Admin\MwenyekitiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Routes for fetching Tanzania regions data
+Route::get('/regions/{region}/districts', [RegionController::class, 'getDistricts']);
+Route::get('/districts/{district}/wards', [RegionController::class, 'getWards']);
+
+// Routes for fetching Tanzania regions data
+Route::get('/regions/{region}/districts', [MwenyekitiController::class, 'getDistricts']);
+Route::get('/districts/{district}/wards', [MwenyekitiController::class, 'getWards']);
