@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TicketController extends Controller
+class ManageBaloziController extends Controller
 {
-    public function index()
+    public function manage()
     {
-        return view('admin.tickets.index');
+        return view('admin.balozi.manage');
     }
 }

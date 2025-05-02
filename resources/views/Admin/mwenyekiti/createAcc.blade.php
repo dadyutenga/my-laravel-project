@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard | Prototype System')</title>
+    <title>Create Mwenyekiti Account | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -388,353 +388,117 @@
             margin-bottom: 20px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
+        .form-container {
             background-color: white;
             border-radius: var(--radius-lg);
             padding: 20px;
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
             border: 1px solid var(--border-color);
+            margin-bottom: 30px;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .form-group {
             margin-bottom: 15px;
         }
 
-        .stat-title {
+        .form-group label {
+            display: block;
             font-size: 14px;
-            color: var(--text-muted);
             font-weight: 500;
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .stat-icon.purple {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .stat-icon.green {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
-
-        .stat-icon.blue {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--info-color);
-        }
-
-        .stat-icon.orange {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: var(--warning-color);
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 600;
             margin-bottom: 5px;
         }
 
-        .stat-description {
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .stat-trend {
-            display: flex;
-            align-items: center;
-            margin-right: 5px;
-            font-weight: 500;
-        }
-
-        .stat-trend.up {
-            color: var(--success-color);
-        }
-
-        .stat-trend.down {
-            color: var(--error-color);
-        }
-
-        .stat-trend i {
-            font-size: 10px;
-            margin-right: 2px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .dashboard-card {
-            background-color: white;
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
+        .form-control {
+            width: 100%;
+            padding: 10px;
             border: 1px solid var(--border-color);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .card-action {
-            padding: 6px 10px;
-            background-color: var(--secondary-color);
             border-radius: var(--radius-md);
-            font-size: 13px;
-            color: var(--text-muted);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--error-color);
+        }
+
+        .invalid-feedback {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
             border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .card-action:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .card-action.active {
+        .btn-primary {
             background-color: var(--primary-color);
             color: white;
         }
 
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
         }
 
-        .activity-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .activity-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        .activity-icon.purple {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .activity-icon.green {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
-
-        .activity-icon.blue {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--info-color);
-        }
-
-        .activity-icon.orange {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: var(--warning-color);
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-title {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 3px;
-        }
-
-        .activity-time {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .data-table th {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
+        .btn-secondary {
             background-color: var(--secondary-color);
+            color: var(--text-color);
         }
 
-        .data-table th:first-child {
-            border-top-left-radius: var(--radius-md);
+        .btn-secondary:hover {
+            background-color: var(--border-color);
         }
 
-        .data-table th:last-child {
-            border-top-right-radius: var(--radius-md);
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
         }
 
-        .data-table tr:last-child td {
-            border-bottom: none;
+        .btn-danger:hover {
+            background-color: #dc2626;
         }
 
-        .data-table td {
-            font-size: 14px;
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
-        .status-badge {
-            display: inline-flex;
+        .alert {
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: flex;
             align-items: center;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
+            gap: 10px;
         }
 
-        .status-badge.completed {
+        .alert-success {
             background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
         }
 
-        .status-badge.in-progress {
-            background-color: rgba(245, 158, 11, 0.1);
-            color: var(--warning-color);
-        }
-
-        .status-badge.pending {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--info-color);
-        }
-
-        .status-badge.cancelled {
+        .alert-danger {
             background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
         }
 
-        .table-action {
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .table-action:hover {
-            color: var(--primary-color);
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .quick-action-card {
-            background-color: white;
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .quick-action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-color);
-        }
-
-        .quick-action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 15px;
-            background-color: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .quick-action-title {
-            font-size: 15px;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .quick-action-description {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
         /* Responsive */
-        @media (max-width: 992px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
@@ -780,16 +544,8 @@
         }
 
         @media (max-width: 576px) {
-            .stats-grid {
+            .form-row {
                 grid-template-columns: 1fr;
-            }
-
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-
-            .header-action:not(.mobile-menu-toggle) {
-                display: none;
             }
         }
 
@@ -841,13 +597,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Dashboard</h1>
+                    <h1 class="page-title">Create Mwenyekiti Account</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="#" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Home</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Dashboard</span>
+                            <a href="{{ route('admin.mwenyekiti.manage') }}" class="breadcrumb-link">Mwenyekiti</a>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <span class="breadcrumb-current">Create Account</span>
                         </div>
                     </div>
                 </div>
@@ -861,7 +620,7 @@
                     </div>
                     <div class="user-profile">
                         <div class="user-avatar">
-                            {{ substr($admin->name ?? '', 0, 2) }}
+                            {{ substr($admin->name ?? 'Admin', 0, 2) }}
                         </div>
                         <div class="user-info">
                             <div class="user-name">{{ $admin->name ?? 'Admin' }}</div>
@@ -873,154 +632,61 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Overview</h2>
+                <h2 class="dashboard-title">Create Account for {{ $mwenyekiti->first_name ?? 'Mwenyekiti' }} {{ $mwenyekiti->last_name ?? '' }}</h2>
 
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">Total Users</div>
-                            <div class="stat-icon purple">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                        <div class="stat-value">{{ $totalUsers ?? '156' }}</div>
-                        <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                12%
-                            </div>
-                            Active users
-                        </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i>
+                        {{ session('success') }}
                     </div>
+                @endif
 
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">System Load</div>
-                            <div class="stat-icon green">
-                                <i class="fas fa-server"></i>
-                            </div>
-                        </div>
-                        <div class="stat-value">65%</div>
-                        <div class="stat-description">
-                            <div class="stat-trend down">
-                                <i class="fas fa-arrow-down"></i>
-                                8%
-                            </div>
-                            Server usage
-                        </div>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i>
+                        {{ session('error') }}
                     </div>
+                @endif
 
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">Tasks</div>
-                            <div class="stat-icon blue">
-                                <i class="fas fa-tasks"></i>
+                <div class="form-container">
+                    <form action="{{ route('admin.mwenyekiti.storeAccount', $mwenyekiti->id) }}" method="POST">
+                        @csrf
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
+                                @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
-                        <div class="stat-value">24</div>
-                        <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                5
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            Pending tasks
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-header">
-                            <div class="stat-title">Notifications</div>
-                            <div class="stat-icon orange">
-                                <i class="fas fa-bell"></i>
+                            <div class="form-group">
+                                <label for="password_confirmation">Confirm Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
                             </div>
                         </div>
-                        <div class="stat-value">18</div>
-                        <div class="stat-description">
-                            <div class="stat-trend up">
-                                <i class="fas fa-arrow-up"></i>
-                                3
-                            </div>
-                            New alerts
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="dashboard-grid">
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Recent Activity</h3>
-                            <div class="card-actions">
-                                <button class="card-action">View All</button>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="is_active">Account Status</label>
+                                <select name="is_active" id="is_active" class="form-control">
+                                    <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Inactive</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon purple">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">New order received</div>
-                                    <div class="activity-time">10 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon green">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">New customer registered</div>
-                                    <div class="activity-time">1 hour ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon blue">
-                                    <i class="fas fa-box"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Product stock updated</div>
-                                    <div class="activity-time">2 hours ago</div>
-                                </div>
-                            </div>
+                        <div class="form-group" style="margin-top: 20px;">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create Account</button>
+                            <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <h2 class="dashboard-title">Administrative Actions</h2>
-                <div class="quick-actions">
-                    <div class="quick-action-card">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-user-plus"></i>
-                        </div>
-                        <div class="quick-action-title">User Management</div>
-                        <div class="quick-action-description">Manage system users</div>
-                    </div>
-
-                    <div class="quick-action-card">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="quick-action-title">Security</div>
-                        <div class="quick-action-description">System security settings</div>
-                    </div>
-
-                    <div class="quick-action-card">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <div class="quick-action-title">Settings</div>
-                        <div class="quick-action-description">System configuration</div>
-                    </div>
-
-                    <div class="quick-action-card">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="quick-action-title">Backup</div>
-                        <div class="quick-action-description">Manage system backup</div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1046,18 +712,6 @@
             sidebarOverlay.addEventListener('click', function() {
                 sidebar.classList.add('collapsed');
                 sidebarOverlay.classList.remove('active');
-            });
-            
-            // Card actions
-            const cardActions = document.querySelectorAll('.card-action');
-            cardActions.forEach(action => {
-                action.addEventListener('click', function() {
-                    const parent = this.parentElement;
-                    parent.querySelectorAll('.card-action').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
             });
         });
     </script>

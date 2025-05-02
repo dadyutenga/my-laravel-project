@@ -5,9 +5,10 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Superadmin\CreateAdminController;
 use App\Http\Controllers\Superadmin\DashboardController;
 use App\Http\Controllers\Admin\MwenyekitiController;
-use App\Http\Controllers\Admin\BaloziController;
+use App\Http\Controllers\Admin\ManageBaloziController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 // Default route redirects to login
 Route::get('/', function () {
@@ -32,18 +33,22 @@ Route::middleware('auth:admin')->group(function () {
     
     // Admin dashboard routes
     Route::middleware('role:admin')->group(function () {
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
         // User Management Routes
         Route::prefix('admin')->name('admin.')->group(function () {
             // Mwenyekiti Routes
-            Route::get('/mwenyekiti/create', [MwenyekitiController::class, 'create'])->name('mwenyekiti.create');
             Route::get('/mwenyekiti/manage', [MwenyekitiController::class, 'manage'])->name('mwenyekiti.manage');
+            Route::post('/mwenyekiti', [MwenyekitiController::class, 'store'])->name('mwenyekiti.store');
+            Route::put('/mwenyekiti/{id}', [MwenyekitiController::class, 'update'])->name('mwenyekiti.update');
+            Route::delete('/mwenyekiti/{id}', [MwenyekitiController::class, 'destroy'])->name('mwenyekiti.destroy');
+            Route::get('/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])->name('mwenyekiti.createAccount');
+            Route::post('/mwenyekiti/{id}/store-account', [MwenyekitiController::class, 'storeAccount'])->name('mwenyekiti.storeAccount');
+            Route::put('/mwenyekiti/{id}/update-account', [MwenyekitiController::class, 'updateAccount'])->name('mwenyekiti.updateAccount');
+            Route::patch('/mwenyekiti/{id}/toggle-status', [MwenyekitiController::class, 'toggleStatus'])->name('mwenyekiti.toggleStatus');
             
             // Balozi Routes
-            Route::get('/balozi/manage', [BaloziController::class, 'manage'])->name('balozi.manage');
+            Route::get('/balozi/manage', [ManageBaloziController::class, 'manage'])->name('balozi.manage');
             
             // Support Tickets Routes
             Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
