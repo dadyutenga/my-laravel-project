@@ -24,15 +24,15 @@
             <div class="menu-section-title">User Management</div>
             <a href="{{ route('admin.mwenyekiti.create') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.create') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
-                <div class="menu-text">Create Mwenyekiti Accounts</div>
+                <div class="menu-text">Create Mwenyekiti</div>
+            </a>
+            <a href="{{ route('admin.mwenyekiti.manage') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.manage') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
+                <div class="menu-text">Manage Mwenyekiti</div>
             </a>
             <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="menu-text">Manage Balozi Accounts</div>
-            </a>
-            <a href="{{ route('admin.mwenyekiti.manage') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.manage') ? 'active' : '' }}">
-                <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
-                <div class="menu-text">Manage Mwenyekiti Accounts</div>
             </a>
         </div>
 

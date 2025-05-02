@@ -13,8 +13,7 @@ class MwenyekitiController extends Controller
 {
     public function create()
     {
-        // Since everything is in manage, redirect to manage with a create mode
-        return redirect()->route('admin.mwenyekiti.manage', ['mode' => 'create']);
+        return view('Admin.mwenyekiti.create');
     }
 
     public function store(Request $request)
@@ -40,10 +39,10 @@ class MwenyekitiController extends Controller
             $validated['photo'] = $path;
         }
 
-        Mwenyekiti::create($validated);
+        $mwenyekiti = Mwenyekiti::create($validated);
 
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti created successfully');
+        return redirect()->route('admin.mwenyekiti.createAccount', ['id' => $mwenyekiti->id])
+            ->with('success', 'Mwenyekiti created successfully. Now create their account.');
     }
 
     public function manage(Request $request)

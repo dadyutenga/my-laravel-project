@@ -39,6 +39,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             // Mwenyekiti Routes
             Route::get('/mwenyekiti/manage', [MwenyekitiController::class, 'manage'])->name('mwenyekiti.manage');
+            Route::get('/mwenyekiti/create', [MwenyekitiController::class, 'create'])->name('mwenyekiti.create');
             Route::post('/mwenyekiti', [MwenyekitiController::class, 'store'])->name('mwenyekiti.store');
             Route::put('/mwenyekiti/{id}', [MwenyekitiController::class, 'update'])->name('mwenyekiti.update');
             Route::delete('/mwenyekiti/{id}', [MwenyekitiController::class, 'destroy'])->name('mwenyekiti.destroy');
