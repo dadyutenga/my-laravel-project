@@ -113,8 +113,15 @@ class MwenyekitiController extends Controller
     public function createAccount(Request $request)
     {
         $id = $request->query('id', null);
-        $mwenyekiti = $id ? Mwenyekiti::findOrFail($id) : null;
-        return view('Admin.mwenyekiti.createAcc', compact('mwenyekiti'));
+        $mwenyekiti = null;
+        if ($id) {
+            $mwenyekiti = Mwenyekiti::find($id);
+            if (!$mwenyekiti) {
+                return redirect()->route('admin.mwenyekiti.createAccount')
+                    ->with('error', 'Mwenyekiti not found. Please select a valid Mwenyekiti.');
+            }
+        }
+        return view('Admin.mwenyekiti.manageAcc', compact('mwenyekiti'));
     }
 
     public function storeAccount(Request $request, $id)
@@ -173,5 +180,17 @@ class MwenyekitiController extends Controller
 
         return redirect()->route('admin.mwenyekiti.manage')
             ->with('success', 'Mwenyekiti status updated successfully');
+    }
+
+    public function deleteAccount($id)
+    {
+        $mwenyekiti = Mwenyekiti::findOrFail($id);
+        if ($mwenyekiti->auth) {
+            $mwenyekiti->auth->delete();
+            return redirect()->route('admin.mwenyekiti.manage')
+                ->with('success', 'Account deleted successfully.');
+        }
+        return redirect()->route('admin.mwenyekiti.manage')
+            ->with('error', 'No account found to delete.');
     }
 }

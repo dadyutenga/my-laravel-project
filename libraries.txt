@@ -1,0 +1,24 @@
+
+composer require salimmbise/tanzania-regions
+
+use SalimMbise\TanzaniaRegions\TanzaniaRegions; 
+
+$tanzaniaRegions = new TanzaniaRegions();
+$regions = $tanzaniaRegions->getRegions();
+
+$regions = new TanzaniaRegions();
+$allRegionsData = $regions->getAllData();
+
+$tanzaniaRegions = new TanzaniaRegions();
+$districts = $tanzaniaRegions->getDistricts();
+
+$tanzaniaRegions = new TanzaniaRegions();
+$regions = $tanzaniaRegions->getRegions();
+
+$regionsWithDistricts = [];
+
+foreach ($regions as $region) {
+$districts = $tanzaniaRegions->getDistricts($region);
+$regionsWithDistricts[$region] = $districts;
+
+}

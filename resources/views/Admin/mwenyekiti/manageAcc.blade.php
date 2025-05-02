@@ -632,7 +632,11 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Account for {{ $mwenyekiti->first_name ?? 'Mwenyekiti' }} {{ $mwenyekiti->last_name ?? '' }}</h2>
+                @if ($mwenyekiti)
+                    <h2 class="dashboard-title">Manage Account for {{ $mwenyekiti->first_name ?? 'Mwenyekiti' }} {{ $mwenyekiti->last_name ?? '' }}</h2>
+                @else
+                    <h2 class="dashboard-title">Manage Mwenyekiti Account</h2>
+                @endif
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -649,54 +653,74 @@
                 @endif
 
                 <div class="form-container">
-                    @if ($mwenyekiti->auth)
-                        <form action="{{ route('admin.mwenyekiti.updateAccount', $mwenyekiti->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', $mwenyekiti->auth->username) }}" required>
-                                    @error('username')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                    @if ($mwenyekiti)
+                        @if ($mwenyekiti->auth)
+                            <form action="{{ route('admin.mwenyekiti.updateAccount', $mwenyekiti->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', $mwenyekiti->auth->username) }}" required>
+                                        @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="password">New Password (Leave blank to keep current)</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="password">New Password (Leave blank to keep current)</label>
+                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Confirm New Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password_confirmation">Confirm New Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="is_active">Account Status</label>
+                                        <select name="is_active" id="is_active" class="form-control">
+                                            <option value="1" {{ old('is_active', $mwenyekiti->auth->is_active) == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ old('is_active', $mwenyekiti->auth->is_active) == 0 ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="is_active">Account Status</label>
-                                    <select name="is_active" id="is_active" class="form-control">
-                                        <option value="1" {{ old('is_active', $mwenyekiti->auth->is_active) == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" {{ old('is_active', $mwenyekiti->auth->is_active) == 0 ? 'selected' : '' }}>Inactive</option>
-                                    </select>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Account</button>
+                                    <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
                                 </div>
+                            </form>
+                            <!-- Add a delete account option -->
+                            <div style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; color: var(--error-color);">Delete Account</h3>
+                                <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">Permanently delete the account for this Mwenyekiti. This action cannot be undone.</p>
+                                <form action="{{ route('admin.mwenyekiti.deleteAccount', $mwenyekiti->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this account? This action cannot be undone.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete Account</button>
+                                </form>
                             </div>
-                            <div class="form-group" style="margin-top: 20px;">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Account</button>
-                                <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                        @else
+                            <div class="alert alert-danger">
+                                <i class="fas fa-exclamation-circle"></i>
+                                No account exists for this Mwenyekiti. As an admin, you can create one using the account creation page.
                             </div>
-                        </form>
+                            <div style="margin-top: 20px;">
+                                <a href="{{ route('admin.mwenyekiti.createAcc', ['id' => $mwenyekiti->id]) }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account for Mwenyekiti</a>
+                                <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
+                            </div>
+                        @endif
                     @else
                         <div class="alert alert-danger">
                             <i class="fas fa-exclamation-circle"></i>
-                            No account exists for this Mwenyekiti. Please create one first.
+                            No Mwenyekiti selected. Please select a Mwenyekiti from the list to manage their account.
                         </div>
                         <div style="margin-top: 20px;">
-                            <a href="{{ route('admin.mwenyekiti.createAccount', ['id' => $mwenyekiti->id]) }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account</a>
-                            <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
+                            <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-primary"><i class="fas fa-list"></i> Go to Mwenyekiti List</a>
                         </div>
                     @endif
                 </div>

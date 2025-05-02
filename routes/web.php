@@ -47,6 +47,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('/mwenyekiti/{id}/store-account', [MwenyekitiController::class, 'storeAccount'])->name('mwenyekiti.storeAccount');
             Route::put('/mwenyekiti/{id}/update-account', [MwenyekitiController::class, 'updateAccount'])->name('mwenyekiti.updateAccount');
             Route::patch('/mwenyekiti/{id}/toggle-status', [MwenyekitiController::class, 'toggleStatus'])->name('mwenyekiti.toggleStatus');
+            Route::delete('/mwenyekiti/{id}/account', [MwenyekitiController::class, 'deleteAccount'])->name('admin.mwenyekiti.deleteAccount');
             
             // Balozi Routes
             Route::get('/balozi/manage', [ManageBaloziController::class, 'manage'])->name('balozi.manage');

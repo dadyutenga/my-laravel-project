@@ -30,6 +30,10 @@
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="menu-text">Manage Mwenyekiti</div>
             </a>
+            <a href="{{ route('admin.mwenyekiti.createAccount') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.createAccount') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-key"></i></div>
+                <div class="menu-text">Manage Mwenyekiti Accounts</div>
+            </a>
             <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="menu-text">Manage Balozi Accounts</div>
