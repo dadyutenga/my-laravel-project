@@ -114,7 +114,7 @@ class MwenyekitiController extends Controller
     {
         $id = $request->query('id', null);
         $mwenyekiti = $id ? Mwenyekiti::findOrFail($id) : null;
-        return view('admin.mwenyekiti.manageAcc', compact('mwenyekiti'));
+        return view('Admin.mwenyekiti.createAcc', compact('mwenyekiti'));
     }
 
     public function storeAccount(Request $request, $id)
