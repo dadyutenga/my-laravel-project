@@ -32,7 +32,7 @@
             </a>
             <a href="{{ route('admin.mwenyekiti.createAccount') }}" class="menu-item">
                 <i class="fas fa-user menu-icon"></i>
-                <span class="menu-text">Create Mwenyekiti Account</span>
+                <span class="menu-text">Manage Mwenyekiti Account</span>
             </a>
             <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>

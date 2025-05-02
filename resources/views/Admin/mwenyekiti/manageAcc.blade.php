@@ -707,12 +707,42 @@
                         @else
                             <div class="alert alert-danger">
                                 <i class="fas fa-exclamation-circle"></i>
-                                No account exists for this Mwenyekiti. As an admin, you can create one using the account creation page.
+                                No account exists for this Mwenyekiti. As an admin, you can create one below.
                             </div>
-                            <div style="margin-top: 20px;">
-                                <a href="{{ route('admin.mwenyekiti.createAccount', ['id' => $mwenyekiti->id]) }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account for Mwenyekiti</a>
-                                <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
-                            </div>
+                            <form action="{{ route('admin.mwenyekiti.storeAccount', ['id' => $mwenyekiti->id]) }}" method="POST">
+                                @csrf
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
+                                        @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Confirm Password</label>
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="is_active">Account Status</label>
+                                        <select name="is_active" id="is_active" class="form-control">
+                                            <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create Account</button>
+                                    <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
+                                </div>
+                            </form>
                         @endif
                     @else
                         <div class="alert alert-danger">
