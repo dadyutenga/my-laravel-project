@@ -710,7 +710,7 @@
                                 No account exists for this Mwenyekiti. As an admin, you can create one using the account creation page.
                             </div>
                             <div style="margin-top: 20px;">
-                                <a href="{{ route('admin.mwenyekiti.createAcc', ['id' => $mwenyekiti->id]) }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account for Mwenyekiti</a>
+                                <a href="{{ route('admin.mwenyekiti.createAccount', ['id' => $mwenyekiti->id]) }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account for Mwenyekiti</a>
                                 <a href="{{ route('admin.mwenyekiti.manage') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
                             </div>
                         @endif

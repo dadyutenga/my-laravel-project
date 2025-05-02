@@ -43,7 +43,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('/mwenyekiti', [MwenyekitiController::class, 'store'])->name('mwenyekiti.store');
             Route::put('/mwenyekiti/{id}', [MwenyekitiController::class, 'update'])->name('mwenyekiti.update');
             Route::delete('/mwenyekiti/{id}', [MwenyekitiController::class, 'destroy'])->name('mwenyekiti.destroy');
-            Route::get('/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])->name('mwenyekiti.createAccount');
+            Route::get('/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])->name('admin.mwenyekiti.createAccount');
             Route::post('/mwenyekiti/{id}/store-account', [MwenyekitiController::class, 'storeAccount'])->name('mwenyekiti.storeAccount');
             Route::put('/mwenyekiti/{id}/update-account', [MwenyekitiController::class, 'updateAccount'])->name('mwenyekiti.updateAccount');
             Route::patch('/mwenyekiti/{id}/toggle-status', [MwenyekitiController::class, 'toggleStatus'])->name('mwenyekiti.toggleStatus');
@@ -83,5 +83,8 @@ Route::middleware('auth:admin')->group(function () {
         });
     });
 });
+
+Route::get('/admin/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])
+    ->name('admin.mwenyekiti.createAccount');
 
 
