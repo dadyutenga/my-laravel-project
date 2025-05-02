@@ -84,7 +84,4 @@ Route::middleware('auth:admin')->group(function () {
     });
 });
 
-Route::get('/admin/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])
-    ->name('admin.mwenyekiti.createAccount');
-
 

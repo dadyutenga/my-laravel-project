@@ -26,13 +26,17 @@
                 <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
                 <div class="menu-text">Create Mwenyekiti</div>
             </a>
+            <a href="{{ route('admin.mwenyekiti.createAccount') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.createAccount') ? 'active' : '' }}">
+                <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
+                <div class="menu-text">Create Mwenyekiti Auth Account</div>
+            </a>
             <a href="{{ route('admin.mwenyekiti.manage') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="menu-text">Manage Mwenyekiti</div>
             </a>
-            <a href="{{ route('admin.mwenyekiti.createAccount') }}" class="menu-item">
+            <a href="{{ route('admin.mwenyekiti.createAccount') }}" class="menu-item {{ request()->routeIs('admin.mwenyekiti.createAccount') ? 'active' : '' }}">
                 <i class="fas fa-user menu-icon"></i>
-                <span class="menu-text">Manage Mwenyekiti Account</span>
+                <span class="menu-text">Manage Mwenyekiti Auth Accounts</span>
             </a>
             <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
