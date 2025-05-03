@@ -713,13 +713,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="national_id">National ID</label>
-                                <input type="text" name="national_id" id="national_id" class="form-control @error('national_id') is-invalid @enderror" value="{{ old('national_id') }}" required>
-                                @error('national_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
                                 <label for="region">Region</label>
                                 <select name="region" id="region" class="form-control @error('region') is-invalid @enderror" required>
                                     <option value="">Select Region</option>
@@ -740,18 +733,25 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="ward">Ward</label>
+                                <div id="ward-container">
+                                    <select name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" required disabled>
+                                        <option value="">Select Ward (Choose District First)</option>
+                                    </select>
+                                    @error('ward')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div id="ward-manual-container" style="display: none;">
+                                    <input type="text" name="ward_manual" id="ward_manual" class="form-control" placeholder="Enter Ward Manually" required>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="ward">Ward</label>
-                                <input type="text" name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" value="{{ old('ward') }}" required placeholder="Enter Ward Manually">
-                                @error('ward')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
                                 <label for="mtaa">Mtaa</label>
-                                <input type="text" name="mtaa" id="mtaa" class="form-control @error('mtaa') is-invalid @enderror" value="{{ old('mtaa') }}" required>
+                                <input type="text" name="mtaa" id="mtaa" class="form-control @error('mtaa') is-invalid @enderror" value="{{ old('mtaa') }}" required maxlength="255">
                                 @error('mtaa')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -785,48 +785,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Sidebar toggle
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const sidebarOverlay = document.getElementById('sidebar-overlay');
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('collapsed');
-            });
-            
-            mobileMenuToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('collapsed');
-                sidebarOverlay.classList.toggle('active');
-            });
-            
-            sidebarOverlay.addEventListener('click', function() {
-                sidebar.classList.add('collapsed');
-                sidebarOverlay.classList.remove('active');
-            });
-
-            // Region selection change event
             const regionSelect = document.getElementById('region');
             const districtSelect = document.getElementById('district');
             const wardSelect = document.getElementById('ward');
+            const wardContainer = document.getElementById('ward-container');
+            const wardManualContainer = document.getElementById('ward-manual-container');
+            const wardManualInput = document.getElementById('ward_manual');
 
+            // Region selection change event
             regionSelect.addEventListener('change', function() {
                 const selectedRegion = this.value;
                 if (selectedRegion) {
                     districtSelect.innerHTML = '<option value="">Loading Districts...</option>';
                     districtSelect.disabled = false;
                     
-                    // Fetch districts for the selected region
                     fetch(`/api/regions/${encodeURIComponent(selectedRegion)}/districts`)
                         .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-                            }
+                            if (!response.ok) throw new Error('Network response was not ok');
                             return response.json();
                         })
                         .then(data => {
                             districtSelect.innerHTML = '<option value="">Select District</option>';
-                            if (Array.isArray(data) && data.length > 0) {
+                            if (data && data.length) {
                                 data.forEach(district => {
                                     districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
                                 });
@@ -836,21 +816,67 @@
                         })
                         .catch(error => {
                             console.error('Error fetching districts:', error);
-                            districtSelect.innerHTML = '<option value="">Error Loading Districts: ' + error.message + '</option>';
+                            districtSelect.innerHTML = '<option value="">Error Loading Districts</option>';
                         });
                 } else {
-                    districtSelect.innerHTML = '<option value="">Select District (Choose Region First)</option>';
-                    districtSelect.disabled = true;
-                    wardSelect.innerHTML = '<option value="">Select Ward (Choose District First)</option>';
-                    wardSelect.disabled = true;
+                    resetDistrictAndWard();
                 }
             });
 
+            // District selection change event
             districtSelect.addEventListener('change', function() {
-                // Temporarily do nothing or just log the selection
-                console.log('District selected:', this.value);
-                // Optionally enable a text input for ward if needed
+                const selectedDistrict = this.value;
+                if (selectedDistrict) {
+                    wardSelect.innerHTML = '<option value="">Loading Wards...</option>';
+                    wardSelect.disabled = false;
+                    
+                    fetch(`/api/districts/${encodeURIComponent(selectedDistrict)}/wards`)
+                        .then(response => {
+                            if (!response.ok) throw new Error('Network response was not ok');
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data && data.length) {
+                                wardSelect.innerHTML = '<option value="">Select Ward</option>';
+                                data.forEach(ward => {
+                                    wardSelect.innerHTML += `<option value="${ward}">${ward}</option>`;
+                                });
+                                wardContainer.style.display = 'block';
+                                wardManualContainer.style.display = 'none';
+                            } else {
+                                // Fallback to manual input if no wards are found
+                                wardContainer.style.display = 'none';
+                                wardManualContainer.style.display = 'block';
+                                wardSelect.disabled = true;
+                                wardManualInput.required = true;
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching wards:', error);
+                            // Fallback to manual input if API fails
+                            wardContainer.style.display = 'none';
+                            wardManualContainer.style.display = 'block';
+                            wardSelect.disabled = true;
+                            wardManualInput.required = true;
+                        });
+                } else {
+                    resetWard();
+                }
             });
+
+            function resetDistrictAndWard() {
+                districtSelect.innerHTML = '<option value="">Select District (Choose Region First)</option>';
+                districtSelect.disabled = true;
+                resetWard();
+            }
+
+            function resetWard() {
+                wardSelect.innerHTML = '<option value="">Select Ward (Choose District First)</option>';
+                wardSelect.disabled = true;
+                wardContainer.style.display = 'block';
+                wardManualContainer.style.display = 'none';
+                wardManualInput.required = false;
+            }
         });
     </script>
 </body>
