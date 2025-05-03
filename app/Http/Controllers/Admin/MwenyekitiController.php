@@ -212,10 +212,5 @@ class MwenyekitiController extends Controller
         return response()->json($districts);
     }
 
-    public function getWards($district)
-    {
-        $tanzaniaRegions = new TanzaniaRegions();
-        $wards = $tanzaniaRegions->getWards($district);
-        return response()->json($wards);
-    }
+  
 }

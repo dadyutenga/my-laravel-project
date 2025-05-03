@@ -749,17 +749,10 @@
                             </div>
                             <div class="form-group">
                                 <label for="ward">Ward</label>
-                                <div id="ward-container">
-                                    <select name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" required disabled>
-                                        <option value="">Select Ward (Choose District First)</option>
-                                    </select>
-                                    @error('ward')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div id="ward-manual-container" style="display: none;">
-                                    <input type="text" name="ward_manual" id="ward_manual" class="form-control" placeholder="Enter Ward Manually" required>
-                                </div>
+                                <input type="text" name="ward" id="ward" class="form-control @error('ward') is-invalid @enderror" value="{{ old('ward') }}" required placeholder="Enter Ward Manually">
+                                @error('ward')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-row">
@@ -802,30 +795,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const regionSelect = document.getElementById('region');
             const districtSelect = document.getElementById('district');
-            const wardSelect = document.getElementById('ward');
-            const wardContainer = document.getElementById('ward-container');
-            const wardManualContainer = document.getElementById('ward-manual-container');
-            const wardManualInput = document.getElementById('ward_manual');
-            const photoInput = document.getElementById('photo');
-            const photoPreview = document.getElementById('photo-preview');
 
-            // Photo preview handler
-            photoInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        photoPreview.src = e.target.result;
-                        photoPreview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    photoPreview.src = '';
-                    photoPreview.style.display = 'none';
-                }
-            });
-
-            // Region selection change event
+            // Region selection change event (only for loading districts)
             regionSelect.addEventListener('change', function() {
                 const selectedRegion = this.value;
                 if (selectedRegion) {
@@ -852,64 +823,10 @@
                             districtSelect.innerHTML = '<option value="">Error Loading Districts</option>';
                         });
                 } else {
-                    resetDistrictAndWard();
+                    districtSelect.innerHTML = '<option value="">Select District (Choose Region First)</option>';
+                    districtSelect.disabled = true;
                 }
             });
-
-            // District selection change event
-            districtSelect.addEventListener('change', function() {
-                const selectedDistrict = this.value;
-                if (selectedDistrict) {
-                    wardSelect.innerHTML = '<option value="">Loading Wards...</option>';
-                    wardSelect.disabled = false;
-                    
-                    fetch(`/api/districts/${encodeURIComponent(selectedDistrict)}/wards`)
-                        .then(response => {
-                            if (!response.ok) throw new Error('Network response was not ok');
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data && data.length) {
-                                wardSelect.innerHTML = '<option value="">Select Ward</option>';
-                                data.forEach(ward => {
-                                    wardSelect.innerHTML += `<option value="${ward}">${ward}</option>`;
-                                });
-                                wardContainer.style.display = 'block';
-                                wardManualContainer.style.display = 'none';
-                            } else {
-                                // Fallback to manual input if no wards are found
-                                wardContainer.style.display = 'none';
-                                wardManualContainer.style.display = 'block';
-                                wardSelect.disabled = true;
-                                wardManualInput.required = true;
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching wards:', error);
-                            // Fallback to manual input if API fails
-                            wardContainer.style.display = 'none';
-                            wardManualContainer.style.display = 'block';
-                            wardSelect.disabled = true;
-                            wardManualInput.required = true;
-                        });
-                } else {
-                    resetWard();
-                }
-            });
-
-            function resetDistrictAndWard() {
-                districtSelect.innerHTML = '<option value="">Select District (Choose Region First)</option>';
-                districtSelect.disabled = true;
-                resetWard();
-            }
-
-            function resetWard() {
-                wardSelect.innerHTML = '<option value="">Select Ward (Choose District First)</option>';
-                wardSelect.disabled = true;
-                wardContainer.style.display = 'block';
-                wardManualContainer.style.display = 'none';
-                wardManualInput.required = false;
-            }
         });
     </script>
 </body>
