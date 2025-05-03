@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Superadmin\CreateAdminController;
 use App\Http\Controllers\Superadmin\DashboardController;
@@ -10,13 +11,21 @@ use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
-// Default route redirects to login
+// Default route - Changed to show welcome page directly
 Route::get('/', function () {
-    return redirect('/login');
+    return view('welcome');
 });
 
+// Home route (can potentially be removed or kept depending on needs)
 Route::get('/home', function () {
-    return redirect('/login');
+    if (Auth::guard('admin')->check()) {
+        $route = Auth::guard('admin')->user()->role === 'superadmin'
+            ? 'superadmin.dashboard'
+            : 'admin.dashboard';
+        return redirect()->route($route);
+    }
+    // If not logged in, redirect to welcome or login as preferred
+    return redirect('/'); // Or redirect()->route('login');
 });
 
 // Guest routes
