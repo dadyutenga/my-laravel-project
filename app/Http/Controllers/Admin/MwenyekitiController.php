@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Mwenyekiti;
 use App\Models\MwenyekitiAuth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use SalimMbise\TanzaniaRegions\TanzaniaRegions;
 
 class MwenyekitiController extends Controller
@@ -19,37 +17,6 @@ class MwenyekitiController extends Controller
         return view('Admin.mwenyekiti.create', compact('regions'));
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:mwenyekiti,email',
-            'phone' => 'required|string|max:15',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'national_id' => 'required|string|max:50|unique:mwenyekiti,national_id',
-            'region' => 'required|string|max:255',
-            'district' => 'required|string|max:255',
-            'ward' => 'required|string|max:255',
-            'mtaa' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'is_active' => 'boolean',
-        ]);
-
-        // Handle photo upload if provided
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('mwenyekiti_photos', 'public');
-            $validated['photo'] = $path;
-        }
-
-        $mwenyekiti = Mwenyekiti::create($validated);
-
-        return redirect()->route('admin.mwenyekiti.createAccount', ['id' => $mwenyekiti->id])
-            ->with('success', 'Mwenyekiti created successfully. Now create their account.');
-    }
-
     public function manage(Request $request)
     {
         $mwenyekiti = Mwenyekiti::with('auth')->get();
@@ -58,61 +25,6 @@ class MwenyekitiController extends Controller
         $selectedMwenyekiti = $id ? Mwenyekiti::with('auth')->findOrFail($id) : null;
 
         return view('admin.mwenyekiti.manage', compact('mwenyekiti', 'mode', 'selectedMwenyekiti'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $mwenyekiti = Mwenyekiti::findOrFail($id);
-
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:mwenyekiti,email,' . $mwenyekiti->id,
-            'phone' => 'required|string|max:15',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'national_id' => 'required|string|max:50|unique:mwenyekiti,national_id,' . $mwenyekiti->id,
-            'ward' => 'required|string|max:255',
-            'mtaa' => 'required|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'is_active' => 'boolean',
-        ]);
-
-        // Handle photo upload if provided
-        if ($request->hasFile('photo')) {
-            // Delete old photo if exists
-            if ($mwenyekiti->photo && Storage::disk('public')->exists($mwenyekiti->photo)) {
-                Storage::disk('public')->delete($mwenyekiti->photo);
-            }
-            $path = $request->file('photo')->store('mwenyekiti_photos', 'public');
-            $validated['photo'] = $path;
-        }
-
-        $mwenyekiti->update($validated);
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti updated successfully');
-    }
-
-    public function destroy($id)
-    {
-        $mwenyekiti = Mwenyekiti::findOrFail($id);
-        
-        // Delete associated photo if exists
-        if ($mwenyekiti->photo && Storage::disk('public')->exists($mwenyekiti->photo)) {
-            Storage::disk('public')->delete($mwenyekiti->photo);
-        }
-        
-        // Delete associated auth record if exists
-        if ($mwenyekiti->auth) {
-            $mwenyekiti->auth->delete();
-        }
-        
-        $mwenyekiti->delete();
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti deleted successfully');
     }
 
     public function createAccount(Request $request)
@@ -129,89 +41,9 @@ class MwenyekitiController extends Controller
         return view('Admin.mwenyekiti.manageAcc', compact('mwenyekiti'));
     }
 
-    public function storeAccount(Request $request, $id)
+    public function manageAccounts(Request $request)
     {
-        $mwenyekiti = Mwenyekiti::findOrFail($id);
-
-        $validated = $request->validate([
-            'username' => 'required|string|max:255|unique:mwenyekiti_auths,username',
-            'password' => 'required|string|min:8|confirmed',
-            'is_active' => 'boolean',
-        ]);
-
-        MwenyekitiAuth::create([
-            'mwenyekiti_id' => $mwenyekiti->id,
-            'username' => $validated['username'],
-            'password' => Hash::make($validated['password']),
-            'is_active' => $validated['is_active'] ?? true,
-        ]);
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti account created successfully');
-    }
-
-    public function updateAccount(Request $request, $id)
-    {
-        $auth = MwenyekitiAuth::where('mwenyekiti_id', $id)->firstOrFail();
-
-        $validated = $request->validate([
-            'username' => 'required|string|max:255|unique:mwenyekiti_auths,username,' . $auth->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'is_active' => 'boolean',
-        ]);
-
-        $auth->username = $validated['username'];
-        if (!empty($validated['password'])) {
-            $auth->password = Hash::make($validated['password']);
-        }
-        $auth->is_active = $validated['is_active'] ?? true;
-        $auth->save();
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti account updated successfully');
-    }
-
-    public function toggleStatus($id)
-    {
-        $mwenyekiti = Mwenyekiti::findOrFail($id);
-        $mwenyekiti->is_active = !$mwenyekiti->is_active;
-        $mwenyekiti->save();
-
-        // Also toggle associated auth record if exists
-        if ($mwenyekiti->auth) {
-            $mwenyekiti->auth->is_active = $mwenyekiti->is_active;
-            $mwenyekiti->auth->save();
-        }
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti status updated successfully');
-    }
-
-    public function deleteAccount($id)
-    {
-        $mwenyekiti = Mwenyekiti::findOrFail($id);
-        if ($mwenyekiti->auth) {
-            $mwenyekiti->auth->delete();
-            return redirect()->route('admin.mwenyekiti.manage')
-                ->with('success', 'Account deleted successfully.');
-        }
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('error', 'No account found to delete.');
-    }
-
-    public function getDistricts($region)
-    {
-        $tanzaniaRegions = new TanzaniaRegions();
-        $districts = $tanzaniaRegions->getDistricts($region);
-        return response()->json($districts);
-    }
-
-    public function getWards($district)
-    {
-        $tanzaniaRegions = new TanzaniaRegions();
-        // Assuming the package has a method to get wards by district.
-        // Adjust this based on the actual package documentation or method availability.
-        $wards = $tanzaniaRegions->getWards($district);
-        return response()->json($wards);
+        $mwenyekiti = Mwenyekiti::with('auth')->get();
+        return view('Admin.mwenyekiti.manageAcc', compact('mwenyekiti'));
     }
 }

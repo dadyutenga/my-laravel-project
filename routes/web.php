@@ -38,16 +38,10 @@ Route::middleware('auth:admin')->group(function () {
         // User Management Routes
         Route::prefix('admin')->name('admin.')->group(function () {
             // Mwenyekiti Routes
-            Route::get('/mwenyekiti/manage', [MwenyekitiController::class, 'manage'])->name('mwenyekiti.manage');
             Route::get('/mwenyekiti/create', [MwenyekitiController::class, 'create'])->name('mwenyekiti.create');
-            Route::post('/mwenyekiti', [MwenyekitiController::class, 'store'])->name('mwenyekiti.store');
-            Route::put('/mwenyekiti/{id}', [MwenyekitiController::class, 'update'])->name('mwenyekiti.update');
-            Route::delete('/mwenyekiti/{id}', [MwenyekitiController::class, 'destroy'])->name('mwenyekiti.destroy');
-            Route::get('/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])->name('admin.mwenyekiti.createAccount');
-            Route::post('/mwenyekiti/{id}/store-account', [MwenyekitiController::class, 'storeAccount'])->name('mwenyekiti.storeAccount');
-            Route::put('/mwenyekiti/{id}/update-account', [MwenyekitiController::class, 'updateAccount'])->name('mwenyekiti.updateAccount');
-            Route::patch('/mwenyekiti/{id}/toggle-status', [MwenyekitiController::class, 'toggleStatus'])->name('mwenyekiti.toggleStatus');
-            Route::delete('/mwenyekiti/{id}/account', [MwenyekitiController::class, 'deleteAccount'])->name('admin.mwenyekiti.deleteAccount');
+            Route::get('/mwenyekiti/manage', [MwenyekitiController::class, 'manage'])->name('mwenyekiti.manage');
+            Route::get('/mwenyekiti/create-account', [MwenyekitiController::class, 'createAccount'])->name('mwenyekiti.createAccount');
+            Route::get('/mwenyekiti/manage-accounts', [MwenyekitiController::class, 'manageAccounts'])->name('mwenyekiti.manageAccounts');
             
             // Balozi Routes
             Route::get('/balozi/manage', [ManageBaloziController::class, 'manage'])->name('balozi.manage');
@@ -83,5 +77,3 @@ Route::middleware('auth:admin')->group(function () {
         });
     });
 });
-
-
