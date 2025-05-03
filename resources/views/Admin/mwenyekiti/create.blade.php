@@ -498,6 +498,20 @@
             color: var(--error-color);
         }
 
+        .photo-preview {
+            margin-top: 10px;
+            max-width: 100px;
+            max-height: 100px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            display: none;
+        }
+
+        .form-group.mtaa-group {
+            max-width: 300px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -749,9 +763,9 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group">
+                            <div class="form-group mtaa-group">
                                 <label for="mtaa">Mtaa</label>
-                                <input type="text" name="mtaa" id="mtaa" class="form-control @error('mtaa') is-invalid @enderror" value="{{ old('mtaa') }}" required maxlength="255">
+                                <input type="text" name="mtaa" id="mtaa" class="form-control @error('mtaa') is-invalid @enderror" value="{{ old('mtaa') }}" required maxlength="100">
                                 @error('mtaa')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -764,6 +778,7 @@
                                 @error('photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <img id="photo-preview" class="photo-preview" alt="Photo Preview">
                             </div>
                             <div class="form-group">
                                 <label for="is_active">Active Status</label>
@@ -791,6 +806,24 @@
             const wardContainer = document.getElementById('ward-container');
             const wardManualContainer = document.getElementById('ward-manual-container');
             const wardManualInput = document.getElementById('ward_manual');
+            const photoInput = document.getElementById('photo');
+            const photoPreview = document.getElementById('photo-preview');
+
+            // Photo preview handler
+            photoInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoPreview.src = e.target.result;
+                        photoPreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    photoPreview.src = '';
+                    photoPreview.style.display = 'none';
+                }
+            });
 
             // Region selection change event
             regionSelect.addEventListener('change', function() {
