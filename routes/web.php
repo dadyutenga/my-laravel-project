@@ -55,9 +55,9 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     })->name('mwenyekiti.dashboard');
 });
 
-// Admin routes
+// Admin routes with its logout
 Route::middleware('auth:admin')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
     
     // Admin dashboard routes
     Route::middleware('role:admin')->group(function () {
@@ -114,11 +114,13 @@ Route::middleware('auth:admin')->group(function () {
     });
 });
 
-// Shared logout route
-Route::post('/logout', [AuthController::class, 'logout'])
+// Balozi/Mwenyekiti routes with their logout
+Route::post('/logout1', [UserAuthController::class, 'logout'])
+    ->name('logout1')
+    ->middleware(['web']);
+
+    Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout')
     ->middleware(['web']);
 
-Route::post('/logout1', [UserAuthController::class, 'logout'])
-    ->name('logout')
-    ->middleware(['web']);
+    

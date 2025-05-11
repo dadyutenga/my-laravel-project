@@ -192,9 +192,8 @@ class UserAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Redirect based on user type
-        $redirectRoute = $userType === 'balozi' ? 'balozi.login' : 'mwenyekiti.login';
-        return redirect()->route($redirectRoute);
+        // Redirect to the shared login form
+        return redirect()->route('login1');
     }
 
     public function showLoginForm()
