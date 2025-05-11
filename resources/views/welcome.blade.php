@@ -300,7 +300,7 @@
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
-            <a href="/leaders/login" class="button button-leaders">
+            <a href="/users/login" class="button button-leaders">
                 <div class="button-icon">
                     <i class="fas fa-users"></i>
                     <span>Leaders Login</span>

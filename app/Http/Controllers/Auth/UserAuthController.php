@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\BaloziAuth;
+use App\Models\MwenyekitiAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Log;
 
@@ -41,7 +44,29 @@ class UserAuthController extends Controller
             ])->onlyInput('username');
         }
 
-        if (Auth::guard('balozi')->attempt($credentials, $request->filled('remember'))) {
+        // Find the balozi auth record
+        $baloziAuth = BaloziAuth::where('username', $credentials['username'])
+                               ->where('is_active', true)
+                               ->first();
+
+        if ($baloziAuth && Hash::check($credentials['password'], $baloziAuth->password)) {
+            // Load the associated balozi
+            $balozi = $baloziAuth->balozi;
+            
+            if (!$balozi || !$balozi->is_active) {
+                RateLimiter::hit($key, $lockoutTime);
+                return back()->withErrors([
+                    'username' => 'This account is inactive.',
+                ])->onlyInput('username');
+            }
+
+            // Create session
+            session([
+                'balozi_id' => $balozi->id,
+                'balozi_auth_id' => $baloziAuth->id,
+                'user_type' => 'balozi'
+            ]);
+
             $request->session()->regenerate();
 
             // Reset login attempts on successful login
@@ -97,7 +122,29 @@ class UserAuthController extends Controller
             ])->onlyInput('username');
         }
 
-        if (Auth::guard('mwenyekiti')->attempt($credentials, $request->filled('remember'))) {
+        // Find the mwenyekiti auth record
+        $mwenyekitiAuth = MwenyekitiAuth::where('username', $credentials['username'])
+                                       ->where('is_active', true)
+                                       ->first();
+
+        if ($mwenyekitiAuth && Hash::check($credentials['password'], $mwenyekitiAuth->password)) {
+            // Load the associated mwenyekiti
+            $mwenyekiti = $mwenyekitiAuth->mwenyekiti;
+            
+            if (!$mwenyekiti || !$mwenyekiti->is_active) {
+                RateLimiter::hit($key, $lockoutTime);
+                return back()->withErrors([
+                    'username' => 'This account is inactive.',
+                ])->onlyInput('username');
+            }
+
+            // Create session
+            session([
+                'mwenyekiti_id' => $mwenyekiti->id,
+                'mwenyekiti_auth_id' => $mwenyekitiAuth->id,
+                'user_type' => 'mwenyekiti'
+            ]);
+
             $request->session()->regenerate();
 
             // Reset login attempts on successful login
@@ -131,10 +178,22 @@ class UserAuthController extends Controller
     // Logout (shared for both Balozi and Mwenyekiti)
     public function logout(Request $request)
     {
-        $guard = Auth::guard('balozi')->check() ? 'balozi' : 'mwenyekiti';
-        Auth::guard($guard)->logout();
+        $userType = session('user_type');
+        
+        // Clear specific session data
+        session()->forget([
+            'balozi_id',
+            'balozi_auth_id',
+            'mwenyekiti_id',
+            'mwenyekiti_auth_id',
+            'user_type'
+        ]);
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('balozi.login'); // Default to balozi login page
+
+        // Redirect based on user type
+        $redirectRoute = $userType === 'balozi' ? 'balozi.login' : 'mwenyekiti.login';
+        return redirect()->route($redirectRoute);
     }
 }
