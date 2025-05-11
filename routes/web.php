@@ -37,10 +37,9 @@ Route::middleware('guest:admin')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-// Add Balozi/Mwenyekiti login routes
+// Replace the separate login form routes with a single route
 Route::get('/login1', [UserAuthController::class, 'showLoginForm'])->name('login1');
-Route::post('/balozi/login', [UserAuthController::class, 'baloziLogin'])->name('balozi.login');
-Route::post('/mwenyekiti/login', [UserAuthController::class, 'mwenyekitiLogin'])->name('mwenyekiti.login');
+Route::post('/login1', [UserAuthController::class, 'login'])->name('login1.submit');
 
 // Protected Balozi/Mwenyekiti routes
 Route::middleware(['auth.balozi'])->group(function () {

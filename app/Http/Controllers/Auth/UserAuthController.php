@@ -200,4 +200,115 @@ class UserAuthController extends Controller
     {
         return view('auth.Login1');
     }
+
+    // Add new method to handle login
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required',
+        ]);
+
+        $key = 'login_attempts_' . $request->ip();
+        $maxAttempts = 5;
+        $lockoutTime = 300; // 5 minutes in seconds
+
+        // Check if IP has exceeded login attempts
+        if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
+            $seconds = RateLimiter::availableIn($key);
+            return back()->withErrors([
+                'username' => "Too many login attempts. Please try again in {$seconds} seconds.",
+            ])->onlyInput('username');
+        }
+
+        // First check if it's a Mwenyekiti
+        $mwenyekitiAuth = MwenyekitiAuth::where('username', $credentials['username'])
+                                       ->where('is_active', true)
+                                       ->first();
+
+        if ($mwenyekitiAuth && Hash::check($credentials['password'], $mwenyekitiAuth->password)) {
+            return $this->handleMwenyekitiLogin($request, $mwenyekitiAuth, $key);
+        }
+
+        // If not Mwenyekiti, check if it's a Balozi
+        $baloziAuth = BaloziAuth::where('username', $credentials['username'])
+                               ->where('is_active', true)
+                               ->first();
+
+        if ($baloziAuth && Hash::check($credentials['password'], $baloziAuth->password)) {
+            return $this->handleBaloziLogin($request, $baloziAuth, $key);
+        }
+
+        // If neither, increment failed login attempts
+        RateLimiter::hit($key, $lockoutTime);
+
+        // Log failed login attempt
+        Log::warning('Login failed', [
+            'username' => $request->username,
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]);
+
+        return back()->withErrors([
+            'username' => 'The provided credentials do not match our records.',
+        ])->onlyInput('username');
+    }
+
+    private function handleMwenyekitiLogin(Request $request, MwenyekitiAuth $mwenyekitiAuth, $key)
+    {
+        $mwenyekiti = $mwenyekitiAuth->mwenyekiti;
+        
+        if (!$mwenyekiti || !$mwenyekiti->is_active) {
+            RateLimiter::hit($key);
+            return back()->withErrors([
+                'username' => 'This account is inactive.',
+            ])->onlyInput('username');
+        }
+
+        session([
+            'mwenyekiti_id' => $mwenyekiti->id,
+            'mwenyekiti_auth_id' => $mwenyekitiAuth->id,
+            'user_type' => 'mwenyekiti'
+        ]);
+
+        $request->session()->regenerate();
+        RateLimiter::clear($key);
+
+        Log::info('Mwenyekiti login successful', [
+            'username' => $request->username,
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]);
+
+        return redirect()->route('mwenyekiti.dashboard');
+    }
+
+    private function handleBaloziLogin(Request $request, BaloziAuth $baloziAuth, $key)
+    {
+        $balozi = $baloziAuth->balozi;
+        
+        if (!$balozi || !$balozi->is_active) {
+            RateLimiter::hit($key);
+            return back()->withErrors([
+                'username' => 'This account is inactive.',
+            ])->onlyInput('username');
+        }
+
+        session([
+            'balozi_id' => $balozi->id,
+            'balozi_auth_id' => $baloziAuth->id,
+            'user_type' => 'balozi'
+        ]);
+
+        $request->session()->regenerate();
+        RateLimiter::clear($key);
+
+        Log::info('Balozi login successful', [
+            'username' => $request->username,
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+        ]);
+
+        return redirect()->route('balozi.dashboard');
+    }
 }

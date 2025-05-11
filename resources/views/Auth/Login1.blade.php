@@ -580,16 +580,7 @@
                 <h1>Login to Your Account</h1>
             </div>
 
-            <!-- Add user type selection -->
-            <div class="form-group" style="margin-bottom: 30px;">
-                <label for="user_type">Select User Type</label>
-                <select id="user_type" class="form-control" style="padding-left: 15px;" onchange="updateLoginForm()">
-                    <option value="mwenyekiti">Mwenyekiti</option>
-                    <option value="balozi">Balozi</option>
-                </select>
-            </div>
-            
-            <form method="POST" id="loginForm" action="{{ route('mwenyekiti.login') }}">
+            <form method="POST" id="loginForm" action="{{ route('login1.submit') }}">
                 @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -635,13 +626,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script>
-        // Setup CSRF token for AJAX requests
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        
         document.addEventListener('DOMContentLoaded', function() {
             // Set delay for staggered animation of alerts
             const alerts = document.querySelectorAll('.alert');
@@ -703,21 +687,6 @@
                     }, 600);
                 });
             });
-
-            // Add the form update function
-            window.updateLoginForm = function() {
-                const userType = document.getElementById('user_type').value;
-                const form = document.getElementById('loginForm');
-                
-                if (userType === 'balozi') {
-                    form.action = "{{ route('balozi.login') }}";
-                } else {
-                    form.action = "{{ route('mwenyekiti.login') }}";
-                }
-            }
-
-            // Initialize the form action
-            updateLoginForm();
 
             // Add form submission handling
             document.getElementById('loginForm').addEventListener('submit', function(e) {
