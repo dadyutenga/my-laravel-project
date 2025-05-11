@@ -300,7 +300,7 @@
                     <i class="fas fa-arrow-right"></i>
                 </div>
             </a>
-            <a href="{{ route('login') }}" class="button button-leaders">
+            <a href="{{ route('login1') }}" class="button button-leaders">
                 <div class="button-icon">
                     <i class="fas fa-users"></i>
                     <span>Leaders Login</span>
