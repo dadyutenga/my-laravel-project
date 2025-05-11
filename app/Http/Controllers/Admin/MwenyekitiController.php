@@ -23,31 +23,38 @@ class MwenyekitiController extends Controller
     // Store new Mwenyekiti
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:mwenyekiti,email',
-            'phone' => 'required|string|unique:mwenyekiti,phone',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'national_id' => 'required|string|max:255',
-            'ward' => 'required|string|max:255',
-            'mtaa' => 'required|string|max:255',
-            'region' => 'required|string|max:255',
-            'photo' => 'nullable|image|max:2048',
-            'is_active' => 'required|boolean',
-        ]);
+        try {
+            $validated = $request->validate([
+                'first_name' => 'required|string|max:255',
+                'middle_name' => 'nullable|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:mwenyekiti,email',
+                'phone' => 'required|string|unique:mwenyekiti,phone',
+                'date_of_birth' => 'required|date',
+                'gender' => 'required|in:male,female,other',
+                'national_id' => 'required|string|max:255',
+                'ward' => 'required|string|max:255',
+                'mtaa' => 'required|string|max:255',
+                'region' => 'required|string|max:255',
+                'photo' => 'nullable|image|max:2048',
+                'is_active' => 'required|boolean',
+            ]);
 
-        if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('mwenyekiti/photos', 'public');
-            $validated['photo'] = $photoPath;
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('mwenyekiti/photos', 'public');
+                $validated['photo'] = $photoPath;
+            }
+
+            $mwenyekiti = Mwenyekiti::create($validated);
+
+            return redirect()->route('admin.mwenyekiti.manage')
+                ->with('success', 'Mwenyekiti created successfully.');
+            
+        } catch (\Exception $e) {
+            return back()
+                ->withInput()
+                ->with('error', 'Error creating Mwenyekiti: ' . $e->getMessage());
         }
-
-        $mwenyekiti = Mwenyekiti::create($validated);
-
-        return redirect()->route('admin.mwenyekiti.manage')
-            ->with('success', 'Mwenyekiti created successfully.');
     }
 
     // Show manage page with list and details

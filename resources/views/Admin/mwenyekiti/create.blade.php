@@ -662,6 +662,16 @@
                     </div>
                 @endif
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="form-container">
                     <form action="{{ route('admin.mwenyekiti.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -760,6 +770,15 @@
                                 <label for="mtaa">Mtaa</label>
                                 <input type="text" name="mtaa" id="mtaa" class="form-control @error('mtaa') is-invalid @enderror" value="{{ old('mtaa') }}" required maxlength="100">
                                 @error('mtaa')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="national_id">National ID</label>
+                                <input type="text" name="national_id" id="national_id" class="form-control @error('national_id') is-invalid @enderror" value="{{ old('national_id') }}" required>
+                                @error('national_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
