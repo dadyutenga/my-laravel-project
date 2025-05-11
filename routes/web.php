@@ -115,6 +115,10 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 // Shared logout route
-Route::post('/logout', [UserAuthController::class, 'logout'])
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout')
+    ->middleware(['web']);
+
+Route::post('/logout1', [UserAuthController::class, 'logout'])
     ->name('logout')
     ->middleware(['web']);

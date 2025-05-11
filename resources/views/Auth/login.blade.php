@@ -614,10 +614,7 @@
                 
                 <button type="submit" class="login-btn">Sign In</button>
                 
-                <div class="register-option">
-                    <span>Don't have an account?</span>
-                    <a href="{{ route('register') }}">Register here</a>
-                </div>
+              
             </form>
         </div>
     </div>
