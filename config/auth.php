@@ -15,6 +15,14 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'mwenyekiti' => [
+            'driver' => 'session',
+            'provider' => 'mwenyekiti',
+        ],
+        'balozi' => [
+            'driver' => 'session',
+            'provider' => 'balozi',
+        ],
     ],
 
     'providers' => [
@@ -25,6 +33,14 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'mwenyekiti' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\MwenyekitiAuth::class,
+        ],
+        'balozi' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BaloziAuth::class,
         ],
     ],
 
@@ -37,6 +53,18 @@ return [
         ],
         'admins' => [
             'provider' => 'admins',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'mwenyekiti' => [
+            'provider' => 'mwenyekiti',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'balozi' => [
+            'provider' => 'balozi',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
