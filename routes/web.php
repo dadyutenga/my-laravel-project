@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ManageBaloziController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Auth\UserAuthController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -28,13 +29,19 @@ Route::get('/home', function () {
     return redirect('/'); // Or redirect()->route('login');
 });
 
-// Guest routes
-Route::middleware('guest:admin')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
-});
+// Replace the separate login form routes with a single route
+Route::get('/users/login', [UserAuthController::class, 'showLoginForm'])
+    ->name('users.login')
+    ->middleware('guest');
+
+// Keep these routes for form submission
+Route::post('/balozi/login', [UserAuthController::class, 'baloziLogin'])
+    ->name('balozi.login')
+    ->middleware('guest');
+
+Route::post('/mwenyekiti/login', [UserAuthController::class, 'mwenyekitiLogin'])
+    ->name('mwenyekiti.login')
+    ->middleware('guest');
 
 // Admin routes
 Route::middleware('auth:admin')->group(function () {
@@ -94,3 +101,21 @@ Route::middleware('auth:admin')->group(function () {
         });
     });
 });
+
+// Keep your existing protected routes
+Route::middleware(['auth.balozi'])->group(function () {
+    Route::get('/balozi/dashboard', function () {
+        return view('balozi.dashboard');
+    })->name('balozi.dashboard');
+});
+
+Route::middleware(['auth.mwenyekiti'])->group(function () {
+    Route::get('/mwenyekiti/dashboard', function () {
+        return view('mwenyekiti.dashboard');
+    })->name('mwenyekiti.dashboard');
+});
+
+// Shared logout route
+Route::post('/logout', [UserAuthController::class, 'logout'])
+    ->name('logout')
+    ->middleware(['web']);

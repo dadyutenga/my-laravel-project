@@ -196,4 +196,9 @@ class UserAuthController extends Controller
         $redirectRoute = $userType === 'balozi' ? 'balozi.login' : 'mwenyekiti.login';
         return redirect()->route($redirectRoute);
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.Login1');
+    }
 }

@@ -577,16 +577,31 @@
             <div class="card-decoration"></div>
             
             <div class="welcome-message">
-                <h1>Login for the Mwenyekiti, Balozi and their people</h1>
+                <h1>Login to Your Account</h1>
+            </div>
+
+            <!-- Add user type selection -->
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label for="user_type">Select User Type</label>
+                <select id="user_type" class="form-control" style="padding-left: 15px;" onchange="updateLoginForm()">
+                    <option value="mwenyekiti">Mwenyekiti</option>
+                    <option value="balozi">Balozi</option>
+                </select>
             </div>
             
-            <form method="POST" action="{{ route('login') }}" id="loginForm">
+            <form method="POST" id="loginForm" action="{{ route('mwenyekiti.login') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label for="username">Username</label>
                     <div class="input-wrapper">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" name="email" required placeholder="Enter your email" value="{{ old('email') }}">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="username" name="username" required 
+                               placeholder="Enter your username" value="{{ old('username') }}">
+                        @error('username')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 
@@ -594,7 +609,13 @@
                     <label for="password">Password</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Enter your password">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 
@@ -607,11 +628,6 @@
                 </div>
                 
                 <button type="submit" class="login-btn">Sign In</button>
-                
-                <div class="register-option">
-                    <span>Don't have an account?</span>
-                    <a href="{{ route('register') }}">Register here</a>
-                </div>
             </form>
         </div>
     </div>
@@ -686,6 +702,28 @@
                         ripple.remove();
                     }, 600);
                 });
+            });
+
+            // Add the form update function
+            window.updateLoginForm = function() {
+                const userType = document.getElementById('user_type').value;
+                const form = document.getElementById('loginForm');
+                
+                if (userType === 'balozi') {
+                    form.action = "{{ route('balozi.login') }}";
+                } else {
+                    form.action = "{{ route('mwenyekiti.login') }}";
+                }
+            }
+
+            // Initialize the form action
+            updateLoginForm();
+
+            // Add form submission handling
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                const button = this.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
             });
         });
     </script>
