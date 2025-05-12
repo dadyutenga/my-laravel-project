@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ManageBaloziController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Mwenyekiti\BaloziController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -52,6 +53,20 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::get('/mwenyekiti/dashboard', function () {
         return view('mwenyekiti.dashboard');
     })->name('mwenyekiti.dashboard');
+
+    // Add Balozi routes
+    Route::prefix('mwenyekiti')->name('mwenyekiti.')->group(function () {
+        // Resource routes for Balozi
+        Route::get('/balozi', [BaloziController::class, 'index'])->name('balozi.index');
+        Route::get('/balozi/create', [BaloziController::class, 'create'])->name('balozi.create');
+        Route::post('/balozi', [BaloziController::class, 'store'])->name('balozi.store');
+        Route::get('/balozi/{balozi}', [BaloziController::class, 'show'])->name('balozi.show');
+        Route::get('/balozi/{balozi}/edit', [BaloziController::class, 'edit'])->name('balozi.edit');
+        Route::put('/balozi/{balozi}', [BaloziController::class, 'update'])->name('balozi.update');
+        
+        // Additional route for search
+        Route::get('/balozi/search', [BaloziController::class, 'search'])->name('balozi.search');
+    });
 });
 
 // Admin routes with its logout

@@ -164,6 +164,97 @@
             color: white;
         }
 
+        .view-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            padding: 8px 15px;
+            border: none;
+            background: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .edit-form-container {
+            padding: 20px;
+            background-color: var(--secondary-color);
+            border-radius: var(--radius-lg);
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .current-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-light);
+        }
+
+        .current-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .form-title h3 {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .form-title p {
+            margin: 5px 0 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            margin: 0 0 20px;
+            font-size: 16px;
+            color: var(--text-color);
+        }
+
+        .form-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
         /* [Previous CSS styles remain the same] */
     </style>
 </head>
@@ -199,81 +290,255 @@
                     </div>
                 @endif
 
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i>
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="table-container">
                     <div class="table-header">
-                        <h2 class="table-title">All Balozi</h2>
+                        <h2 class="table-title">Manage Balozi</h2>
                         <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" class="search-input" placeholder="Search Balozi...">
+                            <form action="{{ route('mwenyekiti.balozi.search') }}" method="GET" class="search-form">
+                                <i class="fas fa-search"></i>
+                                <input type="text" name="search" class="search-input" placeholder="Search Balozi..." value="{{ request('search') }}">
+                            </form>
                         </div>
                     </div>
 
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Balozi</th>
-                                <th>Contact</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($balozi as $b)
-                            <tr>
-                                <td>
-                                    <div class="balozi-info">
-                                        <img src="{{ $b->photo ? asset('storage/' . $b->photo) : asset('images/default-avatar.png') }}" 
-                                             alt="Balozi Photo" 
-                                             class="balozi-avatar">
-                                        <div>
-                                            <div class="balozi-name">
-                                                {{ $b->first_name }} {{ $b->middle_name }} {{ $b->last_name }}
+                    <!-- Add tab system for list/edit mode -->
+                    <div class="view-tabs">
+                        <button class="tab-btn {{ !request('edit_id') ? 'active' : '' }}" onclick="showList()">
+                            <i class="fas fa-list"></i> List View
+                        </button>
+                        @if(request('edit_id'))
+                            <button class="tab-btn active">
+                                <i class="fas fa-edit"></i> Edit Balozi
+                            </button>
+                        @endif
+                    </div>
+
+                    @if(request('edit_id') && $editBalozi = $balozi->firstWhere('id', request('edit_id')))
+                        <!-- Edit Form Section -->
+                        <div class="edit-form-container">
+                            <form action="{{ route('mwenyekiti.balozi.update', $editBalozi->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                
+                                <div class="form-header">
+                                    <div class="current-photo">
+                                        <img src="{{ $editBalozi->photo ? asset('storage/' . $editBalozi->photo) : asset('images/default-avatar.png') }}" 
+                                             alt="Current Photo" 
+                                             class="photo-preview">
+                                    </div>
+                                    <div class="form-title">
+                                        <h3>Edit Balozi Information</h3>
+                                        <p>Update the information for {{ $editBalozi->first_name }} {{ $editBalozi->last_name }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-grid">
+                                    <!-- Personal Information -->
+                                    <div class="form-section">
+                                        <h4 class="section-title">Personal Information</h4>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="first_name">First Name</label>
+                                                <input type="text" name="first_name" id="first_name" 
+                                                       class="form-control @error('first_name') is-invalid @enderror" 
+                                                       value="{{ old('first_name', $editBalozi->first_name) }}" required>
+                                                @error('first_name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
-                                            <div class="balozi-email">{{ $b->email }}</div>
+
+                                            <div class="form-group">
+                                                <label for="middle_name">Middle Name</label>
+                                                <input type="text" name="middle_name" id="middle_name" 
+                                                       class="form-control @error('middle_name') is-invalid @enderror" 
+                                                       value="{{ old('middle_name', $editBalozi->middle_name) }}">
+                                                @error('middle_name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="last_name">Last Name</label>
+                                                <input type="text" name="last_name" id="last_name" 
+                                                       class="form-control @error('last_name') is-invalid @enderror" 
+                                                       value="{{ old('last_name', $editBalozi->last_name) }}" required>
+                                                @error('last_name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <!-- Contact Information -->
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" id="email" 
+                                                       class="form-control @error('email') is-invalid @enderror" 
+                                                       value="{{ old('email', $editBalozi->email) }}" required>
+                                                @error('email')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" name="phone" id="phone" 
+                                                       class="form-control @error('phone') is-invalid @enderror" 
+                                                       value="{{ old('phone', $editBalozi->phone) }}" required>
+                                                @error('phone')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <div>{{ $b->phone }}</div>
-                                </td>
-                                <td>
-                                    <div>{{ $b->street_village }}</div>
-                                    <div style="font-size: 13px; color: var(--text-muted);">
-                                        Shina: {{ $b->shina }} ({{ $b->shina_number }})
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="status-badge {{ $b->is_active ? 'status-active' : 'status-inactive' }}">
-                                        {{ $b->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
-                                <td>
-                                    {{ $b->created_at->format('M d, Y') }}
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="{{ route('mwenyekiti.balozi.show', $b->id) }}" 
-                                           class="action-btn" 
-                                           title="View Details">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ route('mwenyekiti.balozi.edit', $b->id) }}" 
-                                           class="action-btn" 
-                                           title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
 
-                    <div class="pagination">
-                        {{ $balozi->links() }}
-                    </div>
+                                    <!-- Location Information -->
+                                    <div class="form-section">
+                                        <h4 class="section-title">Location Information</h4>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="street_village">Street/Village</label>
+                                                <input type="text" name="street_village" id="street_village" 
+                                                       class="form-control @error('street_village') is-invalid @enderror" 
+                                                       value="{{ old('street_village', $editBalozi->street_village) }}" required>
+                                                @error('street_village')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="shina">Shina</label>
+                                                <input type="text" name="shina" id="shina" 
+                                                       class="form-control @error('shina') is-invalid @enderror" 
+                                                       value="{{ old('shina', $editBalozi->shina) }}" required>
+                                                @error('shina')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="shina_number">Shina Number</label>
+                                                <input type="text" name="shina_number" id="shina_number" 
+                                                       class="form-control @error('shina_number') is-invalid @enderror" 
+                                                       value="{{ old('shina_number', $editBalozi->shina_number) }}" required>
+                                                @error('shina_number')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Other Information -->
+                                    <div class="form-section">
+                                        <h4 class="section-title">Other Information</h4>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="photo">Update Photo</label>
+                                                <input type="file" name="photo" id="photo" 
+                                                       class="form-control @error('photo') is-invalid @enderror" 
+                                                       accept="image/*">
+                                                @error('photo')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="is_active">Status</label>
+                                                <select name="is_active" id="is_active" class="form-control">
+                                                    <option value="1" {{ $editBalozi->is_active ? 'selected' : '' }}>Active</option>
+                                                    <option value="0" {{ !$editBalozi->is_active ? 'selected' : '' }}>Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Save Changes
+                                    </button>
+                                    <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    @else
+                        <!-- List View Table -->
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Balozi</th>
+                                    <th>Contact</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($balozi as $b)
+                                <tr>
+                                    <td>
+                                        <div class="balozi-info">
+                                            <img src="{{ $b->photo ? asset('storage/' . $b->photo) : asset('images/default-avatar.png') }}" 
+                                                 alt="Balozi Photo" 
+                                                 class="balozi-avatar">
+                                            <div>
+                                                <div class="balozi-name">
+                                                    {{ $b->first_name }} {{ $b->middle_name }} {{ $b->last_name }}
+                                                </div>
+                                                <div class="balozi-email">{{ $b->email }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>{{ $b->phone }}</div>
+                                    </td>
+                                    <td>
+                                        <div>{{ $b->street_village }}</div>
+                                        <div style="font-size: 13px; color: var(--text-muted);">
+                                            Shina: {{ $b->shina }} ({{ $b->shina_number }})
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge {{ $b->is_active ? 'status-active' : 'status-inactive' }}">
+                                            {{ $b->is_active ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $b->created_at->format('M d, Y') }}
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="{{ route('mwenyekiti.balozi.index', ['edit_id' => $b->id]) }}" 
+                                               class="action-btn" 
+                                               title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ route('mwenyekiti.balozi.show', $b->id) }}" 
+                                               class="action-btn" 
+                                               title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="pagination">
+                            {{ $balozi->links() }}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="action-buttons" style="margin-top: 20px;">
@@ -286,18 +551,23 @@
     </div>
 
     <script>
-        // Search functionality
-        document.querySelector('.search-input').addEventListener('keyup', function(e) {
-            const searchText = e.target.value.toLowerCase();
-            const rows = document.querySelectorAll('.data-table tbody tr');
-            
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(searchText) ? '' : 'none';
-            });
-        });
+        function showList() {
+            window.location.href = "{{ route('mwenyekiti.balozi.index') }}";
+        }
 
-        // [Previous JavaScript remains the same]
+        // Photo preview
+        document.getElementById('photo')?.addEventListener('change', function(e) {
+            const preview = document.querySelector('.current-photo img');
+            const file = e.target.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 </body>
 </html>

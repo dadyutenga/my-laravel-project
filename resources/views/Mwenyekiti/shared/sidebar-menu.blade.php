@@ -15,10 +15,20 @@
                 <i class="fas fa-home menu-icon"></i>
                 <span class="menu-text">Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-user menu-icon"></i>
-                <span class="menu-text">Add  Balozi  </span>
-            </a>
+            <div class="menu-section">
+                <h3 class="menu-title">Balozi Management</h3>
+                <div class="menu-items">
+                    <a href="{{ route('mwenyekiti.balozi.create') }}" class="menu-item {{ Request::routeIs('mwenyekiti.balozi.create') ? 'active' : '' }}">
+                        <i class="fas fa-user-plus menu-icon"></i>
+                        <span class="menu-text">Add Balozi</span>
+                    </a>
+                    
+                    <a href="{{ route('mwenyekiti.balozi.index') }}" class="menu-item {{ Request::routeIs('mwenyekiti.balozi.index') ? 'active' : '' }}">
+                        <i class="fas fa-users menu-icon"></i>
+                        <span class="menu-text">Manage Balozi</span>
+                    </a>
+                </div>
+            </div>
             <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar menu-icon"></i>
                 <span class="menu-text">Reports</span>
