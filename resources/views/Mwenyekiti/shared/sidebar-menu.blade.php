@@ -17,7 +17,7 @@
             </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-user menu-icon"></i>
-                <span class="menu-text">Profile</span>
+                <span class="menu-text">Add  Balozi  </span>
             </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar menu-icon"></i>
