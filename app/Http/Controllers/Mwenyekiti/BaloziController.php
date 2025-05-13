@@ -160,4 +160,28 @@ class BaloziController extends Controller
 
         return view('mwenyekiti.balozi.manage', compact('balozi'));
     }
+    
+    public function requestAccount(Request $request, $id)
+    {
+        $balozi = Balozi::findOrFail($id);
+
+        // Check if request already exists
+        $existingRequest = BaloziAccountRequest::where('balozi_id', $balozi->id)
+            ->whereIn('status', ['pending', 'approved'])
+            ->first();
+
+        if ($existingRequest) {
+            return redirect()->route('mwenyekiti.balozi.index')
+                ->with('error', 'An account request is already pending or approved for this Balozi.');
+        }
+
+        BaloziAccountRequest::create([
+            'balozi_id' => $balozi->id,
+            'mwenyekiti_id' => Auth::guard('mwenyekiti')->id(),
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('mwenyekiti.balozi.index')
+            ->with('success', 'Account creation request submitted successfully.');
+    }
 }
