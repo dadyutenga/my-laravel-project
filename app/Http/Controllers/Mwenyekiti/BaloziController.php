@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mwenyekiti;
 
 use App\Http\Controllers\Controller;
 use App\Models\Balozi;
+use App\Models\BaloziAccountRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -163,25 +164,42 @@ class BaloziController extends Controller
     
     public function requestAccount(Request $request, $id)
     {
-        $balozi = Balozi::findOrFail($id);
+        try {
+            $balozi = Balozi::findOrFail($id);
+            
+            // Check if the authenticated Mwenyekiti owns this Balozi
+            if ($balozi->mwenyekiti_id !== session('mwenyekiti_id')) {
+                abort(403, 'Unauthorized action.');
+            }
 
-        // Check if request already exists
-        $existingRequest = BaloziAccountRequest::where('balozi_id', $balozi->id)
-            ->whereIn('status', ['pending', 'approved'])
-            ->first();
+            // Check if Balozi already has an account
+            if ($balozi->auth()->exists()) {
+                return redirect()->route('mwenyekiti.balozi.index')
+                    ->with('error', 'This Balozi already has an account.');
+            }
 
-        if ($existingRequest) {
+            // Check if request already exists
+            $existingRequest = BaloziAccountRequest::where('balozi_id', $balozi->id)
+                ->whereIn('status', ['pending', 'approved'])
+                ->first();
+
+            if ($existingRequest) {
+                return redirect()->route('mwenyekiti.balozi.index')
+                    ->with('error', 'An account request is already pending or approved for this Balozi.');
+            }
+
+            BaloziAccountRequest::create([
+                'balozi_id' => $balozi->id,
+                'mwenyekiti_id' => session('mwenyekiti_id'),
+                'status' => 'pending',
+                'requested_at' => now(),
+            ]);
+
             return redirect()->route('mwenyekiti.balozi.index')
-                ->with('error', 'An account request is already pending or approved for this Balozi.');
+                ->with('success', 'Account creation request submitted successfully.');
+            
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error submitting account request: ' . $e->getMessage());
         }
-
-        BaloziAccountRequest::create([
-            'balozi_id' => $balozi->id,
-            'mwenyekiti_id' => Auth::guard('mwenyekiti')->id(),
-            'status' => 'pending',
-        ]);
-
-        return redirect()->route('mwenyekiti.balozi.index')
-            ->with('success', 'Account creation request submitted successfully.');
     }
 }

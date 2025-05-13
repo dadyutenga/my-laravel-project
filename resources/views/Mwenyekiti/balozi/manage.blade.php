@@ -893,7 +893,12 @@
                                                 <div class="action-buttons">
                                                     <a href="{{ route('mwenyekiti.balozi.show', $b->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
                                                     <a href="{{ route('mwenyekiti.balozi.index', ['edit_id' => $b->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                    
+                                                    <form action="{{ route('mwenyekiti.balozi.request-account', $b->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-secondary btn-sm" title="Request Account">
+                                                            <i class="fas fa-user-plus"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>

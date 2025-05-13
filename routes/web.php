@@ -66,6 +66,10 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
         
         // Additional route for search
         Route::get('/balozi/search', [BaloziController::class, 'search'])->name('balozi.search');
+
+        // Add this new route for account requests
+        Route::post('/balozi/{balozi}/request-account', [BaloziController::class, 'requestAccount'])
+            ->name('balozi.request-account');
     });
 });
 
