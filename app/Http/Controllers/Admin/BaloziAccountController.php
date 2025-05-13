@@ -33,18 +33,6 @@ class BaloziAccountController extends Controller
         $accountRequest = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
             ->findOrFail($requestId);
 
-        // Check if Balozi already has an account
-        if ($accountRequest->balozi->auth()->exists()) {
-            return redirect()->route('admin.balozi.account.index')
-                ->with('error', 'Balozi already has an account.');
-        }
-
-        // Check if request is already processed
-        if ($accountRequest->status !== 'pending') {
-            return redirect()->route('admin.balozi.account.index')
-                ->with('error', 'This request has already been processed.');
-        }
-
         return view('admin.balozi.createbaloziacc', compact('accountRequest'));
     }
 

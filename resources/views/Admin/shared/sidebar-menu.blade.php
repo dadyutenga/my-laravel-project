@@ -38,17 +38,14 @@
                 <i class="fas fa-user menu-icon"></i>
                 <span class="menu-text">Manage Mwenyekiti Auth Accounts</span>
             </a>
+      
             <a href="{{ route('admin.balozi.manage') }}" class="menu-item {{ request()->routeIs('admin.balozi.manage') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-users-cog"></i></div>
                 <div class="menu-text">Manage Balozi</div>
             </a>
-            <a href="{{ route('admin.balozi.managebaloziacc') }}" class="menu-item {{ request()->routeIs('admin.balozi.managebaloziacc') ? 'active' : '' }}">
-                <div class="menu-icon"><i class="fas fa-list"></i></div>
-                <div class="menu-text">Manage Balozi Accounts</div>
-            </a>
-            <a href="{{ route('admin.balozi.createbaloziacc') }}" class="menu-item {{ request()->routeIs('admin.balozi.createbaloziacc') ? 'active' : '' }}">
+            <a href="{{ route('admin.balozi.account.index') }}" class="menu-item {{ request()->routeIs('admin.balozi.account.*') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
-                <div class="menu-text">Create Balozi Account</div>
+                <div class="menu-text">Balozi Account Requests</div>
             </a>
         </div>
 
