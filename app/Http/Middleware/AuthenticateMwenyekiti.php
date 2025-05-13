@@ -10,7 +10,7 @@ class AuthenticateMwenyekiti
     public function handle(Request $request, Closure $next)
     {
         if (!session('mwenyekiti_id') || !session('mwenyekiti_auth_id')) {
-            return redirect()->route('mwenyekiti.login');
+            return redirect()->route('login1');
         }
         return $next($request);
     }
