@@ -441,86 +441,147 @@
                     </div>
                 @endif
 
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Balozi Information</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="info-group">
-                            <label>Name</label>
-                            <p>{{ $accountRequest->balozi->first_name }} {{ $accountRequest->balozi->middle_name }} {{ $accountRequest->balozi->last_name }}</p>
+                @if(isset($accountRequest))
+                    <!-- Single Request View -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Balozi Information</h2>
                         </div>
-                        <div class="info-group">
-                            <label>Email</label>
-                            <p>{{ $accountRequest->balozi->email ?? 'N/A' }}</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Phone</label>
-                            <p>{{ $accountRequest->balozi->phone }}</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Request Status</label>
-                            <p>{{ ucfirst($accountRequest->status) }}</p>
-                        </div>
-                        <div class="info-group">
-                            <label>Requested At</label>
-                            <p>{{ $accountRequest->requested_at->format('M d, Y H:i') }}</p>
-                        </div>
-                        @if($accountRequest->processed_at)
+                        <div class="card-body">
                             <div class="info-group">
-                                <label>Processed At</label>
-                                <p>{{ $accountRequest->processed_at->format('M d, Y H:i') }}</p>
+                                <label>Name</label>
+                                <p>{{ $accountRequest->balozi->first_name }} {{ $accountRequest->balozi->middle_name }} {{ $accountRequest->balozi->last_name }}</p>
                             </div>
-                        @endif
-                        @if($accountRequest->admin_comments)
                             <div class="info-group">
-                                <label>Admin Comments</label>
-                                <p>{{ $accountRequest->admin_comments }}</p>
+                                <label>Email</label>
+                                <p>{{ $accountRequest->balozi->email ?? 'N/A' }}</p>
                             </div>
-                        @endif
+                            <div class="info-group">
+                                <label>Phone</label>
+                                <p>{{ $accountRequest->balozi->phone }}</p>
+                            </div>
+                            <div class="info-group">
+                                <label>Request Status</label>
+                                <p>{{ ucfirst($accountRequest->status) }}</p>
+                            </div>
+                            <div class="info-group">
+                                <label>Requested At</label>
+                                <p>{{ $accountRequest->requested_at->format('M d, Y H:i') }}</p>
+                            </div>
+                            @if($accountRequest->processed_at)
+                                <div class="info-group">
+                                    <label>Processed At</label>
+                                    <p>{{ $accountRequest->processed_at->format('M d, Y H:i') }}</p>
+                                </div>
+                            @endif
+                            @if($accountRequest->admin_comments)
+                                <div class="info-group">
+                                    <label>Admin Comments</label>
+                                    <p>{{ $accountRequest->admin_comments }}</p>
+                                </div>
+                            @endif
+                        </div>
                     </div>
-                </div>
 
-                @if($accountRequest->status === 'pending')
-                    <div class="form-container">
-                        <form action="{{ route('admin.balozi.account.process-request', $accountRequest->id) }}" method="POST">
-                            @csrf
-                            <div class="card">
-                                <div class="card-header">
-                                    <h2 class="card-title">Create Account</h2>
+                    @if($accountRequest->status === 'pending')
+                        <div class="form-container">
+                            <form action="{{ route('admin.balozi.account.process-request', $accountRequest->id) }}" method="POST">
+                                @csrf
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2 class="card-title">Create Account</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" required>
+                                            @error('username')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="text" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="admin_comments">Comments</label>
+                                            <textarea name="admin_comments" id="admin_comments" class="form-control" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-user-plus"></i> Create Account
+                                            </button>
+                                            <a href="{{ route('admin.balozi.account.requests') }}" class="btn btn-secondary">
+                                                <i class="fas fa-arrow-left"></i> Back to Requests
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
-                                        @error('username')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="text" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
-                                        @error('password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="admin_comments">Comments</label>
-                                        <textarea name="admin_comments" id="admin_comments" class="form-control @error('admin_comments') is-invalid @enderror" rows="4">{{ old('admin_comments') }}</textarea>
-                                        @error('admin_comments')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" name="action" value="approve" class="btn btn-primary"><i class="fas fa-save"></i> Create Account</button>
-                                        <a href="{{ route('admin.balozi-auth.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    @endif
                 @else
-                    <a href="{{ route('admin.balozi-auth.index') }}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to List</a>
+                    <!-- Requests List View -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Account Requests</h2>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Balozi Name</th>
+                                        <th>Requested By</th>
+                                        <th>Status</th>
+                                        <th>Requested At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($requests as $request)
+                                        <tr>
+                                            <td>
+                                                <div class="user-info">
+                                                    <div class="user-name">
+                                                        {{ $request->balozi->first_name }} 
+                                                        {{ $request->balozi->middle_name }} 
+                                                        {{ $request->balozi->last_name }}
+                                                    </div>
+                                                    <div class="user-email">{{ $request->balozi->email }}</div>
+                                                </div>
+                                            </td>
+                                            <td>{{ $request->mwenyekiti->name }}</td>
+                                            <td>
+                                                <span class="badge {{ $request->status === 'pending' ? 'badge-warning' : ($request->status === 'approved' ? 'badge-success' : 'badge-danger') }}">
+                                                    {{ ucfirst($request->status) }}
+                                                </span>
+                                            </td>
+                                            <td>{{ $request->requested_at->format('M d, Y H:i') }}</td>
+                                            <td>
+                                                @if($request->status === 'pending')
+                                                    <a href="{{ route('admin.balozi.account.show-request', $request->id) }}" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-eye"></i> View
+                                                    </a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @if(isset($requests))
+                                <div class="pagination">
+                                    {{ $requests->links() }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
