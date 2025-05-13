@@ -22,6 +22,7 @@ class BaloziAccountController extends Controller
     // For managing existing Balozi auth accounts
     public function index()
     {
+        // For managing existing accounts
         $baloziAccounts = BaloziAuth::with('balozi')->latest()->paginate(10);
         return view('admin.balozi.managebaloziacc', compact('baloziAccounts'));
     }
@@ -29,6 +30,7 @@ class BaloziAccountController extends Controller
     // For viewing account creation requests
     public function accountRequests()
     {
+        // For viewing account requests
         $requests = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
             ->latest()
             ->paginate(10);

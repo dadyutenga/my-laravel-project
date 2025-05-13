@@ -108,14 +108,17 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
             // Balozi Account Management Routes
-            Route::get('/balozi/accounts/requests', [BaloziAccountController::class, 'index'])->name('balozi.account.index');
-            Route::get('/balozi/accounts/requests/{requestId}/create', [BaloziAccountController::class, 'create'])->name('balozi.account.create');
-            Route::post('/balozi/accounts/requests/{requestId}', [BaloziAccountController::class, 'store'])->name('balozi.account.store');
-            Route::post('/balozi/accounts/requests/{requestId}/reject', [BaloziAccountController::class, 'reject'])->name('balozi.account.reject');
-            Route::get('/balozi/accounts/requests/{requestId}', [BaloziAccountController::class, 'show'])->name('balozi.account.show');
-            Route::get('/balozi/accounts/manage', [BaloziAccountController::class, 'manageAccounts'])->name('balozi.account.manage');
-            Route::patch('/balozi/accounts/{id}/password', [BaloziAccountController::class, 'updatePassword'])->name('balozi.account.update-password');
-            Route::patch('/balozi/accounts/{id}/toggle-status', [BaloziAccountController::class, 'toggleStatus'])->name('balozi.account.toggle-status');
+            Route::prefix('balozi/accounts')->name('balozi.account.')->group(function () {
+                // For viewing and managing existing accounts
+                Route::get('/manage', [BaloziAccountController::class, 'index'])->name('manage');
+                Route::patch('/{id}/password', [BaloziAccountController::class, 'updatePassword'])->name('update-password');
+                Route::patch('/{id}/toggle-status', [BaloziAccountController::class, 'toggleStatus'])->name('toggle-status');
+                
+                // For handling account requests
+                Route::get('/requests', [BaloziAccountController::class, 'accountRequests'])->name('requests');
+                Route::get('/requests/{requestId}', [BaloziAccountController::class, 'showRequest'])->name('show-request');
+                Route::post('/requests/{requestId}/process', [BaloziAccountController::class, 'processRequest'])->name('process-request');
+            });
         });
     });
 

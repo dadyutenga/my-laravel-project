@@ -406,7 +406,7 @@
                             <a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Home</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="{{ route('admin.balozi-auth.index') }}" class="breadcrumb-link">Account Requests</a>
+                            <a href="{{ route('admin.balozi.account.requests') }}" class="breadcrumb-link">Account Requests</a>
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Create Account</span>
@@ -483,7 +483,7 @@
 
                 @if($accountRequest->status === 'pending')
                     <div class="form-container">
-                        <form action="{{ route('admin.balozi-auth.process', $accountRequest->id) }}" method="POST">
+                        <form action="{{ route('admin.balozi.account.process-request', $accountRequest->id) }}" method="POST">
                             @csrf
                             <div class="card">
                                 <div class="card-header">

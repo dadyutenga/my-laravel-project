@@ -40,7 +40,7 @@
             </a>
       
           
-            <a href="{{ route('admin.balozi.account.index') }}" class="menu-item {{ request()->routeIs('admin.balozi.account.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.balozi.account.requests') }}" class="menu-item {{ request()->routeIs('admin.balozi.account.requests') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
                 <div class="menu-text">Account Requests</div>
             </a>
