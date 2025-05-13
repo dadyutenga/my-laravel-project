@@ -893,11 +893,7 @@
                                                 <div class="action-buttons">
                                                     <a href="{{ route('mwenyekiti.balozi.show', $b->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
                                                     <a href="{{ route('mwenyekiti.balozi.index', ['edit_id' => $b->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <form action="{{ route('mwenyekiti.balozi.destroy', $b->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this Balozi?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                                    </form>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>
