@@ -108,10 +108,14 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
             // Balozi Account Management Routes
-            Route::get('/balozi/accounts', [BaloziAccountController::class, 'index'])->name('balozi.account.index');
-            Route::get('/balozi/accounts/{requestId}/create', [BaloziAccountController::class, 'create'])->name('balozi.account.create');
-            Route::post('/balozi/accounts/{requestId}', [BaloziAccountController::class, 'store'])->name('balozi.account.store');
-            Route::post('/balozi/accounts/{requestId}/reject', [BaloziAccountController::class, 'reject'])->name('balozi.account.reject');
+            Route::get('/balozi/accounts/requests', [BaloziAccountController::class, 'index'])->name('balozi.account.index');
+            Route::get('/balozi/accounts/requests/{requestId}/create', [BaloziAccountController::class, 'create'])->name('balozi.account.create');
+            Route::post('/balozi/accounts/requests/{requestId}', [BaloziAccountController::class, 'store'])->name('balozi.account.store');
+            Route::post('/balozi/accounts/requests/{requestId}/reject', [BaloziAccountController::class, 'reject'])->name('balozi.account.reject');
+            Route::get('/balozi/accounts/requests/{requestId}', [BaloziAccountController::class, 'show'])->name('balozi.account.show');
+            Route::get('/balozi/accounts/manage', [BaloziAccountController::class, 'manageAccounts'])->name('balozi.account.manage');
+            Route::patch('/balozi/accounts/{id}/password', [BaloziAccountController::class, 'updatePassword'])->name('balozi.account.update-password');
+            Route::patch('/balozi/accounts/{id}/toggle-status', [BaloziAccountController::class, 'toggleStatus'])->name('balozi.account.toggle-status');
         });
     });
 

@@ -19,16 +19,25 @@ class BaloziAccountController extends Controller
         view()->share('pendingRequests', $pendingRequests);
     }
 
+    // For managing existing Balozi auth accounts
     public function index()
+    {
+        $baloziAccounts = BaloziAuth::with('balozi')->latest()->paginate(10);
+        return view('admin.balozi.managebaloziacc', compact('baloziAccounts'));
+    }
+
+    // For viewing account creation requests
+    public function accountRequests()
     {
         $requests = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
             ->latest()
             ->paginate(10);
 
-        return view('admin.balozi.managebaloziacc', compact('requests'));
+        return view('admin.balozi.createbaloziacc', compact('requests'));
     }
 
-    public function create($requestId)
+    // View specific account request
+    public function showRequest($requestId)
     {
         $accountRequest = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
             ->findOrFail($requestId);
@@ -36,7 +45,8 @@ class BaloziAccountController extends Controller
         return view('admin.balozi.createbaloziacc', compact('accountRequest'));
     }
 
-    public function store(Request $request, $requestId)
+    // Process account creation request
+    public function processRequest(Request $request, $requestId)
     {
         try {
             $accountRequest = BaloziAccountRequest::with('balozi')
@@ -74,7 +84,7 @@ class BaloziAccountController extends Controller
                 'admin_comments' => $request->input('admin_comments'),
             ]);
 
-            return redirect()->route('admin.balozi.account.index')
+            return redirect()->route('admin.balozi.account.requests')
                 ->with('success', 'Balozi account created successfully.');
 
         } catch (\Exception $e) {
@@ -84,36 +94,38 @@ class BaloziAccountController extends Controller
         }
     }
 
-    public function reject(Request $request, $requestId)
+    // Update existing account password
+    public function updatePassword(Request $request, $id)
     {
         try {
-            $accountRequest = BaloziAccountRequest::findOrFail($requestId);
-
-            // Check if request is already processed
-            if ($accountRequest->status !== 'pending') {
-                return back()->with('error', 'This request has already been processed.');
-            }
-
-            // Update request status
-            $accountRequest->update([
-                'status' => 'rejected',
-                'processed_at' => now(),
-                'admin_comments' => $request->input('admin_comments'),
+            $validated = $request->validate([
+                'password' => 'required|string|min:8',
             ]);
 
-            return redirect()->route('admin.balozi.account.index')
-                ->with('success', 'Account request rejected successfully.');
+            $baloziAuth = BaloziAuth::findOrFail($id);
+            $baloziAuth->update([
+                'password' => Hash::make($validated['password'])
+            ]);
 
+            return back()->with('success', 'Password updated successfully.');
         } catch (\Exception $e) {
-            return back()->with('error', 'Error rejecting request: ' . $e->getMessage());
+            return back()->with('error', 'Error updating password: ' . $e->getMessage());
         }
     }
 
-    public function show($requestId)
+    // Toggle account status (activate/deactivate)
+    public function toggleStatus($id)
     {
-        $accountRequest = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
-            ->findOrFail($requestId);
+        try {
+            $baloziAuth = BaloziAuth::findOrFail($id);
+            $baloziAuth->update([
+                'is_active' => !$baloziAuth->is_active
+            ]);
 
-        return view('admin.balozi.createbaloziacc', compact('accountRequest'));
+            $status = $baloziAuth->is_active ? 'activated' : 'deactivated';
+            return back()->with('success', "Account {$status} successfully.");
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error updating status: ' . $e->getMessage());
+        }
     }
 }
