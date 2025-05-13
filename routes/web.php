@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Mwenyekiti\BaloziController;
+use App\Http\Controllers\Admin\BaloziAccountController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -105,6 +106,22 @@ Route::middleware('auth:admin')->group(function () {
             
             // Profile Routes
             Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+            // Balozi Account Request routes
+            Route::get('/balozi-accounts', [BaloziAccountController::class, 'index'])
+                ->name('balozi.account.index');
+            Route::get('/balozi-accounts/{request}', [BaloziAccountController::class, 'show'])
+                ->name('balozi.account.show');
+            Route::get('/balozi-accounts/{request}/create', [BaloziAccountController::class, 'create'])
+                ->name('balozi.account.create');
+            Route::post('/balozi-accounts/{request}', [BaloziAccountController::class, 'store'])
+                ->name('balozi.account.store');
+            Route::post('/balozi-accounts/{request}/reject', [BaloziAccountController::class, 'reject'])
+                ->name('balozi.account.reject');
+
+            // Balozi Account Management Routes
+            Route::get('/balozi/accounts/manage', [BaloziAccountController::class, 'manageBalozi'])->name('balozi.managebaloziacc');
+            Route::get('/balozi/accounts/create', [BaloziAccountController::class, 'createBalozi'])->name('balozi.createbaloziacc');
         });
     });
 
