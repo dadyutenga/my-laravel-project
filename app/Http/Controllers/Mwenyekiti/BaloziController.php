@@ -20,6 +20,13 @@ class BaloziController extends Controller
     public function store(Request $request)
     {
         try {
+            // First check if mwenyekiti is authenticated
+            $mwenyekitiId = session('mwenyekiti_id');
+            
+            if (!$mwenyekitiId) {
+                throw new \Exception('Unauthorized. Please login again.');
+            }
+
             $validated = $request->validate([
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
@@ -36,8 +43,8 @@ class BaloziController extends Controller
                 'is_active' => 'required|boolean',
             ]);
 
-            // Add mwenyekiti_id from authenticated user
-            $validated['mwenyekiti_id'] = auth()->id();
+            // Add mwenyekiti_id from session
+            $validated['mwenyekiti_id'] = $mwenyekitiId;
 
             if ($request->hasFile('photo')) {
                 $photoPath = $request->file('photo')->store('balozi/photos', 'public');
@@ -59,7 +66,9 @@ class BaloziController extends Controller
     // List Balozi (only those created by the authenticated Mwenyekiti)
     public function index()
     {
-        $balozi = Balozi::where('mwenyekiti_id', auth()->id())
+        $mwenyekitiId = session('mwenyekiti_id');
+        
+        $balozi = Balozi::where('mwenyekiti_id', $mwenyekitiId)
                         ->latest()
                         ->paginate(10);
 
@@ -70,7 +79,7 @@ class BaloziController extends Controller
     public function show(Balozi $balozi)
     {
         // Check if the authenticated Mwenyekiti owns this Balozi
-        if ($balozi->mwenyekiti_id !== auth()->id()) {
+        if ($balozi->mwenyekiti_id !== session('mwenyekiti_id')) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -81,7 +90,7 @@ class BaloziController extends Controller
     public function edit(Balozi $balozi)
     {
         // Check if the authenticated Mwenyekiti owns this Balozi
-        if ($balozi->mwenyekiti_id !== auth()->id()) {
+        if ($balozi->mwenyekiti_id !== session('mwenyekiti_id')) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -92,7 +101,7 @@ class BaloziController extends Controller
     public function update(Request $request, Balozi $balozi)
     {
         // Check if the authenticated Mwenyekiti owns this Balozi
-        if ($balozi->mwenyekiti_id !== auth()->id()) {
+        if ($balozi->mwenyekiti_id !== session('mwenyekiti_id')) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -136,7 +145,7 @@ class BaloziController extends Controller
     {
         $search = $request->get('search');
 
-        $balozi = Balozi::where('mwenyekiti_id', auth()->id())
+        $balozi = Balozi::where('mwenyekiti_id', session('mwenyekiti_id'))
             ->where(function($query) use ($search) {
                 $query->where('first_name', 'like', "%{$search}%")
                     ->orWhere('middle_name', 'like', "%{$search}%")
