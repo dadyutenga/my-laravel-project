@@ -16,7 +16,7 @@
                 <span class="menu-text">Dashboard</span>
             </a>
             <div class="menu-section">
-                <h3 class="menu-title">Balozi Management</h3>
+                
                 <div class="menu-items">
                     <a href="{{ route('mwenyekiti.balozi.create') }}" class="menu-item {{ Request::routeIs('mwenyekiti.balozi.create') ? 'active' : '' }}">
                         <i class="fas fa-user-plus menu-icon"></i>
