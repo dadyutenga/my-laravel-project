@@ -51,7 +51,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
+        /* Sidebar - Exactly matches previous views */
         .sidebar {
             width: var(--sidebar-width);
             background-color: white;
@@ -138,6 +138,82 @@
             transform: rotate(180deg);
         }
 
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            margin: 2px 0;
+        }
+
+        .menu-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
         /* Main Content */
         .main-content {
             flex: 1;
@@ -150,7 +226,7 @@
             margin-left: var(--sidebar-collapsed-width);
         }
 
-        /* Header */
+        /* Dashboard Header */
         .dashboard-header {
             background-color: white;
             border-radius: var(--radius-md);
@@ -335,11 +411,49 @@
             color: var(--text-muted);
         }
 
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .mobile-menu-toggle:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                width: var(--sidebar-collapsed-width);
-                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
+                transform: translateX(-100%);
             }
 
             .sidebar.collapsed {
@@ -351,17 +465,8 @@
                 padding: 20px 15px;
             }
 
-            .sidebar.collapsed ~ .main-content {
-                margin-left: 0;
-            }
-
-            .sidebar-toggle {
-                right: -30px;
-                transform: rotate(180deg);
-            }
-
-            .sidebar.collapsed .sidebar-toggle {
-                transform: rotate(0);
+            .mobile-menu-toggle {
+                display: flex;
             }
 
             .dashboard-header {
@@ -384,52 +489,23 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Mobile menu */
-        .mobile-menu-toggle {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                margin-right: 15px;
-            }
-        }
-
-        /* Overlay */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        @media (min-width: 769px) {
-            .sidebar-overlay {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-        @include('Admin.shared.sidebar-menu')
+        <!-- Sidebar - Same as previous views -->
+        @include('Balozi.shared.sidebar-menu')
+        
+        <!-- Main Content -->
         <div class="main-content">
             <!-- Dashboard Header -->
             <div class="dashboard-header">
-                <h1 class="dashboard-title">Balozi Dashboard</h1>
+                <div class="header-left">
+                    <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <h1 class="dashboard-title">Balozi Dashboard</h1>
+                </div>
                 <div class="user-profile">
                     <div class="user-avatar">
                         {{ substr(auth()->user()->name ?? 'B', 0, 1) }}
@@ -535,9 +611,12 @@
         </div>
     </div>
 
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay"></div>
+
     <script>
-        // Mobile menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle functionality
             const mobileToggle = document.getElementById('mobile-menu-toggle');
             if (mobileToggle) {
                 mobileToggle.addEventListener('click', function() {

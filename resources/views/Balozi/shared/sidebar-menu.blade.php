@@ -1,95 +1,73 @@
-<aside id="sidebar" class="sidebar">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="logo">
             <div class="logo-icon">B</div>
-            <span class="logo-text">Balozi Dashboard</span>
+            <div class="logo-text">Balozi Dashboard</div>
+        </div>
+        <div class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-chevron-left"></i>
         </div>
     </div>
-    <nav class="sidebar-nav">
-        <ul class="nav-list">
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span class="nav-text">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-user"></i>
-                    <span class="nav-text">Profile</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-file-alt"></i>
-                    <span class="nav-text">Request  Services</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-envelope"></i>
-                    <span class="nav-text">Request  Meetings </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    <span class="nav-text">Community</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Register  Kaya  Maskini</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Register Watu</span>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Tuma  Malalamiko</span>
-                </a>
-            </li>
+    <div class="sidebar-menu">
+        <div class="menu-section">
+            <div class="menu-section-title">Main</div>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <div class="menu-text">Dashboard</div>
+            </a>
+        </div>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Request  fomu ya  Udhamini</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Register Mahitaji  maalumu </span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-text">Write  Mapendekexo  ya  leo </span>
-                </a>
-            </li>
+        <div class="menu-section">
+            <div class="menu-section-title">User Panel</div>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-user"></i></div>
+                <div class="menu-text">Request  fomu ya  Udhamini</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Request Services</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Request Meetings</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Register  Kaya  Maskini</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Tuma Malalamiko</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Register Watu</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Register Mahitaji  maalumu </div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="menu-text">Write  Mapendekexo  ya  leo</div>
+            </a>
 
 
 
+        </div>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="nav-text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <button id="sidebar-toggle" class="sidebar-toggle">
-        <i class="fas fa-chevron-left"></i>
-    </button>
+        <div class="menu-section">
+            <div class="menu-section-title">Settings</div>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Preferences</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">Logout</div>
+            </a>
+        </div>
+    </div>
 </aside>
