@@ -605,7 +605,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($requests as $account)
+                                @foreach($baloziAccounts as $account)
                                     <tr>
                                         <td>
                                             <div class="user-info">
@@ -652,7 +652,7 @@
                             </tbody>
                         </table>
                         <div class="pagination">
-                            {{ $requests->links() }}
+                            {{ $baloziAccounts->links() }}
                         </div>
                     </div>
                 </div>

@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Balozi Account | InUse System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Create Balozi Account</title>
     <style>
         :root {
-            --primary-color: #3b82f6; /* Blue */
-            --primary-hover: #2563eb;
-            --primary-light: rgba(59, 130, 246, 0.1);
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
@@ -18,15 +16,17 @@
             --error-color: #ef4444;
             --success-color: #10b981;
             --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
+            --header-height: 70px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --radius-sm: 0.25rem;
             --radius-md: 0.375rem;
             --radius-lg: 0.5rem;
-            --transition: all 0.3s ease;
-            --sidebar-width: 250px;
-            --sidebar-collapsed-width: 70px;
-            --header-height: 60px;
+            --transition: all 0.4s ease;
         }
 
         * {
@@ -40,6 +40,7 @@
             background-color: #f5f7fa;
             color: var(--text-color);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .dashboard-container {
@@ -55,7 +56,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            transition: var(--transition);
+            z-index: 100;
+            transition: width 0.4s ease, transform 0.4s ease;
             box-shadow: var(--shadow-sm);
         }
 
@@ -65,34 +67,43 @@
 
         .sidebar-header {
             height: var(--header-height);
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-color);
             font-weight: 700;
             font-size: 18px;
-            color: var(--text-color);
+            transition: var(--transition);
         }
 
         .logo-icon {
-            width: 30px;
-            height: 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: scale(1.1);
         }
 
         .logo-text {
             transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .sidebar.collapsed .logo-text {
@@ -102,7 +113,7 @@
 
         .sidebar-toggle {
             position: absolute;
-            top: 18px;
+            top: 20px;
             right: -12px;
             width: 24px;
             height: 24px;
@@ -113,8 +124,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 10;
             border: 2px solid white;
-            box-shadow: var(--shadow-sm);
+            transition: var(--transition), transform 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            transform: scale(1.1);
         }
 
         .sidebar-toggle i {
@@ -124,6 +141,78 @@
 
         .sidebar.collapsed .sidebar-toggle i {
             transform: rotate(180deg);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition), background-color 0.2s ease;
+            position: relative;
+            margin: 2px 0;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+            animation-delay: calc(var(--index) * 0.1s);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-item:hover {
+            background-color: rgba(79, 70, 229, 0.15);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: inset 0 0 5px rgba(79, 70, 229, 0.2);
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover .menu-icon {
+            transform: scale(1.2);
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
         }
 
         .main-content {
@@ -143,7 +232,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 30px;
             position: sticky;
             top: 0;
             z-index: 99;
@@ -153,7 +242,6 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
 
         .page-title {
@@ -164,8 +252,14 @@
         .breadcrumb {
             display: flex;
             align-items: center;
-            gap: 5px;
+            margin-left: 20px;
+            color: var(--text-muted);
             font-size: 14px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
         }
 
         .breadcrumb-item:not(:last-child)::after {
@@ -177,6 +271,7 @@
         .breadcrumb-link {
             color: var(--text-muted);
             text-decoration: none;
+            transition: var(--transition);
         }
 
         .breadcrumb-link:hover {
@@ -191,15 +286,17 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .user-profile {
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
             padding: 5px;
             border-radius: var(--radius-md);
+            transition: var(--transition);
         }
 
         .user-profile:hover {
@@ -207,8 +304,8 @@
         }
 
         .user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background-color: var(--primary-light);
             color: var(--primary-color);
@@ -235,42 +332,22 @@
         }
 
         .dashboard-content {
-            padding: 20px;
+            padding: 30px;
         }
 
-        .card {
-            background-color: white;
-            border-radius: var(--radius-md);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 600;
             margin-bottom: 20px;
         }
 
-        .card-header {
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .info-group {
-            margin-bottom: 15px;
-        }
-
-        .info-group label {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .info-group p {
-            font-size: 14px;
-            margin: 0;
+        .form-container {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
         }
 
         .form-group {
@@ -278,18 +355,19 @@
         }
 
         .form-group label {
+            display: block;
             font-size: 14px;
             font-weight: 500;
             margin-bottom: 5px;
-            display: block;
         }
 
         .form-control {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             font-size: 14px;
+            transition: var(--transition);
         }
 
         .form-control:focus {
@@ -308,24 +386,8 @@
             margin-top: 5px;
         }
 
-        .textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px var(--primary-light);
-        }
-
         .btn {
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: var(--radius-md);
             font-size: 14px;
             font-weight: 500;
@@ -349,173 +411,165 @@
         .btn-secondary {
             background-color: var(--secondary-color);
             color: var(--text-color);
-            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
             background-color: var(--border-color);
         }
 
-        .alert {
-            padding: 12px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-        }
-
-        .alert-success {
-            background-color: #d1fae5;
-            color: var(--success-color);
-        }
-
-        .alert-danger {
-            background-color: #fee2e2;
-            color: var(--error-color);
-        }
-
         .table {
             width: 100%;
             border-collapse: collapse;
+            background-color: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .table th,
         .table td {
-            padding: 12px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
+            font-size: 14px;
         }
 
         .table th {
             background-color: var(--secondary-color);
-            font-weight: 600;
-            font-size: 14px;
             color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 12px;
         }
 
         .table td {
-            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
         }
 
         .table tr:hover {
             background-color: var(--primary-light);
         }
 
-        .badge {
-            padding: 4px 8px;
-            border-radius: var(--radius-sm);
+        .status-badge {
+            padding: 2px 8px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 500;
-            display: inline-block;
         }
 
-        .badge-warning {
-            background-color: #fef3c7;
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
             color: var(--warning-color);
         }
 
-        .badge-success {
-            background-color: #d1fae5;
+        .status-approved {
+            background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
         }
 
-        .badge-danger {
-            background-color: #fee2e2;
+        .status-rejected {
+            background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .pagination a {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
+        .alert {
+            padding: 15px;
             border-radius: var(--radius-md);
-            text-decoration: none;
-            color: var(--text-color);
-            font-size: 14px;
-            transition: var(--transition);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .pagination a:hover {
-            background-color: var(--primary-light);
-            border-color: var(--primary-color);
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
         }
 
-        .pagination .active a {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
         }
 
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
+                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
             }
 
             .sidebar.collapsed {
-                width: var(--sidebar-width);
+                transform: translateX(0);
             }
 
             .main-content {
-                margin-left: var(--sidebar-collapsed-width);
+                margin-left: 0;
             }
 
             .sidebar.collapsed ~ .main-content {
-                margin-left: var(--sidebar-width);
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                right: -30px;
+                transform: rotate(180deg);
+            }
+
+            .sidebar.collapsed .sidebar-toggle {
+                transform: rotate(0);
+            }
+
+            .header {
+                padding: 0 15px;
             }
 
             .breadcrumb {
                 display: none;
             }
 
+            .dashboard-content {
+                padding: 20px 15px;
+            }
+
             .user-info {
                 display: none;
             }
+        }
 
-            .dashboard-content {
-                padding: 15px;
-            }
-
-            .table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
+        <!-- Sidebar -->
         @include('Admin.shared.sidebar-menu')
-        
+
+        <!-- Main Content -->
         <div class="main-content">
+            <!-- Header -->
             <header class="header">
                 <div class="header-left">
-                    <h1 class="page-title">Create Balozi Account</h1>
-                    <div class="breadcrumb">
+                    <h2 class="page-title">Create Balozi Account</h2>
+                    <nav class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="#" class="breadcrumb-link">Home</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="{{ route('admin.balozi.account.requests') }}" class="breadcrumb-link">Balozi Account Requests</a>
+                            <a href="#" class="breadcrumb-link">Balozi Account Requests</a>
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Create Account</span>
                         </div>
-                    </div>
+                    </nav>
                 </div>
                 <div class="header-right">
                     <div class="user-profile">
@@ -523,66 +577,63 @@
                             {{ strtoupper(substr($admin->name ?? 'Admin', 0, 2)) }}
                         </div>
                         <div class="user-info">
-                            <div class="user-name">{{ $admin->name ?? 'Admin' }}</div>
-                            <div class="user-role">{{ ucfirst($admin->role ?? 'Admin') }}</div>
+                            <span class="user-name">{{ $admin->name ?? 'Admin' }}</span>
+                            <span class="user-role">{{ ucfirst($admin->role ?? 'Admin') }}</span>
                         </div>
                     </div>
                 </div>
             </header>
 
+            <!-- Dashboard Content -->
             <div class="dashboard-content">
                 @if (session('success'))
                     <div class="alert alert-success">
-                        <i class="fas fa-check"></i>
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger">
-                        <i class="fas fa-times"></i>
                         {{ session('error') }}
                     </div>
                 @endif
 
                 @if(isset($accountRequest))
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Balozi Information</h2>
-                        </div>
-                        <div class="card-body">
-                            <div class="info-group">
+                    <div class="form-container">
+                        <h2 class="dashboard-title">Balozi Information</h2>
+                        <div class="form-row">
+                            <div class="form-group">
                                 <label>Name</label>
                                 <p>{{ $accountRequest->balozi->first_name }} {{ $accountRequest->balozi->middle_name }} {{ $accountRequest->balozi->last_name }}</p>
                             </div>
-                            <div class="info-group">
+                            <div class="form-group">
                                 <label>Email</label>
                                 <p>{{ $accountRequest->balozi->email ?? 'N/A' }}</p>
                             </div>
-                            <div class="info-group">
+                            <div class="form-group">
                                 <label>Phone</label>
                                 <p>{{ $accountRequest->balozi->phone }}</p>
                             </div>
-                            <div class="info-group">
+                            <div class="form-group">
                                 <label>Request Status</label>
                                 <p>
-                                    <span class="badge {{ $accountRequest->status === 'pending' ? 'badge-warning' : ($accountRequest->status === 'approved' ? 'badge-success' : 'badge-danger') }}">
+                                    <span class="status-badge {{ $accountRequest->status === 'approved' ? 'status-approved' : ($accountRequest->status === 'pending' ? 'status-pending' : 'status-rejected') }}">
                                         {{ ucfirst($accountRequest->status) }}
                                     </span>
                                 </p>
                             </div>
-                            <div class="info-group">
+                            <div class="form-group">
                                 <label>Requested At</label>
                                 <p>{{ $accountRequest->requested_at->format('M d, Y H:i') }}</p>
                             </div>
                             @if($accountRequest->processed_at)
-                                <div class="info-group">
+                                <div class="form-group">
                                     <label>Processed At</label>
                                     <p>{{ $accountRequest->processed_at->format('M d, Y H:i') }}</p>
                                 </div>
                             @endif
                             @if($accountRequest->admin_comments)
-                                <div class="info-group">
+                                <div class="form-group">
                                     <label>Admin Comments</label>
                                     <p>{{ $accountRequest->admin_comments }}</p>
                                 </div>
@@ -591,53 +642,46 @@
                     </div>
 
                     @if($accountRequest->status === 'pending')
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="card-title">Create Account</h2>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ route('admin.balozi.account.process-request', $accountRequest->id) }}" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
-                                        @error('username')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
-                                        @error('password')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="admin_comments">Comments</label>
-                                        <textarea name="admin_comments" id="admin_comments" class="textarea @error('admin_comments') is-invalid @enderror">{{ old('admin_comments') }}</textarea>
-                                        @error('admin_comments')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group action-buttons">
-                                        <button type="submit" name="action" value="approve" class="btn btn-primary"><i class="fas fa-save"></i> Create Account</button>
-                                        <a href="{{ route('admin.balozi.account.requests') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Requests</a>
-                                    </div>
-                                </form>
-                            </div>
+                        <div class="form-container">
+                            <h2 class="dashboard-title">Create Account</h2>
+                            <form method="POST" class="form-row">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" name="username" id="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror">
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin_comments">Comments</label>
+                                    <textarea name="admin_comments" id="admin_comments" rows="4" class="form-control @error('admin_comments') is-invalid @enderror">{{ old('admin_comments') }}</textarea>
+                                    @error('admin_comments')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Create Account</button>
+                                    <a href="#" class="btn btn-secondary">Back to Requests</a>
+                                </div>
+                            </form>
                         </div>
                     @endif
                 @else
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Account Requests</h2>
-                        </div>
-                        <div class="card-body">
+                    <div class="form-container">
+                        <h2 class="dashboard-title">Account Requests</h2>
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Balozi Name</th>
-                                        <th>Requested By</th>
                                         <th>Status</th>
                                         <th>Requested At</th>
                                         <th>Actions</th>
@@ -647,53 +691,37 @@
                                     @foreach($requests as $request)
                                         <tr>
                                             <td>
-                                                <div class="user-info">
-                                                    <div class="user-name">
-                                                        {{ $request->balozi->first_name }} 
-                                                        {{ $request->balozi->middle_name }} 
-                                                        {{ $request->balozi->last_name }}
-                                                    </div>
-                                                    <div class="user-email">{{ $request->balozi->email }}</div>
-                                                </div>
+                                                {{ $request->balozi->first_name }} 
+                                                {{ $request->balozi->middle_name }} 
+                                                {{ $request->balozi->last_name }}
+                                                <br>
+                                                <span style="color: var(--text-muted); font-size: 12px;">{{ $request->balozi->email }}</span>
                                             </td>
-                                            <td>{{ $request->mwenyekiti->name }}</td>
                                             <td>
-                                                <span class="badge {{ $request->status === 'pending' ? 'badge-warning' : ($request->status === 'approved' ? 'badge-success' : 'badge-danger') }}">
+                                                <span class="status-badge {{ $request->status === 'approved' ? 'status-approved' : ($request->status === 'pending' ? 'status-pending' : 'status-rejected') }}">
                                                     {{ ucfirst($request->status) }}
                                                 </span>
                                             </td>
                                             <td>{{ $request->requested_at->format('M d, Y H:i') }}</td>
                                             <td>
                                                 @if($request->status === 'pending')
-                                                    <a href="{{ route('admin.balozi.account.show-request', $request->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> View</a>
+                                                    <a href="#" class="btn btn-primary" style="padding: 5px 10px;">View</a>
                                                 @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            @if(isset($requests))
-                                <div class="pagination">
-                                    {{ $requests->links() }}
-                                </div>
-                            @endif
                         </div>
+                        @if(isset($requests))
+                            <div style="margin-top: 20px;">
+                                {{ $requests->links() }}
+                            </div>
+                        @endif
                     </div>
                 @endif
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            if (sidebar && sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('collapsed');
-                });
-            }
-        });
-    </script>
 </body>
 </html>
