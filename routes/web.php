@@ -110,6 +110,7 @@ Route::middleware('auth:admin')->group(function () {
             // Balozi Account Management Routes
             Route::prefix('balozi/accounts')->name('balozi.account.')->group(function () {
                 // For viewing and managing existing accounts
+                Route::get('/', [BaloziAccountController::class, 'index'])->name('index');
                 Route::get('/manage', [BaloziAccountController::class, 'index'])->name('manage');
                 Route::patch('/{id}/password', [BaloziAccountController::class, 'updatePassword'])->name('update-password');
                 Route::patch('/{id}/toggle-status', [BaloziAccountController::class, 'toggleStatus'])->name('toggle-status');
