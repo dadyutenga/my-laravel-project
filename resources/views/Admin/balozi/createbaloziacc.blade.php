@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Balozi Account</title>
+    <title>Create Balozi Account | Prototype System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4f46e5;
@@ -26,7 +28,7 @@
             --radius-sm: 0.25rem;
             --radius-md: 0.375rem;
             --radius-lg: 0.5rem;
-            --transition: all 0.4s ease;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -43,11 +45,13 @@
             overflow-x: hidden;
         }
 
+        /* Layout */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background-color: white;
@@ -57,7 +61,7 @@
             top: 0;
             left: 0;
             z-index: 100;
-            transition: width 0.4s ease, transform 0.4s ease;
+            transition: var(--transition);
             box-shadow: var(--shadow-sm);
         }
 
@@ -93,11 +97,6 @@
             color: white;
             border-radius: var(--radius-sm);
             font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover .logo-icon {
-            transform: scale(1.1);
         }
 
         .logo-text {
@@ -127,11 +126,7 @@
             box-shadow: var(--shadow-md);
             z-index: 10;
             border: 2px solid white;
-            transition: var(--transition), transform 0.3s ease;
-        }
-
-        .sidebar-toggle:hover {
-            transform: scale(1.1);
+            transition: var(--transition);
         }
 
         .sidebar-toggle i {
@@ -149,36 +144,46 @@
             height: calc(100vh - var(--header-height));
         }
 
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
         .menu-item {
             padding: 10px 20px;
             display: flex;
             align-items: center;
             color: var(--text-color);
             text-decoration: none;
-            transition: var(--transition), background-color 0.2s ease;
+            transition: var(--transition);
             position: relative;
             margin: 2px 0;
-            opacity: 0;
-            animation: fadeIn 0.5s ease forwards;
-            animation-delay: calc(var(--index) * 0.1s);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .menu-item:hover {
-            background-color: rgba(79, 70, 229, 0.15);
+            background-color: var(--primary-light);
             color: var(--primary-color);
-            transform: translateX(5px);
         }
 
         .menu-item.active {
             background-color: var(--primary-light);
             color: var(--primary-color);
-            font-weight: 600;
-            box-shadow: inset 0 0 5px rgba(79, 70, 229, 0.2);
+            font-weight: 500;
         }
 
         .menu-item.active::before {
@@ -187,9 +192,8 @@
             left: 0;
             top: 0;
             height: 100%;
-            width: 4px;
+            width: 3px;
             background-color: var(--primary-color);
-            box-shadow: 0 0 8px var(--primary-color);
         }
 
         .menu-icon {
@@ -197,11 +201,6 @@
             margin-right: 10px;
             font-size: 16px;
             text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-item:hover .menu-icon {
-            transform: scale(1.2);
         }
 
         .menu-text {
@@ -215,6 +214,23 @@
             width: 0;
         }
 
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-badge {
+            opacity: 0;
+            width: 0;
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -225,6 +241,7 @@
             margin-left: var(--sidebar-collapsed-width);
         }
 
+        /* Header */
         .header {
             height: var(--header-height);
             background-color: white;
@@ -289,6 +306,35 @@
             gap: 20px;
         }
 
+        .header-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .header-action:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--error-color);
+            border: 2px solid white;
+        }
+
         .user-profile {
             display: flex;
             align-items: center;
@@ -331,6 +377,7 @@
             color: var(--text-muted);
         }
 
+        /* Dashboard Content */
         .dashboard-content {
             padding: 30px;
         }
@@ -417,6 +464,51 @@
             background-color: var(--border-color);
         }
 
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+        }
+
+        .photo-preview {
+            margin-top: 10px;
+            max-width: 100px;
+            max-height: 100px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            display: none;
+        }
+
+        /* Table Styles */
         .table {
             width: 100%;
             border-collapse: collapse;
@@ -472,31 +564,7 @@
             color: var(--error-color);
         }
 
-        .alert {
-            padding: 15px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-success {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-        }
-
-        .alert-danger {
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--error-color);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
@@ -546,39 +614,83 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                margin-right: 15px;
+            }
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-overlay {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         @include('Admin.shared.sidebar-menu')
-
-        <!-- Main Content -->
         <div class="main-content">
             <!-- Header -->
             <header class="header">
                 <div class="header-left">
-                    <h2 class="page-title">Create Balozi Account</h2>
-                    <nav class="breadcrumb">
+                    <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <h1 class="page-title">Create Balozi Account</h1>
+                    <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="#" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Home</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="#" class="breadcrumb-link">Balozi Account Requests</a>
+                            <a href="{{ route('admin.balozi.account.requests') }}" class="breadcrumb-link">Balozi Requests</a>
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Create Account</span>
                         </div>
-                    </nav>
+                    </div>
                 </div>
                 <div class="header-right">
+                    <div class="header-action">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="header-action">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge"></div>
+                    </div>
                     <div class="user-profile">
                         <div class="user-avatar">
-                            {{ strtoupper(substr($admin->name ?? 'Admin', 0, 2)) }}
+                            {{ substr($admin->name ?? 'Admin', 0, 2) }}
                         </div>
                         <div class="user-info">
-                            <span class="user-name">{{ $admin->name ?? 'Admin' }}</span>
-                            <span class="user-role">{{ ucfirst($admin->role ?? 'Admin') }}</span>
+                            <div class="user-name">{{ $admin->name ?? 'Admin' }}</div>
+                            <div class="user-role">{{ ucfirst($admin->role ?? 'Admin') }}</div>
                         </div>
                     </div>
                 </div>
@@ -586,15 +698,29 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
+                <h2 class="dashboard-title">Create New Balozi Account</h2>
+
                 @if (session('success'))
                     <div class="alert alert-success">
+                        <i class="fas fa-check"></i>
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger">
+                        <i class="fas fa-times"></i>
                         {{ session('error') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endif
 
@@ -644,21 +770,23 @@
                     @if($accountRequest->status === 'pending')
                         <div class="form-container">
                             <h2 class="dashboard-title">Create Account</h2>
-                            <form method="POST" class="form-row">
+                            <form method="POST" action="{{ route('admin.balozi.account.process-request', $accountRequest->id) }}">
                                 @csrf
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror">
-                                    @error('username')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" required>
+                                        @error('username')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="admin_comments">Comments</label>
@@ -667,9 +795,9 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Create Account</button>
-                                    <a href="#" class="btn btn-secondary">Back to Requests</a>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create Account</button>
+                                    <a href="{{ route('admin.balozi.account.requests') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Requests</a>
                                 </div>
                             </form>
                         </div>
@@ -705,7 +833,9 @@
                                             <td>{{ $request->requested_at->format('M d, Y H:i') }}</td>
                                             <td>
                                                 @if($request->status === 'pending')
-                                                    <a href="#" class="btn btn-primary" style="padding: 5px 10px;">View</a>
+                                                    <a href="{{ route('admin.balozi.account.show-request', $request->id) }}" class="btn btn-primary" style="padding: 5px 10px;">
+                                                        <i class="fas fa-eye"></i> View
+                                                    </a>
                                                 @endif
                                             </td>
                                         </tr>
@@ -723,5 +853,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        });
+
+        // Sidebar toggle functionality
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        });
+
+        // Close sidebar when clicking on overlay
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('collapsed');
+            this.classList.remove('active');
+        });
+    </script>
 </body>
 </html>

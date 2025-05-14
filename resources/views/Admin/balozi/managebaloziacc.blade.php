@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Balozi Account Requests | InUse System</title>
+    <title>Manage Balozi Accounts | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3b82f6; /* Blue */
-            --primary-hover: #2563eb;
-            --primary-light: rgba(59, 130, 246, 0.1);
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
             --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
+            --header-height: 70px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --radius-sm: 0.25rem;
             --radius-md: 0.375rem;
             --radius-lg: 0.5rem;
             --transition: all 0.3s ease;
-            --sidebar-width: 250px;
-            --sidebar-collapsed-width: 70px;
-            --header-height: 60px;
         }
 
         * {
@@ -39,13 +42,16 @@
             background-color: #f5f7fa;
             color: var(--text-color);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* Layout */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             background-color: white;
@@ -54,6 +60,7 @@
             position: fixed;
             top: 0;
             left: 0;
+            z-index: 100;
             transition: var(--transition);
             box-shadow: var(--shadow-sm);
         }
@@ -64,34 +71,38 @@
 
         .sidebar-header {
             height: var(--header-height);
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-color);
             font-weight: 700;
             font-size: 18px;
-            color: var(--text-color);
+            transition: var(--transition);
         }
 
         .logo-icon {
-            width: 30px;
-            height: 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
         }
 
         .logo-text {
             transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .sidebar.collapsed .logo-text {
@@ -101,7 +112,7 @@
 
         .sidebar-toggle {
             position: absolute;
-            top: 18px;
+            top: 20px;
             right: -12px;
             width: 24px;
             height: 24px;
@@ -112,8 +123,10 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 10;
             border: 2px solid white;
-            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
         }
 
         .sidebar-toggle i {
@@ -125,6 +138,99 @@
             transform: rotate(180deg);
         }
 
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            margin: 2px 0;
+        }
+
+        .menu-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-badge {
+            opacity: 0;
+            width: 0;
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -135,6 +241,7 @@
             margin-left: var(--sidebar-collapsed-width);
         }
 
+        /* Header */
         .header {
             height: var(--header-height);
             background-color: white;
@@ -142,7 +249,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0 30px;
             position: sticky;
             top: 0;
             z-index: 99;
@@ -152,14 +259,6 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 20px;
-            color: var(--text-muted);
         }
 
         .page-title {
@@ -170,8 +269,14 @@
         .breadcrumb {
             display: flex;
             align-items: center;
-            gap: 5px;
+            margin-left: 20px;
+            color: var(--text-muted);
             font-size: 14px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
         }
 
         .breadcrumb-item:not(:last-child)::after {
@@ -183,6 +288,7 @@
         .breadcrumb-link {
             color: var(--text-muted);
             text-decoration: none;
+            transition: var(--transition);
         }
 
         .breadcrumb-link:hover {
@@ -197,32 +303,46 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .header-action {
-            position: relative;
-            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--text-muted);
-            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .header-action:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         .notification-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: 5px;
+            right: 5px;
             width: 8px;
             height: 8px;
-            background-color: var(--error-color);
             border-radius: 50%;
+            background-color: var(--error-color);
+            border: 2px solid white;
         }
 
         .user-profile {
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
             padding: 5px;
             border-radius: var(--radius-md);
+            transition: var(--transition);
         }
 
         .user-profile:hover {
@@ -230,8 +350,8 @@
         }
 
         .user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background-color: var(--primary-light);
             color: var(--primary-color);
@@ -257,25 +377,28 @@
             color: var(--text-muted);
         }
 
-        .user-email {
-            font-size: 12px;
-            color: var(--text-muted);
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 30px;
         }
 
-        .dashboard-content {
-            padding: 20px;
+        .dashboard-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
         .card {
             background-color: white;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             padding: 20px;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
+            margin-bottom: 30px;
         }
 
         .card-header {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .card-title {
@@ -286,25 +409,30 @@
         .table {
             width: 100%;
             border-collapse: collapse;
+            background-color: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
         .table th,
         .table td {
-            padding: 12px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
+            font-size: 14px;
         }
 
         .table th {
             background-color: var(--secondary-color);
-            font-weight: 600;
-            font-size: 14px;
             color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 12px;
         }
 
         .table td {
-            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color);
         }
 
         .table tr:hover {
@@ -320,12 +448,12 @@
         }
 
         .badge-success {
-            background-color: #d1fae5;
+            background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
         }
 
         .badge-danger {
-            background-color: #fee2e2;
+            background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
         }
 
@@ -371,26 +499,25 @@
 
         .action-buttons {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
 
         .alert {
-            padding: 12px;
+            padding: 15px;
             border-radius: var(--radius-md);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 14px;
         }
 
         .alert-success {
-            background-color: #d1fae5;
+            background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
         }
 
         .alert-danger {
-            background-color: #fee2e2;
+            background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
         }
 
@@ -422,6 +549,7 @@
             border-color: var(--primary-color);
         }
 
+        /* Modal Styles */
         .modal {
             position: fixed;
             top: 0;
@@ -485,7 +613,7 @@
 
         .form-control {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             font-size: 14px;
@@ -497,37 +625,48 @@
             box-shadow: 0 0 0 2px var(--primary-light);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
+                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
             }
 
             .sidebar.collapsed {
-                width: var(--sidebar-width);
+                transform: translateX(0);
             }
 
             .main-content {
-                margin-left: var(--sidebar-collapsed-width);
+                margin-left: 0;
             }
 
             .sidebar.collapsed ~ .main-content {
-                margin-left: var(--sidebar-width);
+                margin-left: 0;
             }
 
-            .mobile-menu-toggle {
-                display: block;
+            .sidebar-toggle {
+                right: -30px;
+                transform: rotate(180deg);
+            }
+
+            .sidebar.collapsed .sidebar-toggle {
+                transform: rotate(0);
+            }
+
+            .header {
+                padding: 0 15px;
             }
 
             .breadcrumb {
                 display: none;
             }
 
-            .user-info {
-                display: none;
+            .dashboard-content {
+                padding: 20px 15px;
             }
 
-            .dashboard-content {
-                padding: 15px;
+            .user-info {
+                display: none;
             }
 
             .table {
@@ -536,12 +675,50 @@
                 white-space: nowrap;
             }
         }
+
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                margin-right: 15px;
+            }
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-overlay {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         @include('Admin.shared.sidebar-menu')
         <div class="main-content">
+            <!-- Header -->
             <header class="header">
                 <div class="header-left">
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
@@ -553,11 +730,14 @@
                             <a href="{{ route('admin.dashboard') }}" class="breadcrumb-link">Home</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Account Requests</span>
+                            <span class="breadcrumb-current">Balozi Accounts</span>
                         </div>
                     </div>
                 </div>
                 <div class="header-right">
+                    <div class="header-action">
+                        <i class="fas fa-search"></i>
+                    </div>
                     <div class="header-action">
                         <i class="fas fa-bell"></i>
                         <div class="notification-badge"></div>
@@ -574,6 +754,7 @@
                 </div>
             </header>
 
+            <!-- Dashboard Content -->
             <div class="dashboard-content">
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -591,7 +772,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Manage Balozi Accounts</h2>
+                        <h2 class="card-title">Balozi Accounts</h2>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -627,7 +808,7 @@
                                         <td>
                                             <div class="action-buttons">
                                                 <button type="button" 
-                                                        class="btn btn-primary btn-sm" 
+                                                        class="btn btn-primary" 
                                                         title="Change Password"
                                                         onclick="showPasswordModal({{ $account->id }})">
                                                     <i class="fas fa-key"></i>
@@ -639,7 +820,7 @@
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" 
-                                                            class="btn {{ $account->is_active ? 'btn-danger' : 'btn-success' }} btn-sm" 
+                                                            class="btn {{ $account->is_active ? 'btn-danger' : 'btn-success' }}" 
                                                             title="{{ $account->is_active ? 'Deactivate' : 'Activate' }} Account"
                                                             onclick="return confirm('Are you sure you want to {{ $account->is_active ? 'deactivate' : 'activate' }} this account?')">
                                                         <i class="fas {{ $account->is_active ? 'fa-ban' : 'fa-check' }}"></i>
@@ -694,17 +875,34 @@
     </div>
 
     <script>
-    function showPasswordModal(accountId) {
-        const modal = document.getElementById('passwordModal');
-        const form = document.getElementById('passwordForm');
-        form.action = `/admin/balozi/accounts/${accountId}/password`;
-        modal.style.display = 'block';
-    }
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        });
 
-    function hidePasswordModal() {
-        const modal = document.getElementById('passwordModal');
-        modal.style.display = 'none';
-    }
+        // Sidebar toggle functionality
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        });
+
+        // Close sidebar when clicking on overlay
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('collapsed');
+            this.classList.remove('active');
+        });
+
+        function showPasswordModal(accountId) {
+            const modal = document.getElementById('passwordModal');
+            const form = document.getElementById('passwordForm');
+            form.action = `/admin/balozi/accounts/${accountId}/password`;
+            modal.style.display = 'block';
+        }
+
+        function hidePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            modal.style.display = 'none';
+        }
     </script>
 </body>
 </html>
