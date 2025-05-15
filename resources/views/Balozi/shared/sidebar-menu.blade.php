@@ -41,21 +41,27 @@
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Tuma Malalamiko</div>
             </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Register Watu</div>
-            </a>
+           
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Register Mahitaji  maalumu </div>
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Write  Mapendekexo  ya  leo</div>
+                <div class="menu-text">Write  Mapendekezo  ya  leo</div>
             </a>
-
-
-
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">Watu</div>
+            <a href="{{ route('balozi.watu.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Sajili Watu</div>
+            </a>
+            <a href="{{ route('balozi.watu.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">View Watu Registered</div>
+            </a>
         </div>
 
         <div class="menu-section">

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Mwenyekiti\BaloziController;
 use App\Http\Controllers\Admin\BaloziAccountController;
+use App\Http\Controllers\Balozi\WatuController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -48,6 +49,17 @@ Route::middleware(['auth.balozi'])->group(function () {
     Route::get('/balozi/dashboard', function () {
         return view('balozi.dashboard');
     })->name('balozi.dashboard');
+    
+    // Add Watu routes for Balozi
+    Route::prefix('balozi/watu')->name('balozi.watu.')->group(function () {
+        Route::get('/', [WatuController::class, 'index'])->name('index');
+        Route::get('/create', [WatuController::class, 'create'])->name('create');
+        Route::post('/', [WatuController::class, 'store'])->name('store');
+        Route::get('/{id}', [WatuController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [WatuController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [WatuController::class, 'update'])->name('update');
+        Route::delete('/{id}', [WatuController::class, 'destroy'])->name('destroy');
+    });
 });
 
 Route::middleware(['auth.mwenyekiti'])->group(function () {
