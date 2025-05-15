@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Mwenyekiti\BaloziController;
 use App\Http\Controllers\Admin\BaloziAccountController;
 use App\Http\Controllers\Balozi\WatuController;
+use App\Http\Controllers\Balozi\ServiceController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -59,6 +60,14 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::get('/{id}/edit', [WatuController::class, 'edit'])->name('edit');
         Route::put('/{id}', [WatuController::class, 'update'])->name('update');
         Route::delete('/{id}', [WatuController::class, 'destroy'])->name('destroy');
+    });
+    
+    // Add Service routes for Balozi
+    Route::prefix('balozi/services')->name('balozi.services.')->group(function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('index');
+        Route::get('/create', [ServiceController::class, 'create'])->name('create');
+        Route::post('/', [ServiceController::class, 'store'])->name('store');
+        Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
     });
 });
 

@@ -31,11 +31,11 @@
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Request Meetings</div>
+                <div class="menu-text">Request Services</div>
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Register  Kaya  Maskini</div>
+                <div class="menu-text">View Requsted Services</div>
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
@@ -49,6 +49,17 @@
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Write  Mapendekezo  ya  leo</div>
+            </a>
+        </div>
+        <div class="menu-section">
+            <div class="menu-section-title">Services / Huduma</div>
+            <a href="{{ route('balozi.services.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Request Services</div>
+            </a>
+            <a href="{{ route('balozi.services.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">View Requested Services</div>
             </a>
         </div>
         
