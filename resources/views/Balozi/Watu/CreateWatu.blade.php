@@ -733,14 +733,23 @@
                             </div>
                             <div class="form-group">
                                 <label for="marital_status">Marital Status</label>
-                                <input type="text" name="marital_status" id="marital_status" value="{{ old('marital_status') }}" class="form-control @error('marital_status') is-invalid @enderror">
+                                <select name="marital_status" id="marital_status" class="form-control @error('marital_status') is-invalid @enderror">
+                                    <option value="">Select Marital Status</option>
+                                    <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Married</option>
+                                    <option value="Divorced" {{ old('marital_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                    <option value="Single" {{ old('marital_status') == 'Single' ? 'selected' : '' }}>Single</option>
+                                </select>
                                 @error('marital_status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="occupation">Occupation</label>
-                                <input type="text" name="occupation" id="occupation" value="{{ old('occupation') }}" class="form-control @error('occupation') is-invalid @enderror">
+                                <select name="occupation" id="occupation" class="form-control @error('occupation') is-invalid @enderror">
+                                    <option value="">Select Occupation</option>
+                                    <option value="Employed" {{ old('occupation') == 'Employed' ? 'selected' : '' }}>Employed</option>
+                                    <option value="Unemployed" {{ old('occupation') == 'Unemployed' ? 'selected' : '' }}>Unemployed</option>
+                                </select>
                                 @error('occupation')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -749,14 +758,30 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="education_level">Education Level</label>
-                                <input type="text" name="education_level" id="education_level" value="{{ old('education_level') }}" class="form-control @error('education_level') is-invalid @enderror">
+                                <select name="education_level" id="education_level" class="form-control @error('education_level') is-invalid @enderror">
+                                    <option value="">Select Education Level</option>
+                                    <option value="Primary School" {{ old('education_level') == 'Primary School' ? 'selected' : '' }}>Primary School</option>
+                                    <option value="O Level" {{ old('education_level') == 'O Level' ? 'selected' : '' }}>O Level</option>
+                                    <option value="A Level" {{ old('education_level') == 'A Level' ? 'selected' : '' }}>A Level</option>
+                                    <option value="University" {{ old('education_level') == 'University' ? 'selected' : '' }}>University</option>
+                                    <option value="Technical" {{ old('education_level') == 'Technical' ? 'selected' : '' }}>Technical</option>
+                                </select>
                                 @error('education_level')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="income_range">Income Range</label>
-                                <input type="text" name="income_range" id="income_range" value="{{ old('income_range') }}" class="form-control @error('income_range') is-invalid @enderror">
+                                <select name="income_range" id="income_range" class="form-control @error('income_range') is-invalid @enderror">
+                                    <option value="">Select Income Range</option>
+                                    <option value="0-10000" {{ old('income_range') == '0-10000' ? 'selected' : '' }}>0 - 10,000</option>
+                                    <option value="10001-50000" {{ old('income_range') == '10001-50000' ? 'selected' : '' }}>10,001 - 50,000</option>
+                                    <option value="50001-100000" {{ old('income_range') == '50001-100000' ? 'selected' : '' }}>50,001 - 100,000</option>
+                                    <option value="100001-200000" {{ old('income_range') == '100001-200000' ? 'selected' : '' }}>100,001 - 200,000</option>
+                                    <option value="200001-500000" {{ old('income_range') == '200001-500000' ? 'selected' : '' }}>200,001 - 500,000</option>
+                                    <option value="500001-1000000" {{ old('income_range') == '500001-1000000' ? 'selected' : '' }}>500,001 - 1,000,000</option>
+                                    <option value="1000001+" {{ old('income_range') == '1000001+' ? 'selected' : '' }}>1,000,001 and above</option>
+                                </select>
                                 @error('income_range')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
