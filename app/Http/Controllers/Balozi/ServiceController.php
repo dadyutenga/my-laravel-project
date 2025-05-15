@@ -28,7 +28,7 @@ class ServiceController extends Controller
         }
         
         // Only fetch Service requests created by this Balozi
-        $serviceRequests = Service::where('created_by_balozi', $baloziId)
+        $serviceRequests = Service::visibleToBalozi($baloziId)
             ->latest()
             ->paginate(10);
             
@@ -67,7 +67,7 @@ class ServiceController extends Controller
             }
 
             $service = new Service($validated);
-            $service->created_by_balozi = $baloziId;
+            $service->created_by = $baloziId;
             $service->assigned_to = $balozi->mwenyekiti_id;
             $service->status = 'pending'; // Initial status
             $service->save();
@@ -92,7 +92,7 @@ class ServiceController extends Controller
         
         // Only allow viewing of Service requests created by this Balozi
         $service = Service::with('assignedTo')
-            ->where('created_by_balozi', $baloziId)
+            ->where('created_by', $baloziId)
             ->findOrFail($id);
             
         return view('Balozi.Services.ViewRequest', compact('service'));

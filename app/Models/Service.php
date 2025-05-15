@@ -15,7 +15,6 @@ class Service extends Model
         'status',
         'mtaa',
         'assigned_to',
-        'created_by_balozi',
     ];
 
     protected $casts = [
@@ -24,10 +23,11 @@ class Service extends Model
 
     /**
      * Get the balozi who created the service request.
+     * We're using created_by to reference Balozi instead of Watu.
      */
     public function createdByBalozi()
     {
-        return $this->belongsTo(Balozi::class, 'created_by_balozi');
+        return $this->belongsTo(Balozi::class, 'created_by');
     }
 
     /**
@@ -36,6 +36,18 @@ class Service extends Model
     public function assignedTo()
     {
         return $this->belongsTo(Mwenyekiti::class, 'assigned_to');
+    }
+
+    /**
+     * Scope to restrict services to those visible by a specific balozi.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $baloziId
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisibleToBalozi($query, $baloziId)
+    {
+        return $query->where('created_by', $baloziId);
     }
 
     /**
