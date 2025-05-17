@@ -15,6 +15,7 @@ use App\Http\Controllers\Mwenyekiti\BaloziController;
 use App\Http\Controllers\Admin\BaloziAccountController;
 use App\Http\Controllers\Balozi\WatuController;
 use App\Http\Controllers\Balozi\ServiceController;
+use App\Http\Controllers\Balozi\DailyprogressController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -68,6 +69,17 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::get('/create', [ServiceController::class, 'create'])->name('create');
         Route::post('/', [ServiceController::class, 'store'])->name('store');
         Route::get('/{id}', [ServiceController::class, 'show'])->name('show');
+    });
+
+    // Add Daily Progress routes for Balozi
+    Route::prefix('balozi/daily-progress')->name('balozi.daily-progress.')->group(function () {
+        Route::get('/', [DailyprogressController::class, 'index'])->name('index');
+        Route::get('/create', [DailyprogressController::class, 'create'])->name('create');
+        Route::post('/', [DailyprogressController::class, 'store'])->name('store');
+        Route::get('/{id}', [DailyprogressController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [DailyprogressController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [DailyprogressController::class, 'update'])->name('update');
+        Route::delete('/{id}', [DailyprogressController::class, 'destroy'])->name('destroy');
     });
 });
 

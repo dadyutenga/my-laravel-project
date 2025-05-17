@@ -50,6 +50,17 @@
                 <div class="menu-text">Angalia  Watu  wenye  mahitaji  maalumu </div>
             </a>
         </div>
+        <div class="menu-section">
+            <div class="menu-section-title">Daily Progress</div>
+            <a href="{{ route('balozi.daily-progress.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-text">Create Daily Progress</div>
+            </a>
+            <a href="{{ route('balozi.daily-progress.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">View Daily Progress</div>
+            </a>
+        </div>
         
         <div class="menu-section">
             <div class="menu-section-title">Services / Huduma</div>
