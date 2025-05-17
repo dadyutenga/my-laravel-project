@@ -52,6 +52,18 @@
             </a>
         </div>
         <div class="menu-section">
+            <div class="menu-section-title">Mahitaji Maalumu / Special Needs</div>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Sajili Watu wenye  maqhitaji  maalumu </div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">Angalia  Watu  wenye  mahitaji  maalumu </div>
+            </a>
+        </div>
+        
+        <div class="menu-section">
             <div class="menu-section-title">Services / Huduma</div>
             <a href="{{ route('balozi.services.create') }}" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
