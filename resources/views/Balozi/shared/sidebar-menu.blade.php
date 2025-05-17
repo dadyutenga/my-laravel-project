@@ -27,26 +27,14 @@
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Request Services</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Request Services</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">View Requsted Services</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Tuma Malalamiko</div>
+                <div class="menu-text">Request Meeting</div>
             </a>
            
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Register Mahitaji  maalumu </div>
+                <div class="menu-text">Tuma Malalamiko</div>
             </a>
-            <a href="#" class="menu-item">
+           <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Write  Mapendekezo  ya  leo</div>
             </a>
@@ -55,7 +43,7 @@
             <div class="menu-section-title">Mahitaji Maalumu / Special Needs</div>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                <div class="menu-text">Sajili Watu wenye  maqhitaji  maalumu </div>
+                <div class="menu-text">Sajili Watu wenye  mahitaji  maalumu </div>
             </a>
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
