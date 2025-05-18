@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('assigned_to')->references('id')->on('mwenyekiti')->onDelete('set null');
-            $table->foreign('created_by')->references('id')->on('watu')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('balozi')->onDelete('cascade');
         });
     }
 
