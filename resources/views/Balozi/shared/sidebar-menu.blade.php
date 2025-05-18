@@ -51,6 +51,17 @@
             </a>
         </div>
         <div class="menu-section">
+            <div class="menu-section-title">Kaya Maskini</div>
+            <a href="{{ route('balozi.kaya-maskini.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-text">Sajili Kaya Maskini</div>
+            </a>
+            <a href="{{ route('balozi.kaya-maskini.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">Angalia  Kaya Maskini</div>
+            </a>
+        </div>
+        <div class="menu-section">
             <div class="menu-section-title">Daily Progress</div>
             <a href="{{ route('balozi.daily-progress.create') }}" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
@@ -65,11 +76,11 @@
         <div class="menu-section">
             <div class="menu-section-title">Services / Huduma</div>
             <a href="{{ route('balozi.services.create') }}" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
                 <div class="menu-text">Request Services</div>
             </a>
             <a href="{{ route('balozi.services.index') }}" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
                 <div class="menu-text">View Requested Services</div>
             </a>
         </div>
@@ -77,7 +88,7 @@
         <div class="menu-section">
             <div class="menu-section-title">Watu</div>
             <a href="{{ route('balozi.watu.create') }}" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
                 <div class="menu-text">Sajili Watu</div>
             </a>
             <a href="{{ route('balozi.watu.index') }}" class="menu-item">

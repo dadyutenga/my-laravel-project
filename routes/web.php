@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\BaloziAccountController;
 use App\Http\Controllers\Balozi\WatuController;
 use App\Http\Controllers\Balozi\ServiceController;
 use App\Http\Controllers\Balozi\DailyprogressController;
+use App\Http\Controllers\Balozi\KayaMaskiniController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -80,6 +81,17 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::get('/{id}/edit', [DailyprogressController::class, 'edit'])->name('edit');
         Route::put('/{id}', [DailyprogressController::class, 'update'])->name('update');
         Route::delete('/{id}', [DailyprogressController::class, 'destroy'])->name('destroy');
+    });
+
+    // Add Kaya Maskini routes for Balozi
+    Route::prefix('balozi/kaya-maskini')->name('balozi.kaya-maskini.')->group(function () {
+        Route::get('/', [KayaMaskiniController::class, 'index'])->name('index');
+        Route::get('/create', [KayaMaskiniController::class, 'create'])->name('create');
+        Route::post('/', [KayaMaskiniController::class, 'store'])->name('store');
+        Route::get('/{id}', [KayaMaskiniController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [KayaMaskiniController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [KayaMaskiniController::class, 'update'])->name('update');
+        Route::delete('/{id}', [KayaMaskiniController::class, 'destroy'])->name('destroy');
     });
 });
 
