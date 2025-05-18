@@ -51,7 +51,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar - Added from CreateWatu */
+        /* Sidebar - Complete Implementation (Synced with create.blade.php) */
         .sidebar {
             width: var(--sidebar-width);
             background-color: white;
@@ -99,6 +99,17 @@
             font-size: 16px;
         }
 
+        .logo-text {
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
         .sidebar-toggle {
             position: absolute;
             top: 20px;
@@ -133,6 +144,26 @@
             height: calc(100vh - var(--header-height));
         }
 
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
         .menu-item {
             padding: 10px 20px;
             display: flex;
@@ -149,11 +180,54 @@
             color: var(--primary-color);
         }
 
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
         .menu-icon {
             width: 20px;
             margin-right: 10px;
             font-size: 16px;
             text-align: center;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-badge {
+            opacity: 0;
+            width: 0;
         }
 
         /* Main Content */
@@ -167,7 +241,7 @@
             margin-left: var(--sidebar-collapsed-width);
         }
 
-        /* Header - Enhanced to match CreateWatu */
+        /* Header - Complete Implementation */
         .header {
             height: var(--header-height);
             background-color: white;
@@ -182,9 +256,15 @@
             box-shadow: var(--shadow-sm);
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
         .page-title {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         .breadcrumb {
@@ -305,21 +385,22 @@
 
         .dashboard-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 20px;
+            color: var(--text-color);
         }
 
-        /* Form Container - Enhanced */
+        /* Form Container */
         .form-container {
             background-color: white;
             border-radius: var(--radius-lg);
             padding: 20px;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        /* Table Container - Enhanced */
+        /* Table Container */
         .table-container {
             background-color: white;
             border-radius: var(--radius-lg);
@@ -351,7 +432,7 @@
         }
 
         tr:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-light);
         }
 
         .text-center {
@@ -362,18 +443,18 @@
             color: var(--text-muted);
         }
 
-        /* Buttons - Matched to CreateWatu */
+        /* Buttons - Complete Implementation */
         .btn {
-            padding: 8px 12px;
+            padding: 10px 16px;
             border-radius: var(--radius-md);
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             border: none;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         .btn-primary {
@@ -409,27 +490,35 @@
             gap: 10px;
         }
 
-        /* Alerts */
+        /* Alerts - Complete Implementation */
         .alert {
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: var(--radius-md);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 14px;
+            border-left: 3px solid transparent;
         }
 
         .alert-success {
             background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
+            border-left-color: var(--success-color);
         }
 
         .alert-danger {
             background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
+            border-left-color: var(--error-color);
         }
 
-        /* Responsive - Added from CreateWatu */
+        .alert i {
+            font-size: 16px;
+        }
+
+        /* Responsive - Complete Implementation */
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
@@ -461,6 +550,10 @@
                 padding: 0 15px;
             }
 
+            .page-title {
+                font-size: 16px;
+            }
+
             .breadcrumb {
                 display: none;
             }
@@ -473,13 +566,21 @@
                 display: none;
             }
 
+            .form-container,
             .table-container {
                 padding: 15px;
-                overflow-x: auto;
             }
         }
 
         @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-title {
+                font-size: 20px;
+            }
+
             .btn-group {
                 flex-direction: column;
                 width: 100%;
@@ -572,7 +673,7 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <div class="form-container">
-                    <div class="dashboard-title">Daily Progress Entries</div>
+                    <h2 class="dashboard-title">Daily Progress Entries</h2>
                     <div class="btn-group">
                         <a href="{{ route('balozi.daily-progress.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Add New Progress
@@ -583,14 +684,14 @@
                 <div class="table-container">
                     @if (session('success'))
                         <div class="alert alert-success">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-check-circle"></i>
                             {{ session('success') }}
                         </div>
                     @endif
 
                     @if (session('error'))
                         <div class="alert alert-danger">
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-exclamation-circle"></i>
                             {{ session('error') }}
                         </div>
                     @endif
