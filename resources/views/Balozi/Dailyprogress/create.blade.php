@@ -51,7 +51,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar - Added from CreateWatu */
+        /* Sidebar - Complete Implementation */
         .sidebar {
             width: var(--sidebar-width);
             background-color: white;
@@ -99,6 +99,17 @@
             font-size: 16px;
         }
 
+        .logo-text {
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
         .sidebar-toggle {
             position: absolute;
             top: 20px;
@@ -133,6 +144,26 @@
             height: calc(100vh - var(--header-height));
         }
 
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
         .menu-item {
             padding: 10px 20px;
             display: flex;
@@ -149,11 +180,54 @@
             color: var(--primary-color);
         }
 
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
         .menu-icon {
             width: 20px;
             margin-right: 10px;
             font-size: 16px;
             text-align: center;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-badge {
+            opacity: 0;
+            width: 0;
         }
 
         /* Main Content */
@@ -167,7 +241,7 @@
             margin-left: var(--sidebar-collapsed-width);
         }
 
-        /* Header - Enhanced to match CreateWatu */
+        /* Header - Complete Implementation */
         .header {
             height: var(--header-height);
             background-color: white;
@@ -182,9 +256,15 @@
             box-shadow: var(--shadow-sm);
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
         .page-title {
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700; /* Made bolder as requested */
+            letter-spacing: 0.3px;
         }
 
         .breadcrumb {
@@ -305,11 +385,12 @@
 
         .dashboard-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700; /* Made bolder */
             margin-bottom: 20px;
+            color: var(--text-color);
         }
 
-        /* Form Container - Enhanced */
+        /* Form Container - Complete Implementation */
         .form-container {
             background-color: white;
             border-radius: var(--radius-lg);
@@ -332,17 +413,20 @@
         .form-group label {
             display: block;
             font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 5px;
+            font-weight: 600; /* Made bolder */
+            margin-bottom: 8px;
+            color: var(--text-color);
         }
 
         .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             font-size: 14px;
             transition: var(--transition);
+            background-color: white;
+            color: var(--text-color);
         }
 
         .form-control:focus {
@@ -356,7 +440,7 @@
         }
 
         textarea.form-control {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
@@ -364,20 +448,21 @@
             color: var(--error-color);
             font-size: 12px;
             margin-top: 5px;
+            display: block;
         }
 
-        /* Buttons - Matched to CreateWatu */
+        /* Buttons - Complete Implementation */
         .btn {
-            padding: 10px 15px;
+            padding: 10px 16px;
             border-radius: var(--radius-md);
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600; /* Made bolder */
             cursor: pointer;
             transition: var(--transition);
             border: none;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
         .btn-primary {
@@ -392,33 +477,50 @@
         .btn-secondary {
             background-color: var(--secondary-color);
             color: var(--text-color);
+            border: 1px solid var(--border-color);
         }
 
         .btn-secondary:hover {
             background-color: var(--border-color);
         }
 
-        /* Alerts */
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* Alerts - Complete Implementation */
         .alert {
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: var(--radius-md);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 14px;
         }
 
         .alert-success {
             background-color: rgba(16, 185, 129, 0.1);
             color: var(--success-color);
+            border-left: 3px solid var(--success-color);
         }
 
         .alert-danger {
             background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
+            border-left: 3px solid var(--error-color);
         }
 
-        /* Responsive - Added from CreateWatu */
+        .alert i {
+            font-size: 16px;
+        }
+
+        /* Responsive - Complete Implementation */
         @media (max-width: 768px) {
             .sidebar {
                 width: var(--sidebar-collapsed-width);
@@ -450,6 +552,10 @@
                 padding: 0 15px;
             }
 
+            .page-title {
+                font-size: 16px;
+            }
+
             .breadcrumb {
                 display: none;
             }
@@ -461,11 +567,19 @@
             .user-info {
                 display: none;
             }
+
+            .form-container {
+                padding: 15px;
+            }
         }
 
         @media (max-width: 576px) {
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .dashboard-title {
+                font-size: 20px;
             }
         }
 
@@ -556,25 +670,26 @@
 
                 @if (session('success'))
                     <div class="alert alert-success">
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check-circle"></i>
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger">
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-exclamation-circle"></i>
                         {{ session('error') }}
                     </div>
                 @endif
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <div>{{ $error }}</div>
                             @endforeach
-                        </ul>
+                        </div>
                     </div>
                 @endif
 
@@ -594,7 +709,7 @@
                         
                         <div class="form-group">
                             <label for="maelezo">Description</label>
-                            <textarea name="maelezo" id="maelezo" rows="4" class="form-control @error('maelezo') is-invalid @enderror" required>{{ old('maelezo') }}</textarea>
+                            <textarea name="maelezo" id="maelezo" rows="5" class="form-control @error('maelezo') is-invalid @enderror" required>{{ old('maelezo') }}</textarea>
                             @error('maelezo')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -608,7 +723,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group" style="margin-top: 20px;">
+                        <div class="form-group" style="margin-top: 25px;">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Save Progress
                             </button>
