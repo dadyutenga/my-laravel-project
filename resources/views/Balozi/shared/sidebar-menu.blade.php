@@ -24,16 +24,22 @@
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-user"></i></div>
                 <div class="menu-text">Request  fomu ya  Udhamini</div>
-            </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Request Meeting</div>
-            </a>
-           
-         
+            </a> 
            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Write  Mapendekezo  ya  leo</div>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="menu-section-title">Meeting Request</div>
+            <a href="{{ route('balozi.mtaameetingrequest.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-text">Request Meeting</div>
+            </a>
+            <a href="{{ route('balozi.mtaameetingrequest.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">View Meeting Requests</div>
             </a>
         </div>
         <div class="menu-section">

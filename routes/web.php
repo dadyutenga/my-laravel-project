@@ -18,6 +18,7 @@ use App\Http\Controllers\Balozi\ServiceController;
 use App\Http\Controllers\Balozi\DailyprogressController;
 use App\Http\Controllers\Balozi\KayaMaskiniController;
 use App\Http\Controllers\Balozi\MalalamikoController;
+use App\Http\Controllers\Balozi\MtaameetingRequestController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -104,6 +105,16 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::get('/{id}/edit', [MalalamikoController::class, 'edit'])->name('edit');
         Route::put('/{id}', [MalalamikoController::class, 'update'])->name('update');
         Route::delete('/{id}', [MalalamikoController::class, 'destroy'])->name('destroy');
+    });
+
+    // Mtaa Meeting Request Routes
+    Route::prefix('balozi/mtaameetingrequest')->group(function () {
+        Route::get('/create', [MtaameetingRequestController::class, 'create'])->name('balozi.mtaameetingrequest.create');
+        Route::post('/', [MtaameetingRequestController::class, 'store'])->name('balozi.mtaameetingrequest.store');
+        Route::get('/', [MtaameetingRequestController::class, 'index'])->name('balozi.mtaameetingrequest.index');
+        Route::get('/{id}/edit', [MtaameetingRequestController::class, 'edit'])->name('balozi.mtaameetingrequest.edit');
+        Route::put('/{id}', [MtaameetingRequestController::class, 'update'])->name('balozi.mtaameetingrequest.update');
+        Route::delete('/{id}', [MtaameetingRequestController::class, 'destroy'])->name('balozi.mtaameetingrequest.destroy');
     });
 });
 
