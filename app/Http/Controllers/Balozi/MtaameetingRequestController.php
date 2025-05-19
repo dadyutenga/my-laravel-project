@@ -18,17 +18,43 @@ class MtaameetingRequestController extends Controller
     }
 
     /**
+     * Get the ID of the currently logged-in Balozi from session or Auth
+     */
+    protected function getBaloziId()
+    {
+        $baloziId = session('balozi_id');
+        if (!$baloziId && Auth::check()) {
+            $baloziId = Auth::user()->balozi_id;
+        }
+        
+        if (!$baloziId) {
+            return redirect()->route('login')->with('error', 'Unauthorized. Please login again.');
+        }
+        
+        return $baloziId;
+    }
+
+    /**
      * Store a newly created meeting request
      */
     public function store(Request $request)
     {
+        // Validate the request
         $validated = $request->validate([
-            'status' => 'required|in:pending,approved,rejected',
             'request_details' => 'required|string',
             'requested_at' => 'required|date',
         ]);
 
-        $validated['balozi_id'] = Auth::id();
+        // Get the authenticated Balozi user ID
+        $baloziId = $this->getBaloziId();
+        
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+
+        // Set default values
+        $validated['balozi_id'] = $baloziId;
+        $validated['status'] = 'pending'; // Set default status
         $validated['processed_at'] = null; // Will be set when status changes
 
         MtaaMeetingRequest::create($validated);
