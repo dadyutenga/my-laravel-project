@@ -18,6 +18,14 @@ return new class extends Migration
             $table->string('jinsia', 255);
             $table->text('malalamiko');
             $table->enum('status', ['pending', 'resolved'])->default('pending');
+            
+            // Add created_by column with foreign key constraint
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')
+                  ->references('id')
+                  ->on('balozi')
+                  ->onDelete('set null');
+                  
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Balozi\WatuController;
 use App\Http\Controllers\Balozi\ServiceController;
 use App\Http\Controllers\Balozi\DailyprogressController;
 use App\Http\Controllers\Balozi\KayaMaskiniController;
+use App\Http\Controllers\Balozi\MalalamikoController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -92,6 +93,17 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::get('/{id}/edit', [KayaMaskiniController::class, 'edit'])->name('edit');
         Route::put('/{id}', [KayaMaskiniController::class, 'update'])->name('update');
         Route::delete('/{id}', [KayaMaskiniController::class, 'destroy'])->name('destroy');
+    });
+
+    // Add Malalamiko routes for Balozi
+    Route::prefix('balozi/malalamiko')->name('balozi.malalamiko.')->group(function () {
+        Route::get('/', [MalalamikoController::class, 'index'])->name('index');
+        Route::get('/create', [MalalamikoController::class, 'create'])->name('create');
+        Route::post('/', [MalalamikoController::class, 'store'])->name('store');
+        Route::get('/{id}', [MalalamikoController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [MalalamikoController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [MalalamikoController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MalalamikoController::class, 'destroy'])->name('destroy');
     });
 });
 

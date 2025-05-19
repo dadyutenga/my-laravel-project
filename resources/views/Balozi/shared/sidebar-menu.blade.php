@@ -38,13 +38,13 @@
         </div>
         <div class="menu-section">
             <div class="menu-section-title">Malalamiko</div>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                <div class="menu-text">Andika  Malalamiko</div>
+            <a href="{{ route('balozi.malalamiko.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-text">Sajili Malalamiko</div>
             </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
-                <div class="menu-text">Angalia Malalamiko </div>
+            <a href="{{ route('balozi.malalamiko.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">Angalia Malalamiko</div>
             </a>
         </div>
         <div class="menu-section">
