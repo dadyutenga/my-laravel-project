@@ -524,10 +524,11 @@
 
                             <div class="form-group">
                                 <label for="status">Status</label>
-                                <input type="text" id="status" name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status') }}" required>
-                                @error('status')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <select name="status" id="status" class="form-control" required>
+                                    <option value="">Select Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="resolved">Resolved</option>
+                                </select>
                             </div>
                         </div>
 
