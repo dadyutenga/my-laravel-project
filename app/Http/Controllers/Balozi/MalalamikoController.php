@@ -35,6 +35,19 @@ protected function getBaloziId()
 
         return view('Balozi.Malalamiko.create');
     }
+
+     public function store(Request $request)
+    {
+        $baloziId = $this->getBaloziId();
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+
+        $validated = $request->validate([
+            ''
+            
+
+    }
 }
 
 ?>

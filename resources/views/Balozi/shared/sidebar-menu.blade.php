@@ -30,13 +30,21 @@
                 <div class="menu-text">Request Meeting</div>
             </a>
            
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Tuma Malalamiko</div>
-            </a>
+         
            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
                 <div class="menu-text">Write  Mapendekezo  ya  leo</div>
+            </a>
+        </div>
+        <div class="menu-section">
+            <div class="menu-section-title">Malalamiko</div>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-cog"></i></div>
+                <div class="menu-text">Andika  Malalamiko</div>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
+                <div class="menu-text">Angalia Malalamiko </div>
             </a>
         </div>
         <div class="menu-section">
