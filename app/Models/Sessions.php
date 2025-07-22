@@ -26,20 +26,20 @@ class Sessions extends Model
         'is_active' => 'boolean',
     ];
 
-    // Relationships
+    // Relationships - Fixed: Remove the where clause from relationships
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'user_id')->where('user_type', 'admin');
+        return $this->belongsTo(Admin::class, 'user_id');
     }
 
     public function mwenyekiti()
     {
-        return $this->belongsTo(Mwenyekiti::class, 'user_id')->where('user_type', 'mwenyekiti');
+        return $this->belongsTo(Mwenyekiti::class, 'user_id');
     }
 
     public function balozi()
     {
-        return $this->belongsTo(Balozi::class, 'user_id')->where('user_type', 'balozi');
+        return $this->belongsTo(Balozi::class, 'user_id');
     }
 
     // Scopes
@@ -74,7 +74,7 @@ class Sessions extends Model
                     ->whereYear('login_at', now()->year);
     }
 
-    // Helper methods
+    // Helper methods - Fixed: Check user_type before loading relationship
     public function getUser()
     {
         switch ($this->user_type) {
@@ -129,5 +129,21 @@ class Sessions extends Model
             'percentage' => abs($percentage),
             'direction' => $percentage >= 0 ? 'up' : 'down'
         ];
+    }
+
+    // Additional helper methods for getting users with proper type checking
+    public function getAdminUser()
+    {
+        return $this->user_type === 'admin' ? $this->admin : null;
+    }
+
+    public function getMwenyekitiUser()
+    {
+        return $this->user_type === 'mwenyekiti' ? $this->mwenyekiti : null;
+    }
+
+    public function getBaloziUser()
+    {
+        return $this->user_type === 'balozi' ? $this->balozi : null;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\BaloziAuth;
 use App\Models\MwenyekitiAuth;
+use App\Models\Sessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -65,6 +66,19 @@ class UserAuthController extends Controller
                 'balozi_id' => $balozi->id,
                 'balozi_auth_id' => $baloziAuth->id,
                 'user_type' => 'balozi'
+            ]);
+
+            // Create session log
+            Sessions::create([
+                'session_id' => $request->session()->getId(),
+                'user_type' => 'balozi',
+                'user_id' => $balozi->id,
+                'username' => $baloziAuth->username,
+                'email' => $balozi->email ?? null,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'login_at' => now(),
+                'is_active' => true,
             ]);
 
             $request->session()->regenerate();
@@ -143,6 +157,19 @@ class UserAuthController extends Controller
                 'mwenyekiti_id' => $mwenyekiti->id,
                 'mwenyekiti_auth_id' => $mwenyekitiAuth->id,
                 'user_type' => 'mwenyekiti'
+            ]);
+
+            // Create session log
+            Sessions::create([
+                'session_id' => $request->session()->getId(),
+                'user_type' => 'mwenyekiti',
+                'user_id' => $mwenyekiti->id,
+                'username' => $mwenyekitiAuth->username,
+                'email' => $mwenyekiti->email ?? null,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'login_at' => now(),
+                'is_active' => true,
             ]);
 
             $request->session()->regenerate();

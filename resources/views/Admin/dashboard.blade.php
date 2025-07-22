@@ -918,7 +918,7 @@
                     </div>
                     <div class="stat-card" style="background: linear-gradient(135deg, #ffffff, #fff4e6);">
                         <div class="stat-header">
-                            <div class="stat-title">System Usage</div>
+                            <div class="stat-title">Sessions Online</div>
                             <div class="stat-icon orange">
                                 <i class="fas fa-chart-line"></i>
                             </div>
