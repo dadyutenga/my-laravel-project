@@ -172,8 +172,10 @@ Route::middleware('auth:admin')->group(function () {
             // Support Tickets Routes
             Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
             
-            // Profile Routes
             Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+            Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+            Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+            Route::put('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
 
             // Balozi Account Management Routes
             Route::prefix('balozi/accounts')->name('balozi.account.')->group(function () {
