@@ -876,6 +876,44 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        // Sidebar Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebarOverlay = document.querySelector('.sidebar-overlay');
+
+            // Toggle sidebar on button click
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('collapsed');
+                    
+                    // For mobile, also toggle overlay
+                    if (window.innerWidth <= 768) {
+                        if (sidebarOverlay) {
+                            sidebarOverlay.classList.toggle('active');
+                        }
+                    }
+                });
+            }
+
+            // Close sidebar when clicking overlay (mobile)
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.add('collapsed');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>

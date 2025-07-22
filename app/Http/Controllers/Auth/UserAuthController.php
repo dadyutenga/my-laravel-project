@@ -179,8 +179,26 @@ class UserAuthController extends Controller
     public function logout(Request $request)
     {
         $userType = session('user_type');
+        $sessionId = $request->session()->getId();
         
-        // Clear specific session data
+        // Update session log based on user type
+        if ($userType === 'mwenyekiti') {
+            $userId = session('mwenyekiti_id');
+        } elseif ($userType === 'balozi') {
+            $userId = session('balozi_id');
+        }
+
+        if (isset($userId) && $userType) {
+            Sessions::where('session_id', $sessionId)
+                    ->where('user_type', $userType)
+                    ->where('user_id', $userId)
+                    ->where('is_active', true)
+                    ->update([
+                        'logout_at' => now(),
+                        'is_active' => false,
+                    ]);
+        }
+
         session()->forget([
             'balozi_id',
             'balozi_auth_id',
@@ -192,7 +210,6 @@ class UserAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Redirect to the shared login form
         return redirect()->route('login1');
     }
 
@@ -271,6 +288,19 @@ class UserAuthController extends Controller
             'user_type' => 'mwenyekiti'
         ]);
 
+        // Create session log
+        Sessions::create([
+            'session_id' => $request->session()->getId(),
+            'user_type' => 'mwenyekiti',
+            'user_id' => $mwenyekiti->id,
+            'username' => $mwenyekitiAuth->username,
+            'email' => $mwenyekiti->email ?? null,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'login_at' => now(),
+            'is_active' => true,
+        ]);
+
         $request->session()->regenerate();
         RateLimiter::clear($key);
 
@@ -298,6 +328,19 @@ class UserAuthController extends Controller
             'balozi_id' => $balozi->id,
             'balozi_auth_id' => $baloziAuth->id,
             'user_type' => 'balozi'
+        ]);
+
+        // Create session log
+        Sessions::create([
+            'session_id' => $request->session()->getId(),
+            'user_type' => 'balozi',
+            'user_id' => $balozi->id,
+            'username' => $baloziAuth->username,
+            'email' => $balozi->email ?? null,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'login_at' => now(),
+            'is_active' => true,
         ]);
 
         $request->session()->regenerate();

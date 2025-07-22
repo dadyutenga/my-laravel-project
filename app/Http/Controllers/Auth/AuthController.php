@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Sessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        // Apply rate limiting to login and register methods
         $this->middleware('throttle:5,1')->only(['login', 'register']);
     }
 
@@ -33,9 +34,8 @@ class AuthController extends Controller
 
         $key = 'login_attempts_' . $request->ip();
         $maxAttempts = 5;
-        $lockoutTime = 300; // 5 minutes in seconds
+        $lockoutTime = 300;
 
-        // Check if the IP has exceeded login attempts
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($key);
             return back()->withErrors([
@@ -44,29 +44,36 @@ class AuthController extends Controller
         }
 
         if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
+            $admin = Auth::guard('admin')->user();
             $request->session()->regenerate();
 
-            // Reset login attempts on successful login
+            // Create session log
+            Sessions::create([
+                'session_id' => $request->session()->getId(),
+                'user_type' => 'admin',
+                'user_id' => $admin->id,
+                'username' => null,
+                'email' => $admin->email,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'login_at' => now(),
+                'is_active' => true,
+            ]);
+
             RateLimiter::clear($key);
 
-            // Log successful login
             Log::info('Admin login successful', [
                 'email' => $request->email,
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
 
-            // Redirect based on role
-            $route = Auth::guard('admin')->user()->role === 'superadmin'
-                ? 'superadmin.dashboard'
-                : 'admin.dashboard';
+            $route = $admin->role === 'superadmin' ? 'superadmin.dashboard' : 'admin.dashboard';
             return redirect()->route($route);
         }
 
-        // Increment failed login attempts
         RateLimiter::hit($key, $lockoutTime);
 
-        // Log failed login attempt
         Log::warning('Admin login failed', [
             'email' => $request->email,
             'ip' => $request->ip(),
@@ -80,9 +87,24 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $admin = Auth::guard('admin')->user();
+        
+        if ($admin) {
+            // Update session log
+            Sessions::where('session_id', $request->session()->getId())
+                    ->where('user_type', 'admin')
+                    ->where('user_id', $admin->id)
+                    ->where('is_active', true)
+                    ->update([
+                        'logout_at' => now(),
+                        'is_active' => false,
+                    ]);
+        }
+
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        
         return redirect()->route('login');
     }
 
@@ -112,7 +134,6 @@ class AuthController extends Controller
             'is_active' => true,
         ]);
 
-        // Log registration
         Log::info('Admin registered', [
             'email' => $request->email,
             'role' => $request->role,
@@ -121,6 +142,4 @@ class AuthController extends Controller
 
         return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
-
-    
 }

@@ -856,10 +856,14 @@
                         <span class="notification-badge"></span>
                     </div>
                     <div class="user-profile">
-                        <div class="user-avatar">{{ auth()->user()->name[0] ?? 'A' }}</div>
+                        @if($admin->details?->picture)
+                            <img src="{{ asset('storage/' . $admin->details->picture) }}" alt="Profile Picture" class="user-avatar" style="object-fit: cover;">
+                        @else
+                            <div class="user-avatar">{{ substr($admin->name, 0, 1) }}</div>
+                        @endif
                         <div class="user-info">
-                            <div class="user-name">{{ auth()->user()->name ?? 'Administrator' }}</div>
-                            <div class="user-role">System Admin</div>
+                            <div class="user-name">{{ $admin->name }}</div>
+                            <div class="user-role">{{ $admin->isSuperAdmin() ? 'Super Admin' : 'System Admin' }}</div>
                         </div>
                     </div>
                 </div>
@@ -872,50 +876,58 @@
                 <div class="stats-grid">
                     <div class="stat-card" style="background: linear-gradient(135deg, #ffffff, #f0f4ff);">
                         <div class="stat-header">
-                            <div class="stat-title">Mwenyekiti Accounts</div>
+                            <div class="stat-title">Mwenyekiti Profiles</div>
                             <div class="stat-icon purple">
                                 <i class="fas fa-users"></i>
                             </div>
                         </div>
-                        <div class="stat-value">200</div>
+                        <div class="stat-value">{{ $stats['mwenyekiti_count'] }}</div>
                         <div class="stat-description">
-                            <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 8%</span> vs last month
+                            <span class="stat-trend {{ $trends['mwenyekiti_trend']['direction'] }}">
+                                <i class="fas fa-arrow-{{ $trends['mwenyekiti_trend']['direction'] }}"></i> {{ $trends['mwenyekiti_trend']['percentage'] }}%
+                            </span> vs last month
                         </div>
                     </div>
                     <div class="stat-card" style="background: linear-gradient(135deg, #ffffff, #e6f4ea);">
                         <div class="stat-header">
-                            <div class="stat-title">Balozi Accounts</div>
+                            <div class="stat-title">Balozi Profiles</div>
                             <div class="stat-icon green">
                                 <i class="fas fa-user-friends"></i>
                             </div>
                         </div>
-                        <div class="stat-value">350</div>
+                        <div class="stat-value">{{ $stats['balozi_count'] }}</div>
                         <div class="stat-description">
-                            <span class="stat-trend down"><i class="fas fa-arrow-down"></i> 3%</span> vs last month
+                            <span class="stat-trend {{ $trends['balozi_trend']['direction'] }}">
+                                <i class="fas fa-arrow-{{ $trends['balozi_trend']['direction'] }}"></i> {{ $trends['balozi_trend']['percentage'] }}%
+                            </span> vs last month
                         </div>
                     </div>
                     <div class="stat-card" style="background: linear-gradient(135deg, #ffffff, #e6f0ff);">
                         <div class="stat-header">
-                            <div class="stat-title">Support Tickets</div>
+                            <div class="stat-title">Active Accounts</div>
                             <div class="stat-icon blue">
-                                <i class="fas fa-ticket-alt"></i>
+                                <i class="fas fa-user-check"></i>
                             </div>
                         </div>
-                        <div class="stat-value">30</div>
+                        <div class="stat-value">{{ $stats['mwenyekiti_accounts'] + $stats['balozi_accounts'] }}</div>
                         <div class="stat-description">
-                            <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 12%</span> vs last week
+                            <span class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> {{ $trends['tickets_trend']['percentage'] }}%
+                            </span> vs last week
                         </div>
                     </div>
                     <div class="stat-card" style="background: linear-gradient(135deg, #ffffff, #fff4e6);">
                         <div class="stat-header">
-                            <div class="stat-title">Active Sessions</div>
+                            <div class="stat-title">System Usage</div>
                             <div class="stat-icon orange">
-                                <i class="fas fa-user-check"></i>
+                                <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
-                        <div class="stat-value">150</div>
+                        <div class="stat-value">{{ $stats['active_sessions'] }}</div>
                         <div class="stat-description">
-                            <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 5%</span> vs yesterday
+                            <span class="stat-trend {{ $trends['sessions_trend']['direction'] }}">
+                                <i class="fas fa-arrow-{{ $trends['sessions_trend']['direction'] }}"></i> {{ $trends['sessions_trend']['percentage'] }}%
+                            </span> vs yesterday
                         </div>
                     </div>
                 </div>
@@ -931,7 +943,7 @@
                     </a>
                     <a href="/admin/mwenyekiti/create-account" class="quick-action-card" style="background: linear-gradient(135deg, #ffffff, #f0f4ff);">
                         <div class="quick-action-icon" style="background: linear-gradient(135deg, var(--primary-color), #6366f1); color: white;">
-                            <i class="fas fa-user-plus"></i>
+                            <i class="fas fa-key"></i>
                         </div>
                         <div class="quick-action-title">Mwenyekiti Account</div>
                         <div class="quick-action-description">Set up Mwenyekiti auth account</div>
@@ -974,46 +986,31 @@
                             <div class="card-actions">
                                 <button class="card-action active">All</button>
                                 <button class="card-action">Users</button>
-                                <button class="card-action">Tickets</button>
+                                <button class="card-action">System</button>
                             </div>
                         </div>
                         <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon purple">
-                                    <i class="fas fa-user-plus"></i>
+                            @forelse($recentActivities as $activity)
+                                <div class="activity-item">
+                                    <div class="activity-icon {{ $activity['color'] }}">
+                                        <i class="{{ $activity['icon'] }}"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">{{ $activity['title'] }}</div>
+                                        <div class="activity-time">{{ $activity['time'] }}</div>
+                                    </div>
                                 </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Mwenyekiti added: Alice Johnson</div>
-                                    <div class="activity-time">1 hour ago</div>
+                            @empty
+                                <div class="activity-item">
+                                    <div class="activity-icon blue">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">System initialized</div>
+                                        <div class="activity-time">Welcome to your dashboard</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon green">
-                                    <i class="fas fa-users-cog"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Balozi updated: Bob Smith</div>
-                                    <div class="activity-time">3 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon blue">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Ticket #5678 resolved</div>
-                                    <div class="activity-time">Today, 9:45 AM</div>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon orange">
-                                    <i class="fas fa-user-circle"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Admin profile updated</div>
-                                    <div class="activity-time">Yesterday</div>
-                                </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
