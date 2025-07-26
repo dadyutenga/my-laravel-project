@@ -32,10 +32,9 @@
             <a href="#" class="menu-item">
                 <i class="fas fa-chart-bar menu-icon"></i>
                 <span class="menu-text">Reports</span>
-                <span class="menu-badge">3</span>
             </a>
             <a href="{{ route('mwenyekiti.udhamini.index') }}" class="menu-item">
-                <i class="fas fa-chart-bar menu-icon"></i>
+                <i class="fas fa-file-signature"></i>
                 <span class="menu-text">Fomu ya Udhamini</span>
             </a>
         </div>
