@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,9 +77,9 @@
             width: 120px;
             height: 150px;
             border: 2px dashed #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
+            text-align: center;
+            line-height: 150px;
             background-color: #f0f0f0;
             color: #666;
             font-style: italic;
@@ -104,9 +105,12 @@
         }
         .signature-section {
             margin-top: 40px;
-            display: table;
             width: 100%;
             page-break-inside: avoid;
+        }
+        .signature-row {
+            display: table;
+            width: 100%;
         }
         .signature-left, .signature-right {
             display: table-cell;
@@ -126,15 +130,10 @@
             font-size: 11px;
         }
         .signature-line {
-            border: none;
             border-bottom: 2px solid #000;
             width: 180px;
             height: 60px;
             margin: 20px auto;
-            position: relative;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMTAgMzBRNTAgMTAgMTAwIDMwVDE5MCAzMCIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KPC9zdmc+');
-            background-repeat: no-repeat;
-            background-position: center;
         }
         .signature-label {
             font-size: 10px;
@@ -157,9 +156,8 @@
             height: 80px;
             border: 2px dashed #666;
             margin: 10px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            line-height: 80px;
             font-size: 9px;
             color: #666;
         }
@@ -240,23 +238,18 @@
         </div>
     </div>
 
-    @if($udhamini->picha)
     <div class="photo-section">
         <strong>Picha ya Mtu Anayedhaminiwa:</strong><br>
         <div class="photo-container">
-            <img src="{{ storage_path('app/public/' . $udhamini->picha) }}" alt="Person Photo">
+            @if(isset($udhamini->imageDataUri))
+                <img src="{{ $udhamini->imageDataUri }}" alt="Person Photo">
+            @else
+                <div class="photo-placeholder">
+                    Hakuna Picha
+                </div>
+            @endif
         </div>
     </div>
-    @else
-    <div class="photo-section">
-        <strong>Picha ya Mtu Anayedhaminiwa:</strong><br>
-        <div class="photo-container">
-            <div class="photo-placeholder">
-                Hakuna Picha
-            </div>
-        </div>
-    </div>
-    @endif
 
     <div class="acknowledgment">
         <div class="acknowledgment-title">Uthibitisho wa Mwenyekiti</div>
@@ -276,39 +269,37 @@
     </div>
 
     <div class="signature-section">
-        <div class="signature-left">
-            <div class="signature-title">Sahihi ya Mwenyekiti</div>
-            <div class="signature-info">
-                {{ $udhamini->createdBy->first_name }} {{ $udhamini->createdBy->last_name }}<br>
-                Simu: {{ $udhamini->createdBy->phone }}<br>
-                Kata: {{ $udhamini->createdBy->ward ?? 'N/A' }}
+        <div class="signature-row">
+            <div class="signature-left">
+                <div class="signature-title">Sahihi ya Mwenyekiti</div>
+                <div class="signature-info">
+                    {{ $udhamini->createdBy->first_name }} {{ $udhamini->createdBy->last_name }}<br>
+                    Simu: {{ $udhamini->createdBy->phone }}<br>
+                    Kata: {{ $udhamini->createdBy->ward ?? 'N/A' }}
+                </div>
+                <div class="signature-line"></div>
+                <div class="signature-label">Sahihi na Tarehe</div>
+                
+                <div class="verification-box">
+                    <div class="verification-title">MUHURI WA OFISI</div>
+                    <div class="stamp-area">OFFICIAL STAMP</div>
+                </div>
             </div>
-            <div class="signature-line">
-                <!-- Signature will be handwritten here -->
-            </div>
-            <div class="signature-label">Sahihi na Tarehe</div>
             
-            <div class="verification-box">
-                <div class="verification-title">MUHURI WA OFISI</div>
-                <div class="stamp-area">OFFICIAL STAMP</div>
-            </div>
-        </div>
-        
-        <div class="signature-right">
-            <div class="signature-title">Sahihi ya Mthibitishaji</div>
-            <div class="signature-info">
-                Jina: _________________________<br>
-                Cheo: _________________________<br>
-                Simu: _________________________
-            </div>
-            <div class="signature-line">
-                <!-- Verifier signature will be handwritten here -->
-            </div>
-            <div class="signature-label">Sahihi na Tarehe</div>
-            
-            <div class="verification-box">
-                <div class="verification-title">MUHURI WA MTHIBITISHAJI</div>
-                <div class="stamp-area">VERIFIER STAMP</div>
+            <div class="signature-right">
+                <div class="signature-title">Sahihi ya Mthibitishaji</div>
+                <div class="signature-info">
+                    Jina: _________________________<br>
+                    Cheo: _________________________<br>
+                    Simu: _________________________
+                </div>
+                <div class="signature-line"></div>
+                <div class="signature-label">Sahihi na Tarehe</div>
+                
+                <div class="verification-box">
+                    <div class="verification-title">MUHURI WA MTHIBITISHAJI</div>
+                    <div class="stamp-area">VERIFIER STAMP</div>
+                </div>
             </div>
         </div>
     </div>
@@ -324,7 +315,7 @@
             2. Mtu anayedhaminiwa anahitaji kufuata sheria zote za nchi na taratibu za serikali.
         </div>
         <div class="footer-note">
-            3. Udhamini huu ni wa muda wa miaka miwili (2) kuanzia tarehe ya kutolewa kwa hati hii.
+            3. Udhamini huu ni wa muda wa wiki mbili (2) kuanzia tarehe ya kutolewa kwa hati hii.
         </div>
         <div style="margin-top: 15px; font-size: 8px;">
             <strong>Imeandaliwa na:</strong> {{ $udhamini->createdBy->first_name }} {{ $udhamini->createdBy->last_name }} | 
