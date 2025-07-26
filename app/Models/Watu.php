@@ -59,4 +59,9 @@ class Watu extends Model
     {
         return $this->hasMany(Service::class, 'created_by');
     }
+
+    public function udhamini()
+    {
+        return $this->hasMany(Udhamini::class, 'watu_id');
+    }
 }
