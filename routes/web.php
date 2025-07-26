@@ -22,6 +22,10 @@ use App\Http\Controllers\Balozi\MtaameetingRequestController;
 use App\Http\Controllers\Balozi\PreferencesController;
 use App\Http\Controllers\Mwenyekiti\UdhaminiController;
 use App\Http\Controllers\Mwenyekiti\PdfController;
+use App\Http\Controllers\Mwenyekiti\MeetingRequestController;
+
+    
+
 
 
 
@@ -162,6 +166,10 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::post('udhamini', [UdhaminiController::class, 'store'])->name('udhamini.store');
     Route::get('udhamini/{id}', [UdhaminiController::class, 'show'])->name('udhamini.show');
     Route::get('udhamini/{id}/print', [PdfController::class, 'generateUdhaminiPdf'])->name('udhamini.print');
+
+    Route::get('meeting-requests', [MeetingRequestController::class, 'index'])->name('meeting-requests.index');
+    Route::get('meeting-requests/{id}', [MeetingRequestController::class, 'show'])->name('meeting-requests.show');
+    Route::put('meeting-requests/{id}/update-status', [MeetingRequestController::class, 'updateStatus'])->name('meeting-requests.update-status');
    });
 });
 

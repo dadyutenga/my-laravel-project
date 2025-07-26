@@ -37,6 +37,11 @@
                 <i class="fas fa-file-signature"></i>
                 <span class="menu-text">Fomu ya Udhamini</span>
             </a>
+         
+              <a href="{{ route('mwenyekiti.meeting-requests.index') }}" class="menu-item">
+             <i class="fas fa-calendar-alt menu-icon"></i>
+              <span class="menu-text">Maombi ya  mkutano</span>
+            </a>
         </div>
         <div class="menu-section">
             <div class="menu-section-title">Account</div>
