@@ -34,6 +34,10 @@
                 <span class="menu-text">Reports</span>
                 <span class="menu-badge">3</span>
             </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Fomu ya  Udhamini</span>
+            </a>
         </div>
         <div class="menu-section">
             <div class="menu-section-title">Account</div>
