@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Same CSS as your other views */
         :root {
             --primary-color: #4f46e5;
             --primary-hover: #4338ca;
@@ -46,15 +45,180 @@
             overflow-x: hidden;
         }
 
+        /* Layout */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar - Complete Implementation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+        }
+
+        .logo-text {
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            top: 20px;
+            right: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+            border: 2px solid white;
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle i {
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .sidebar-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            margin: 2px 0;
+        }
+
+        .menu-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        .menu-text {
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
             transition: var(--transition);
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: var(--sidebar-collapsed-width);
         }
 
         .dashboard-content {
@@ -156,6 +320,42 @@
             background-color: rgba(239, 68, 68, 0.1);
             color: var(--error-color);
         }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: var(--sidebar-collapsed-width);
+                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar.collapsed ~ .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -249,5 +449,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay"></div>
+
+    <script>
+        // Sidebar toggle functionality
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        });
+
+        // Close sidebar when clicking on overlay
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('collapsed');
+            this.classList.remove('active');
+        });
+    </script>
 </body>
 </html>

@@ -123,16 +123,12 @@
             <div style="margin-top: 5px;">Sahihi ya Mwenyekiti</div>
         </div>
         
-        <div class="signature-right">
-            <div><strong>Muhakiki:</strong></div>
-            <div class="signature-line"></div>
-            <div style="margin-top: 5px;">Sahihi ya Muhakiki</div>
-        </div>
+        
     </div>
 
     <div style="margin-top: 30px; text-align: center; font-size: 10px;">
         <p>Hati hii imetolewa kwa madhumuni ya udhamini tu.</p>
-        <p>This document is issued for guarantee purposes only.</p>
+        <p>This document is issued for referee purposes only.</p>
     </div>
 </body>
 </html>
