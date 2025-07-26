@@ -20,6 +20,10 @@ use App\Http\Controllers\Balozi\KayaMaskiniController;
 use App\Http\Controllers\Balozi\MalalamikoController;
 use App\Http\Controllers\Balozi\MtaameetingRequestController;
 use App\Http\Controllers\Balozi\PreferencesController;
+use App\Http\Controllers\Mwenyekiti\UdhaminiController;
+use App\Http\Controllers\Mwenyekiti\PdfController;
+
+
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
