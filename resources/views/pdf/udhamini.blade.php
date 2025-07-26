@@ -12,7 +12,37 @@
             margin: 0;
             padding: 20px;
             color: #000;
+            position: relative;
         }
+        
+        /* Verified Signature at End - Reduced Size */
+        .verified-signature {
+            position: relative;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+        }
+        
+        .verified-text {
+            font-size: 24px;
+            font-family: 'Brush Script MT', cursive, 'DejaVu Sans';
+            font-style: italic;
+            color: #2563eb;
+            transform: rotate(-3deg);
+            display: inline-block;
+            border: 2px solid #2563eb;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .verification-details {
+            margin-top: 8px;
+            font-size: 9px;
+            color: #666;
+            text-align: center;
+        }
+
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -286,21 +316,16 @@
                 </div>
             </div>
             
-            <div class="signature-right">
-                <div class="signature-title">Sahihi ya Mthibitishaji</div>
-                <div class="signature-info">
-                    Jina: _________________________<br>
-                    Cheo: _________________________<br>
-                    Simu: _________________________
-                </div>
-                <div class="signature-line"></div>
-                <div class="signature-label">Sahihi na Tarehe</div>
-                
-                <div class="verification-box">
-                    <div class="verification-title">MUHURI WA MTHIBITISHAJI</div>
-                    <div class="stamp-area">VERIFIER STAMP</div>
-                </div>
-            </div>
+           
+        </div>
+    </div>
+
+    <!-- Compact Verified Signature at End -->
+    <div class="verified-signature">
+        <div class="verified-text">Verified</div>
+        <div class="verification-details">
+            Document electronically verified on {{ date('d/m/Y H:i') }}<br>
+            System Generated - Prototype Government System v1.0
         </div>
     </div>
 
@@ -315,7 +340,7 @@
             2. Mtu anayedhaminiwa anahitaji kufuata sheria zote za nchi na taratibu za serikali.
         </div>
         <div class="footer-note">
-            3. Udhamini huu ni wa muda wa wiki mbili (2) kuanzia tarehe ya kutolewa kwa hati hii.
+            3. Udhamini huu ni wa muda wa miaka miwili (2) kuanzia tarehe ya kutolewa kwa hati hii.
         </div>
         <div style="margin-top: 15px; font-size: 8px;">
             <strong>Imeandaliwa na:</strong> {{ $udhamini->createdBy->first_name }} {{ $udhamini->createdBy->last_name }} | 
