@@ -149,6 +149,16 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
         Route::post('/balozi/{balozi}/request-account', [BaloziController::class, 'requestAccount'])
             ->name('balozi.request-account');
     });
+
+  Route::group(['prefix' => 'mwenyekiti', 'as' => 'mwenyekiti.'], function () {
+    // ...existing routes...
+    
+    Route::get('udhamini', [UdhaminiController::class, 'index'])->name('udhamini.index');
+    Route::get('udhamini/create', [UdhaminiController::class, 'create'])->name('udhamini.create');
+    Route::post('udhamini', [UdhaminiController::class, 'store'])->name('udhamini.store');
+    Route::get('udhamini/{id}', [UdhaminiController::class, 'show'])->name('udhamini.show');
+    Route::get('udhamini/{id}/print', [PdfController::class, 'generateUdhaminiPdf'])->name('udhamini.print');
+   });
 });
 
 // Admin routes with its logout
