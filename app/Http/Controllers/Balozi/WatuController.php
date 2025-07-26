@@ -105,7 +105,7 @@ class WatuController extends Controller
             ->where('created_by', $baloziId)
             ->findOrFail($id);
             
-        return view('Balozi.Watu.ViewWatu', compact('watu'));
+        return view('Balozi.Watu.show', compact('watu'));
     }
 
     public function edit($id)
