@@ -19,17 +19,7 @@
             </a>
         </div>
 
-        <div class="menu-section">
-            <div class="menu-section-title">User Panel</div>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-user"></i></div>
-                <div class="menu-text">Request  fomu ya  Udhamini</div>
-            </a> 
-           <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-file-alt"></i></div>
-                <div class="menu-text">Write  Mapendekezo  ya  leo</div>
-            </a>
-        </div>
+       
 
         <div class="menu-section">
             <div class="menu-section-title">Meeting Request</div>
@@ -113,10 +103,15 @@
 
         <div class="menu-section">
             <div class="menu-section-title">Settings</div>
-            <a href="#" class="menu-item">
+         <a href="{{ route('balozi.preferences.index') }}" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
                 <div class="menu-text">Preferences</div>
             </a>
+            <a href='#' class="menu-item">
+                <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
+                <div class="menu-text">Request  Support</div>
+            </a>
+
             <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
                 <div class="menu-text">Logout</div>

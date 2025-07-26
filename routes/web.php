@@ -19,6 +19,7 @@ use App\Http\Controllers\Balozi\DailyprogressController;
 use App\Http\Controllers\Balozi\KayaMaskiniController;
 use App\Http\Controllers\Balozi\MalalamikoController;
 use App\Http\Controllers\Balozi\MtaameetingRequestController;
+use App\Http\Controllers\Balozi\PreferencesController;
 
 // Default route - Changed to show welcome page directly
 Route::get('/', function () {
@@ -116,6 +117,13 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::put('/{id}', [MtaameetingRequestController::class, 'update'])->name('balozi.mtaameetingrequest.update');
         Route::delete('/{id}', [MtaameetingRequestController::class, 'destroy'])->name('balozi.mtaameetingrequest.destroy');
     });
+    Route::group(['prefix' => 'balozi', 'as' => 'balozi.'], function () {
+    // ...existing routes...
+    
+    Route::get('/preferences', [PreferencesController::class, 'index'])->name('preferences.index');
+    
+    Route::put('/preferences/password', [PreferencesController::class, 'updatePassword'])->name('preferences.update-password');
+    });
 });
 
 Route::middleware(['auth.mwenyekiti'])->group(function () {
@@ -133,6 +141,7 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
         Route::get('/balozi/{balozi}/edit', [BaloziController::class, 'edit'])->name('balozi.edit');
         Route::put('/balozi/{balozi}', [BaloziController::class, 'update'])->name('balozi.update');
         
+       
         // Additional route for search
         Route::get('/balozi/search', [BaloziController::class, 'search'])->name('balozi.search');
 
