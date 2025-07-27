@@ -181,7 +181,17 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::put('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
     Route::post('meetings/{id}/record-outcome', [MeetingController::class, 'recordOutcome'])->name('meetings.record-outcome');
     Route::delete('meetings/{id}', [MeetingController::class, 'destroy'])->name('meetings.destroy');
+
+    Route::get('matangazo', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'index'])->name('matangazo.index');
+    Route::get('matangazo/create', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'create'])->name('matangazo.create');
+    Route::post('matangazo/store', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'store'])->name('matangazo.store');
+    Route::get('matangazo/{id}/show/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'show'])->name('matangazo.show');
+    Route::get('matangazo/{id}/edit/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'edit'])->name('matangazo.edit');
+    Route::put('matangazo/{id}/update/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'update'])->name('matangazo.update');
+    Route::delete('matangazo/{id}/destroy/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'destroy'])->name('matangazo.destroy');
+    Route::get('matangazo/{id}/download/{type}/{attachment}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'downloadAttachment'])->name('matangazo.download');
    });
+    
 
 });
 
@@ -269,4 +279,8 @@ Route::post('/logout1', [UserAuthController::class, 'logout'])
     ->name('logout')
     ->middleware(['web']);
 
+
+Route::get('announcements', [App\Http\Controllers\MatangazoPublicController::class, 'index'])->name('announcements.index');
+Route::get('announcements/{id}/view/{type?}', [App\Http\Controllers\MatangazoPublicController::class, 'show'])->name('announcements.show');
+Route::get('announcements/{id}/download/{type}/{attachment}', [App\Http\Controllers\MatangazoPublicController::class, 'downloadAttachment'])->name('announcements.download');
     
