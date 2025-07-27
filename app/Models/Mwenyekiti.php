@@ -60,4 +60,25 @@ class Mwenyekiti extends Model
     {
         return $this->hasMany(Udhamini::class, 'created_by');
     }
+
+    /**
+     * Get all general announcements created by this Mwenyekiti
+     */
+    public function matangazoYaKawaida()
+    {
+        return $this->hasMany(MatangazoYaKawaida::class, 'created_by');
+    }
+
+    /**
+     * Get active general announcements
+     */
+    public function activeMatangazoYaKawaida()
+    {
+        return $this->hasMany(MatangazoYaKawaida::class, 'created_by')
+                    ->where('status', 'active')
+                    ->where(function ($query) {
+                        $query->whereNull('expiry_date')
+                              ->orWhere('expiry_date', '>=', now()->toDateString());
+                    });
+    }
 }
