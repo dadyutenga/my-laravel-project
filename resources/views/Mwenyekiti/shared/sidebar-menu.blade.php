@@ -33,6 +33,34 @@
                 <i class="fas fa-chart-bar menu-icon"></i>
                 <span class="menu-text">Reports</span>
             </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Services Requested</span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Angalia Kaya-Maskini</span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Maendeleo  ya kila siku </span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Watu wenye Mahitaji Maalumu </span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Malalamiko</span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Watu</span>
+            </a>
+             <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Request Assistance</span>
+            </a>
             <a href="{{ route('mwenyekiti.udhamini.index') }}" class="menu-item">
                 <i class="fas fa-file-signature"></i>
                 <span class="menu-text">Fomu ya Udhamini</span>
