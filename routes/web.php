@@ -283,4 +283,3 @@ Route::post('/logout1', [UserAuthController::class, 'logout'])
 Route::get('announcements', [App\Http\Controllers\MatangazoPublicController::class, 'index'])->name('announcements.index');
 Route::get('announcements/{id}/view/{type?}', [App\Http\Controllers\MatangazoPublicController::class, 'show'])->name('announcements.show');
 Route::get('announcements/{id}/download/{type}/{attachment}', [App\Http\Controllers\MatangazoPublicController::class, 'downloadAttachment'])->name('announcements.download');
-    

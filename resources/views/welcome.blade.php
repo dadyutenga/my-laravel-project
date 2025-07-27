@@ -69,6 +69,123 @@
             }
         }
 
+        /* Navigation Bar */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #4f46e5;
+            background: rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.announcements {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .nav-link.announcements:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+            color: white;
+        }
+
+        .nav-link.announcements::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #4f46e5, #6366f1, #8b5cf6);
+            border-radius: 0.6rem;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-link.announcements:hover::before {
+            opacity: 1;
+        }
+
+        /* Mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #64748b;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
         /* Logo and header styles */
         .logo-container {
             display: inline-flex;
@@ -79,6 +196,7 @@
             border-radius: 1rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             margin-bottom: 1rem;
+            margin-top: 5rem; /* Add space for fixed nav */
         }
 
         .logo {
@@ -115,6 +233,96 @@
             color: #64748b;
             max-width: 20rem;
             margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Quick Actions Section */
+        .quick-actions {
+            width: 100%;
+            max-width: 32rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-actions-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-actions-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-actions-subtitle {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-card.featured {
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: white;
+            border: none;
+        }
+
+        .action-card.featured:hover {
+            box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.4);
+        }
+
+        .action-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-card .action-icon {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+        }
+
+        .action-card.featured .action-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .action-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-description {
+            font-size: 0.875rem;
+            opacity: 0.8;
             line-height: 1.5;
         }
 
@@ -231,6 +439,42 @@
             opacity: 0.7;
         }
 
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                gap: 0.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .logo-container {
+                margin-top: 4rem;
+            }
+        }
+
         /* Responsive styles */
         @media (min-width: 640px) {
             .title {
@@ -265,9 +509,48 @@
         .delay-300 {
             animation-delay: 0.3s;
         }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
     </style>
 </head>
 <body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+                <div class="nav-logo-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <span>Prototype System</span>
+            </a>
+            
+            <div class="nav-links" id="navLinks">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ route('announcements.index') }}" class="nav-link announcements">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+                <a href="#services" class="nav-link">
+                    <i class="fas fa-cogs"></i>
+                    <span>Services</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </div>
+
+            <div class="nav-toggle" onclick="toggleNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
     <!-- Decorative elements -->
     <div class="decoration decoration-1"></div>
     <div class="decoration decoration-2"></div>
@@ -281,14 +564,40 @@
             </div>
         </div>
         <h1 class="title">Prototype System</h1>
-        <p class="subtitle">Welcome to the management portal. Please select your login type to continue.</p>
+        <p class="subtitle">Welcome to the management portal. Access community announcements and admin areas.</p>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions animate-fade-in delay-100">
+        <div class="quick-actions-header">
+            <h2 class="quick-actions-title">Quick Access</h2>
+            <p class="quick-actions-subtitle">Choose what you'd like to access</p>
+        </div>
+        
+        <div class="actions-grid">
+            <a href="{{ route('announcements.index') }}" class="action-card featured">
+                <div class="action-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="action-title">Community Announcements</h3>
+                <p class="action-description">Stay updated with the latest community news, events, and important announcements from local leaders.</p>
+            </a>
+            
+            <a href="#services" class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="action-title">Community Services</h3>
+                <p class="action-description">Access various community services, submit requests, and track service delivery progress.</p>
+            </a>
+        </div>
     </div>
 
     <!-- Login card -->
     <div class="card animate-fade-in delay-200">
         <div class="card-header">
-            <h2 class="card-title">Choose Login Type</h2>
-            <p class="card-description">Select the appropriate portal for your role</p>
+            <h2 class="card-title">Administrative Access</h2>
+            <p class="card-description">Login to manage the system and community resources</p>
         </div>
         <div class="card-content">
             <a href="{{ route('login') }}" class="button button-admin">
@@ -319,6 +628,12 @@
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
+        // Toggle mobile navigation
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
         // Add hover effect to buttons
         const buttons = document.querySelectorAll('.button');
         buttons.forEach(button => {
@@ -341,6 +656,33 @@
                 const factor = (index + 1) * 10;
                 decoration.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
             });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const nav = document.querySelector('.top-nav');
+            
+            if (scrollTop > lastScrollTop) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>
