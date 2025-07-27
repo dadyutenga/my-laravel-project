@@ -5,488 +5,340 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prototype System - Welcome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Reset and base styles */
+        :root {
+            --primary-color: #0d9445ff; /* Teal color */
+            --primary-hover: #0d9445ff;
+            --primary-light: rgba(20, 184, 166, 0.1);
+            --secondary-color: #f8fafc;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #ffffff 100%);
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            position: relative;
+            color: var(--text-color);
             overflow-x: hidden;
-            color: #1e293b;
         }
 
-        /* Decorative elements */
-        .decoration {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(203, 213, 225, 0.8) 0%, rgba(203, 213, 225, 0) 70%);
-            z-index: -1;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        .decoration-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-
-        .decoration-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -50px;
-            left: -50px;
-            animation-delay: -5s;
-        }
-
-        .decoration-3 {
-            width: 150px;
-            height: 150px;
-            top: 20%;
-            left: 10%;
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(20px) scale(1.05);
-            }
-        }
-
-        /* Navigation Bar */
-        .top-nav {
+        /* Background decorations */
+        .bg-decoration {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-            padding: 1rem 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: #1e293b;
-            text-decoration: none;
-        }
-
-        .nav-logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: #4f46e5;
-            background: rgba(79, 70, 229, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .nav-link.announcements {
-            background: linear-gradient(135deg, #4f46e5, #6366f1);
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-        }
-
-        .nav-link.announcements:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
-            color: white;
-        }
-
-        .nav-link.announcements::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, #4f46e5, #6366f1, #8b5cf6);
-            border-radius: 0.6rem;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-link.announcements:hover::before {
-            opacity: 1;
-        }
-
-        /* Mobile nav toggle */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #64748b;
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        /* Logo and header styles */
-        .logo-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.5rem;
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1rem;
-            margin-top: 5rem; /* Add space for fixed nav */
-        }
-
-        .logo {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 0.75rem;
-            background-color: #0f172a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-        }
-
-        .header {
-            width: 100%;
-            max-width: 28rem;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #1e293b, #334155);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .subtitle {
-            color: #64748b;
-            max-width: 20rem;
-            margin: 0 auto;
-            line-height: 1.5;
-        }
-
-        /* Quick Actions Section */
-        .quick-actions {
-            width: 100%;
-            max-width: 32rem;
-            margin-bottom: 2rem;
-        }
-
-        .quick-actions-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .quick-actions-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-        }
-
-        .quick-actions-subtitle {
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        .actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .action-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-        }
-
-        .action-card.featured {
-            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
-            color: white;
-            border: none;
-        }
-
-        .action-card.featured:hover {
-            box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.4);
-        }
-
-        .action-icon {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .action-card .action-icon {
-            background: rgba(79, 70, 229, 0.1);
-            color: #4f46e5;
-        }
-
-        .action-card.featured .action-icon {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .action-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .action-description {
-            font-size: 0.875rem;
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-
-        /* Card styles */
-        .card {
-            width: 100%;
-            max-width: 28rem;
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .card-header {
-            padding: 1.5rem 1.5rem 0.5rem;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .card-description {
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        .card-content {
-            padding: 1rem 1.5rem;
-            display: grid;
-            gap: 1rem;
-        }
-
-        .card-footer {
-            padding: 0.5rem 1.5rem 1.5rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-
-        /* Button styles */
-        .button {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            height: 3.5rem;
-            padding: 0 1.25rem;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            text-decoration: none;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateX(-100%);
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(20, 184, 110, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(13, 148, 136, 0.2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(2deg); }
+            66% { transform: translateY(15px) rotate(-1deg); }
+        }
+
+        /* Main content */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Hero section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: var(--shadow-md);
+            margin-right: 1rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #f1f5f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+        }
+
+        /* Quick nav buttons */
+        .quick-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .quick-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quick-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .quick-nav-btn.featured {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+        }
+
+        .quick-nav-btn.featured:hover {
+            background: linear-gradient(135deg, var(--primary-hover), #0891b2);
+        }
+
+        /* Cards container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover), #ffffff);
+            transform: scaleX(0);
             transition: transform 0.3s ease;
         }
 
-        .button:hover::before {
-            transform: translateX(0);
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
-        .button:active {
-            transform: translateY(2px);
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        .button-admin {
-            background-color: #0f172a;
+        .card-header {
+            margin-bottom: 1.5rem;
         }
 
-        .button-admin:hover {
-            background-color: #1e293b;
-        }
-
-        .button-leaders {
-            background-color: #059669;
-        }
-
-        .button-leaders:hover {
-            background-color: #047857;
-        }
-
-        .button-icon {
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
+            gap: 0.75rem;
         }
 
-        .button-icon i {
-            margin-right: 0.5rem;
+        .card-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        .button-arrow {
-            opacity: 0.7;
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-                gap: 0.5rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-toggle {
-                display: flex;
-            }
-
-            .actions-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .title {
-                font-size: 2rem;
-            }
-
-            .logo-container {
-                margin-top: 4rem;
-            }
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
-        /* Responsive styles */
-        @media (min-width: 640px) {
-            .title {
-                font-size: 2.5rem;
-            }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
         }
 
-        /* Animation for page load */
-        @keyframes fadeIn {
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease 1.4s both;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -494,195 +346,187 @@
             }
         }
 
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease forwards;
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .hero-section {
+                margin-bottom: 3rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .quick-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quick-nav-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
         }
 
-        .delay-100 {
-            animation-delay: 0.1s;
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-cta {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .logo-container {
+                padding: 0.75rem;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .logo-text {
+                font-size: 1.25rem;
+            }
         }
 
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-300 {
-            animation-delay: 0.3s;
-        }
-
-        .delay-400 {
-            animation-delay: 0.4s;
+        /* Scroll animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .card:nth-child(2) {
+                animation-delay: 1.4s;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="nav-container">
-                <div class="nav-logo-icon">
+    <div class="bg-decoration"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="logo-container">
+                <div class="logo-icon">
                     <i class="fas fa-database"></i>
                 </div>
-                <span>Prototype System</span>
-            </a>
-            
-            <div class="nav-links" id="navLinks">
-                    <i class="fas fa-home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="{{ route('announcements.index') }}" class="nav-link announcements">
+                <div class="logo-text">Prototype System</div>
+            </div>
+
+            <h1 class="hero-title">Community Management Platform</h1>
+            <p class="hero-subtitle">
+                Modern community management platform. Stay connected with local announcements, 
+                access administrative tools, and manage community resources efficiently.
+            </p>
+
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <a href="{{ route('announcements.index') }}" class="quick-nav-btn featured">
                     <i class="fas fa-bullhorn"></i>
-                    <span>Announcements</span>
+                    <span>Community Announcements</span>
                 </a>
-                <a href="#services" class="nav-link">
-                    <i class="fas fa-cogs"></i>
-                    <span>Services</span>
+                <a href="#about" class="quick-nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
                 </a>
-                <a href="#contact" class="nav-link">
+                <a href="#contact" class="quick-nav-btn">
                     <i class="fas fa-envelope"></i>
                     <span>Contact</span>
                 </a>
             </div>
+        </section>
 
-            <div class="nav-toggle" onclick="toggleNav()">
-                <span></span>
-                <span></span>
-                <span></span>
+        <!-- Cards Section -->
+        <section class="cards-container">
+            <!-- Admin Login Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-shield-alt" style="color: var(--primary-color);"></i>
+                        Admin Portal
+                    </h2>
+                    <p class="card-description">
+                        Access the administrative dashboard to manage users, system settings, and monitor platform activities.
+                    </p>
+                </div>
+                <div class="card-content">
+                    <a href="{{ route('login') }}" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Admin Login</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-    </nav>
 
-    <!-- Decorative elements -->
-    <div class="decoration decoration-1"></div>
-    <div class="decoration decoration-2"></div>
-    <div class="decoration decoration-3"></div>
-
-    <!-- Logo and header -->
-    <div class="header animate-fade-in">
-        <div class="logo-container">
-            <div class="logo">
-                <i class="fas fa-database"></i>
+            <!-- Leaders Login Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-users" style="color: var(--success-color);"></i>
+                        Leaders Portal
+                    </h2>
+                    <p class="card-description">
+                        Community leaders can manage announcements, meetings, certificates, and engage with residents.
+                    </p>
+                </div>
+                <div class="card-content">
+                    <a href="{{ route('login1') }}" class="btn btn-secondary">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Leaders Login</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-        <h1 class="title">Prototype System</h1>
-        <p class="subtitle">Welcome to the management portal. Access community announcements and admin areas.</p>
-    </div>
+        </section>
 
-    <!-- Quick Actions -->
-    <div class="quick-actions animate-fade-in delay-100">
-        <div class="quick-actions-header">
-            <h2 class="quick-actions-title">Quick Access</h2>
-            <p class="quick-actions-subtitle">Choose what you'd like to access</p>
-        </div>
-        
-        <div class="actions-grid">
-            <a href="{{ route('announcements.index') }}" class="action-card featured">
-                <div class="action-icon">
-                    <i class="fas fa-bullhorn"></i>
-                </div>
-                <h3 class="action-title">Community Announcements</h3>
-                <p class="action-description">Stay updated with the latest community news, events, and important announcements from local leaders.</p>
-            </a>
-            
-            <a href="#services" class="action-card">
-                <div class="action-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <h3 class="action-title">Community Services</h3>
-                <p class="action-description">Access various community services, submit requests, and track service delivery progress.</p>
-            </a>
-        </div>
-    </div>
-
-    <!-- Login card -->
-    <div class="card animate-fade-in delay-200">
-        <div class="card-header">
-            <h2 class="card-title">Administrative Access</h2>
-            <p class="card-description">Login to manage the system and community resources</p>
-        </div>
-        <div class="card-content">
-            <a href="{{ route('login') }}" class="button button-admin">
-                <div class="button-icon">
-                    <i class="fas fa-database"></i>
-                    <span>Admin Login</span>
-                </div>
-                <div class="button-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-            <a href="{{ route('login1') }}" class="button button-leaders">
-                <div class="button-icon">
-                    <i class="fas fa-users"></i>
-                    <span>Leaders Login</span>
-                </div>
-                <div class="button-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-            </a>
-        </div>
-        <div class="card-footer">
-            © <span id="current-year"></span> Prototype System. All rights reserved.
-        </div>
-    </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; <span id="current-year"></span> Prototype System. Built with modern web technologies.</p>
+        </footer>
+    </main>
 
     <script>
-        // Set current year in footer
+        // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Toggle mobile navigation
-        function toggleNav() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-        }
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        // Add hover effect to buttons
-        const buttons = document.querySelectorAll('.button');
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                button.querySelector('.button-arrow').style.transform = 'translateX(5px)';
-            });
-            
-            button.addEventListener('mouseleave', () => {
-                button.querySelector('.button-arrow').style.transform = 'translateX(0)';
-            });
-        });
-
-        // Add subtle parallax effect to decorative elements
-        document.addEventListener('mousemove', (e) => {
-            const decorations = document.querySelectorAll('.decoration');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            decorations.forEach((decoration, index) => {
-                const factor = (index + 1) * 10;
-                decoration.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
                 }
             });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('[style*="animation"]').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
         });
 
-        // Add scroll effect to navigation
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const nav = document.querySelector('.top-nav');
-            
-            if (scrollTop > lastScrollTop) {
-                nav.style.transform = 'translateY(-100%)';
-            } else {
-                nav.style.transform = 'translateY(0)';
-            }
-            lastScrollTop = scrollTop;
+        // Start hero animations immediately
+        document.querySelectorAll('.hero-section [style*="animation"]').forEach(el => {
+            el.style.animationPlayState = 'running';
         });
     </script>
 </body>
