@@ -11,7 +11,7 @@
     <div class="sidebar-menu">
         <div class="menu-section">
             <div class="menu-section-title">Main</div>
-            <a href="#" class="menu-item">
+            <a href="{{ route('mwenyekiti.dashboard') }}" class="menu-item {{ request()->routeIs('mwenyekiti.dashboard') ? 'active' : '' }}">
                 <i class="fas fa-home menu-icon"></i>
                 <span class="menu-text">Dashboard</span>
             </a>
@@ -37,12 +37,20 @@
                 <i class="fas fa-file-signature"></i>
                 <span class="menu-text">Fomu ya Udhamini</span>
             </a>
-         
-              <a href="{{ route('mwenyekiti.meeting-requests.index') }}" class="menu-item">
-             <i class="fas fa-calendar-alt menu-icon"></i>
-              <span class="menu-text">Maombi ya  mkutano</span>
+        </div>
+        <!-- Meeting Management -->
+        <div class="menu-section">
+            <div class="menu-section-title">Meeting Management</div>
+            <a href="{{ route('mwenyekiti.meetings.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.meetings.*') ? 'active' : '' }}">
+                <i class="fas fa-calendar-alt menu-icon"></i>
+                <span class="menu-text">Mikutano </span>
+            </a>
+            <a href="{{ route('mwenyekiti.meeting-requests.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.meeting-requests.*') ? 'active' : '' }}">
+                <i class="fas fa-calendar-check menu-icon"></i>
+                <span class="menu-text">Maonbi ya Mkutano</span>
             </a>
         </div>
+
         <div class="menu-section">
             <div class="menu-section-title">Account</div>
             <a href="#" class="menu-item">

@@ -23,6 +23,8 @@ use App\Http\Controllers\Balozi\PreferencesController;
 use App\Http\Controllers\Mwenyekiti\UdhaminiController;
 use App\Http\Controllers\Mwenyekiti\PdfController;
 use App\Http\Controllers\Mwenyekiti\MeetingRequestController;
+use App\Http\Controllers\Mwenyekiti\MeetingController;
+
 
     
 
@@ -170,7 +172,17 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::get('meeting-requests', [MeetingRequestController::class, 'index'])->name('meeting-requests.index');
     Route::get('meeting-requests/{id}', [MeetingRequestController::class, 'show'])->name('meeting-requests.show');
     Route::put('meeting-requests/{id}/update-status', [MeetingRequestController::class, 'updateStatus'])->name('meeting-requests.update-status');
+
+    Route::get('meetings', [MeetingController::class, 'index'])->name('meetings.index');
+    Route::get('meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+    Route::post('meetings', [MeetingController::class, 'store'])->name('meetings.store');
+    Route::get('meetings/{id}', [MeetingController::class, 'show'])->name('meetings.show');
+    Route::get('meetings/{id}/edit', [MeetingController::class, 'edit'])->name('meetings.edit');
+    Route::put('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
+    Route::post('meetings/{id}/record-outcome', [MeetingController::class, 'recordOutcome'])->name('meetings.record-outcome');
+    Route::delete('meetings/{id}', [MeetingController::class, 'destroy'])->name('meetings.destroy');
    });
+
 });
 
 // Admin routes with its logout
