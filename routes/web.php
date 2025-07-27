@@ -283,3 +283,5 @@ Route::post('/logout1', [UserAuthController::class, 'logout'])
 Route::get('announcements', [App\Http\Controllers\MatangazoPublicController::class, 'index'])->name('announcements.index');
 Route::get('announcements/{id}/view/{type?}', [App\Http\Controllers\MatangazoPublicController::class, 'show'])->name('announcements.show');
 Route::get('announcements/{id}/download/{type}/{attachment}', [App\Http\Controllers\MatangazoPublicController::class, 'downloadAttachment'])->name('announcements.download');
+Route::get('api/announcements/latest', [App\Http\Controllers\MatangazoPublicController::class, 'latest'])->name('api.announcements.latest');
+Route::get('api/announcements/search', [App\Http\Controllers\MatangazoPublicController::class, 'search'])->name('api.announcements.search');
