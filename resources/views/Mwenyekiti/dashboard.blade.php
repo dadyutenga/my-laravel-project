@@ -759,11 +759,11 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Total People</div>
+                            <div class="stats-title">Jumla ya Watu</div>
                             <div class="stats-value">{{ number_format($stats['totalWatu']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-arrow-up"></i>
-                                +{{ $stats['newWatuThisMonth'] }} this month
+                                +{{ $stats['newWatuThisMonth'] }} mwezi huu
                             </div>
                         </div>
                     </div>
@@ -774,11 +774,11 @@
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Active Balozi</div>
+                            <div class="stats-title">Balozi Hai</div>
                             <div class="stats-value">{{ number_format($stats['totalBalozi']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-circle text-green"></i>
-                                {{ $stats['activeBaloziThisMonth'] }} active this month
+                                {{ $stats['activeBaloziThisMonth'] }} hai mwezi huu
                             </div>
                         </div>
                     </div>
@@ -789,11 +789,11 @@
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Meetings</div>
+                            <div class="stats-title">Mikutano</div>
                             <div class="stats-value">{{ number_format($stats['totalMeetings']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-clock"></i>
-                                {{ $stats['upcomingMeetings'] }} upcoming
+                                {{ $stats['upcomingMeetings'] }} zinazokuja
                             </div>
                         </div>
                     </div>
@@ -804,11 +804,11 @@
                             <i class="fas fa-hourglass-half"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Pending Requests</div>
+                            <div class="stats-title">Maombi Yanayosubiri</div>
                             <div class="stats-value">{{ number_format($stats['pendingMeetingRequests']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-exclamation-circle"></i>
-                                Meeting requests
+                                Maombi ya mikutano
                             </div>
                         </div>
                     </div>
@@ -819,11 +819,11 @@
                             <i class="fas fa-bullhorn"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Announcements</div>
+                            <div class="stats-title">Matangazo</div>
                             <div class="stats-value">{{ number_format($stats['totalAnnouncements']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-broadcast-tower"></i>
-                                {{ $stats['activeAnnouncements'] }} active
+                                {{ $stats['activeAnnouncements'] }} yanayoendelea
                             </div>
                         </div>
                     </div>
@@ -834,11 +834,11 @@
                             <i class="fas fa-wheelchair"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Special Needs</div>
+                            <div class="stats-title">Mahitaji Maalumu</div>
                             <div class="stats-value">{{ number_format($stats['totalMahitajiMaalumu']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-heart"></i>
-                                People with special needs
+                                Watu wenye mahitaji maalumu
                             </div>
                         </div>
                     </div>
@@ -849,11 +849,11 @@
                             <i class="fas fa-home"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Poor Families</div>
+                            <div class="stats-title">Kaya Maskini</div>
                             <div class="stats-value">{{ number_format($stats['totalKayaMaskini']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-hands-helping"></i>
-                                Families needing support
+                                Kaya zinazohitaji msaada
                             </div>
                         </div>
                     </div>
@@ -864,11 +864,11 @@
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
                         <div class="stats-content">
-                            <div class="stats-title">Complaints</div>
+                            <div class="stats-title">Malalamiko</div>
                             <div class="stats-value">{{ number_format($stats['totalMalalamiko']) }}</div>
                             <div class="stats-subtitle">
                                 <i class="fas fa-clock"></i>
-                                {{ $stats['pendingMalalamiko'] }} pending
+                                {{ $stats['pendingMalalamiko'] }} yanayosubiri
                             </div>
                         </div>
                     </div>
