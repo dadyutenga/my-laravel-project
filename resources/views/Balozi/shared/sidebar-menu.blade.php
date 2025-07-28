@@ -45,13 +45,13 @@
         </div>
         <div class="menu-section">
             <div class="menu-section-title">Mahitaji Maalumu / Special Needs</div>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-cog"></i></div>
-                <div class="menu-text">Sajili Watu wenye  mahitaji  maalumu </div>
+            <a href="{{ route('balozi.mahitaji-maalumu.create') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-text">Sajili Watu wenye mahitaji maalumu</div>
             </a>
-            <a href="#" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-sign-out-alt"></i></div>
-                <div class="menu-text">Angalia  Watu  wenye  mahitaji  maalumu </div>
+            <a href="{{ route('balozi.mahitaji-maalumu.index') }}" class="menu-item">
+                <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-text">Angalia Watu wenye mahitaji maalumu</div>
             </a>
         </div>
         <div class="menu-section">

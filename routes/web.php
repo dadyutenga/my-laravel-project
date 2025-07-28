@@ -24,7 +24,7 @@ use App\Http\Controllers\Mwenyekiti\UdhaminiController;
 use App\Http\Controllers\Mwenyekiti\PdfController;
 use App\Http\Controllers\Mwenyekiti\MeetingRequestController;
 use App\Http\Controllers\Mwenyekiti\MeetingController;
-
+use App\Http\Controllers\Balozi\MahitajiMaalumuController;
 
     
 
@@ -127,6 +127,20 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::put('/{id}', [MtaameetingRequestController::class, 'update'])->name('balozi.mtaameetingrequest.update');
         Route::delete('/{id}', [MtaameetingRequestController::class, 'destroy'])->name('balozi.mtaameetingrequest.destroy');
     });
+
+    Route::prefix('balozi/mahitaji-maalumu')->name('balozi.mahitaji-maalumu.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'update'])->name('update');
+        Route::delete('/{id}', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}/download-pdf', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'downloadPdf'])->name('download-pdf');
+    });
+
+
+
+
     Route::group(['prefix' => 'balozi', 'as' => 'balozi.'], function () {
     // ...existing routes...
     
