@@ -38,7 +38,7 @@
         <!-- Community Data & Records -->
         <div class="menu-section">
             <div class="menu-section-title">Community Data & Records</div>
-            <a href="#" class="menu-item">
+            <a href="{{ route('mwenyekiti.watu.index') }}" class="menu-item">
                 <i class="fas fa-users menu-icon"></i>
                 <span class="menu-text">Watu</span>
             </a>
