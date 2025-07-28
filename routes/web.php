@@ -25,6 +25,7 @@ use App\Http\Controllers\Mwenyekiti\PdfController;
 use App\Http\Controllers\Mwenyekiti\MeetingRequestController;
 use App\Http\Controllers\Mwenyekiti\MeetingController;
 use App\Http\Controllers\Balozi\MahitajiMaalumuController;
+use App\Http\Controllers\Mwenyekiti\Dashboard1Controller;
 
     
 
@@ -151,13 +152,19 @@ Route::middleware(['auth.balozi'])->group(function () {
 });
 
 Route::middleware(['auth.mwenyekiti'])->group(function () {
-    Route::get('/mwenyekiti/dashboard', function () {
-        return view('mwenyekiti.dashboard');
-    })->name('mwenyekiti.dashboard');
+   // Route::get('/mwenyekiti/dashboard', function () {
+     //   return view('mwenyekiti.dashboard');
+    //})->name('mwenyekiti.dashboard');
 
     // Add Balozi routes
     Route::prefix('mwenyekiti')->name('mwenyekiti.')->group(function () {
         // Resource routes for Balozi
+
+        Route::get('/dashboard', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/area-stats', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'getAreaStats'])->name('dashboard.area-stats');
+
+
+
         Route::get('/balozi', [BaloziController::class, 'index'])->name('balozi.index');
         Route::get('/balozi/create', [BaloziController::class, 'create'])->name('balozi.create');
         Route::post('/balozi', [BaloziController::class, 'store'])->name('balozi.store');
@@ -204,6 +211,9 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::put('matangazo/{id}/update/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'update'])->name('matangazo.update');
     Route::delete('matangazo/{id}/destroy/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'destroy'])->name('matangazo.destroy');
     Route::get('matangazo/{id}/download/{type}/{attachment}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'downloadAttachment'])->name('matangazo.download');
+
+   //Route::get('/mwenyekiti/dashboard', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'index'])->name('mwenyekiti.dashboard');
+//Route::get('/mwenyekiti/dashboard/area-stats', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'getAreaStats'])->name('mwenyekiti.dashboard.area-stats');
    });
     
 

@@ -377,47 +377,83 @@
             padding: 30px;
         }
 
-        .dashboard-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .welcome-section {
             margin-bottom: 30px;
         }
 
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .welcome-text {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* Enhanced Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
         .stats-card {
-            background-color: white;
+            background: white;
             border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
             transition: var(--transition);
         }
 
         .stats-card:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
         }
 
+        .stats-card-primary::before { background: var(--primary-color); }
+        .stats-card-success::before { background: var(--success-color); }
+        .stats-card-info::before { background: var(--info-color); }
+        .stats-card-warning::before { background: var(--warning-color); }
+        .stats-card-danger::before { background: var(--error-color); }
+
         .stats-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            background-color: var(--primary-light);
-            color: var(--primary-color);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
         }
+
+        .stats-card-primary .stats-icon { background: var(--primary-color); }
+        .stats-card-success .stats-icon { background: var(--success-color); }
+        .stats-card-info .stats-icon { background: var(--info-color); }
+        .stats-card-warning .stats-icon { background: var(--warning-color); }
+        .stats-card-danger .stats-icon { background: var(--error-color); }
 
         .stats-content {
             flex: 1;
@@ -425,112 +461,254 @@
 
         .stats-title {
             font-size: 14px;
+            font-weight: 500;
             color: var(--text-muted);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stats-value {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--text-color);
+            margin-bottom: 4px;
         }
 
-        .alert {
-            padding: 15px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
+        .stats-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 4px;
         }
 
-        .alert-success {
-            background-color: var(--primary-light);
-            color: var(--primary-color);
+        .text-green { color: var(--success-color); }
+
+        /* Main Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: var(--sidebar-collapsed-width);
-                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
-            }
-
-            .sidebar.collapsed {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .sidebar.collapsed ~ .main-content {
-                margin-left: 0;
-            }
-
-            .sidebar-toggle {
-                right: -30px;
-                transform: rotate(180deg);
-            }
-
-            .sidebar.collapsed .sidebar-toggle {
-                transform: rotate(0);
-            }
-
-            .header {
-                padding: 0 15px;
-            }
-
-            .breadcrumb {
-                display: none;
-            }
-
-            .dashboard-content {
-                padding: 20px 15px;
-            }
-
-            .user-info {
-                display: none;
-            }
+        /* Quick Actions */
+        .quick-actions-section,
+        .recent-activities-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
         }
 
-        @media (max-width: 576px) {
-            .stats-grid {
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .quick-action-card {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: var(--transition);
+            gap: 16px;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateX(4px);
+        }
+
+        .quick-action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .quick-action-primary .quick-action-icon { background: var(--primary-color); }
+        .quick-action-success .quick-action-icon { background: var(--success-color); }
+        .quick-action-info .quick-action-icon { background: var(--info-color); }
+        .quick-action-warning .quick-action-icon { background: var(--warning-color); }
+
+        .quick-action-content {
+            flex: 1;
+        }
+
+        .quick-action-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .quick-action-description {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .quick-action-arrow {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Recent Activities */
+        .activities-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .activity-primary { background: var(--primary-color); }
+        .activity-success { background: var(--success-color); }
+        .activity-info { background: var(--info-color); }
+        .activity-warning { background: var(--warning-color); }
+        .activity-danger { background: var(--error-color); }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .activity-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .empty-activities {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-activities i {
+            font-size: 32px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-header {
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .chart-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .mobile-menu-toggle {
-            display: none;
-        }
-
         @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                margin-right: 15px;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
-        }
-
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        @media (min-width: 769px) {
-            .sidebar-overlay {
-                display: none;
+            
+            .dashboard-title {
+                font-size: 24px;
+            }
+            
+            .stats-value {
+                font-size: 28px;
             }
         }
     </style>
@@ -560,14 +738,141 @@
             </header>
 
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Welcome, {{ auth('mwenyekiti')->user()->first_name ?? 'Mwenyekiti' }}!</h2>
-
-                @if (session('success'))
+                @if(session('success'))
                     <div class="alert alert-success">
-                        <i class="fas fa-check"></i>
+                        <i class="fas fa-check-circle"></i>
                         {{ session('success') }}
                     </div>
                 @endif
+
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h1 class="dashboard-title">Welcome back, {{ session('mwenyekiti_first_name', 'Mwenyekiti') }}!</h1>
+                    <p class="welcome-text">Here's what's happening in your community today.</p>
+                </div>
+
+                <!-- Stats Cards Grid -->
+                <div class="stats-grid">
+                    <!-- Total People Card -->
+                    <div class="stats-card stats-card-success">
+                        <div class="stats-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Total People</div>
+                            <div class="stats-value">{{ number_format($stats['totalWatu']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-arrow-up"></i>
+                                +{{ $stats['newWatuThisMonth'] }} this month
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Balozi Card -->
+                    <div class="stats-card stats-card-primary">
+                        <div class="stats-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Active Balozi</div>
+                            <div class="stats-value">{{ number_format($stats['totalBalozi']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-circle text-green"></i>
+                                {{ $stats['activeBaloziThisMonth'] }} active this month
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Meetings Card -->
+                    <div class="stats-card stats-card-info">
+                        <div class="stats-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Meetings</div>
+                            <div class="stats-value">{{ number_format($stats['totalMeetings']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-clock"></i>
+                                {{ $stats['upcomingMeetings'] }} upcoming
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card -->
+                    <div class="stats-card stats-card-warning">
+                        <div class="stats-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Pending Requests</div>
+                            <div class="stats-value">{{ number_format($stats['pendingMeetingRequests']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Meeting requests
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Announcements Card -->
+                    <div class="stats-card stats-card-success">
+                        <div class="stats-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Announcements</div>
+                            <div class="stats-value">{{ number_format($stats['totalAnnouncements']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-broadcast-tower"></i>
+                                {{ $stats['activeAnnouncements'] }} active
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Needs Card -->
+                    <div class="stats-card stats-card-info">
+                        <div class="stats-icon">
+                            <i class="fas fa-wheelchair"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Special Needs</div>
+                            <div class="stats-value">{{ number_format($stats['totalMahitajiMaalumu']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-heart"></i>
+                                People with special needs
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Poor Families Card -->
+                    <div class="stats-card stats-card-warning">
+                        <div class="stats-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Poor Families</div>
+                            <div class="stats-value">{{ number_format($stats['totalKayaMaskini']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-hands-helping"></i>
+                                Families needing support
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Complaints Card -->
+                    <div class="stats-card stats-card-danger">
+                        <div class="stats-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-title">Complaints</div>
+                            <div class="stats-value">{{ number_format($stats['totalMalalamiko']) }}</div>
+                            <div class="stats-subtitle">
+                                <i class="fas fa-clock"></i>
+                                {{ $stats['pendingMalalamiko'] }} pending
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Placeholder for future content -->
             </div>
