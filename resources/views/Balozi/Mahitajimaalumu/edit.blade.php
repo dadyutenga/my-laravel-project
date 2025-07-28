@@ -45,11 +45,171 @@
             overflow-x: hidden;
         }
 
+        /* Layout */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar - Complete Implementation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle i {
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .sidebar-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+        }
+
+        .menu-section {
+            margin-bottom: 30px;
+        }
+
+        .menu-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            padding: 0 20px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+            height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            margin: 2px 0;
+        }
+
+        .menu-item:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: inherit;
+            flex-shrink: 0;
+        }
+
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
@@ -57,6 +217,11 @@
             min-height: 100vh;
         }
 
+        .sidebar.collapsed ~ .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Header */
         .header {
             height: var(--header-height);
             background-color: white;
@@ -80,10 +245,21 @@
             color: var(--text-color);
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Dashboard Content */
         .dashboard-content {
             padding: 30px;
         }
 
+        /* Forms */
         .form-container {
             background-color: white;
             border-radius: var(--radius-lg);
@@ -150,6 +326,7 @@
             background-color: var(--primary-light);
         }
 
+        /* Alerts */
         .alert {
             padding: 12px 16px;
             border-radius: var(--radius-md);
@@ -157,6 +334,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .alert i {
+            font-size: 16px;
         }
 
         .alert-success {
@@ -171,6 +352,7 @@
             border: 1px solid #fecaca;
         }
 
+        /* Buttons */
         .btn {
             padding: 12px 24px;
             border: none;
@@ -212,9 +394,22 @@
             margin-top: 30px;
         }
 
+        /* Mobile */
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
             .main-content {
                 margin-left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
             }
 
             .dashboard-content {
@@ -233,6 +428,25 @@
                 flex-direction: column;
             }
         }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
@@ -242,6 +456,9 @@
         <div class="main-content">
             <div class="header">
                 <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <h1 class="header-title">Edit Mahitaji Maalumu</h1>
                 </div>
             </div>
@@ -394,6 +611,9 @@
         </div>
     </div>
 
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay"></div>
+
     <script>
         // File input change handler
         document.getElementById('pdf_file').addEventListener('change', function() {
@@ -404,6 +624,24 @@
             } else {
                 textElement.textContent = '{{ $record->pdf_file_path ? "Click to replace current PDF file" : "Click to upload PDF file or drag and drop" }}';
             }
+        });
+
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-toggle')?.addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar?.classList.toggle('mobile-open');
+            overlay?.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking overlay
+        document.querySelector('.sidebar-overlay')?.addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar?.classList.remove('mobile-open');
+            overlay?.classList.remove('active');
         });
     </script>
 </body>
