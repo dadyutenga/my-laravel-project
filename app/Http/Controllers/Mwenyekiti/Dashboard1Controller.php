@@ -39,7 +39,7 @@ class Dashboard1Controller extends Controller
             return $mwenyekitiId;
         }
 
-        // Get all statistics
+        // Get all statistics - ONLY for this Mwenyekiti's Balozi
         $stats = $this->getOverviewStats($mwenyekitiId);
         $charts = $this->getChartData($mwenyekitiId);
         $recentActivities = $this->getRecentActivities($mwenyekitiId);
@@ -50,48 +50,65 @@ class Dashboard1Controller extends Controller
 
     private function getOverviewStats($mwenyekitiId)
     {
-        // Get Balozi under this Mwenyekiti
+        // Get ONLY Balozi under this specific Mwenyekiti
         $baloziIds = Balozi::where('mwenyekiti_id', $mwenyekitiId)->pluck('id');
 
-        // Total People (Watu) registered by Balozi under this Mwenyekiti
+        // If no Balozi found, return zeros
+        if ($baloziIds->isEmpty()) {
+            return [
+                'totalWatu' => 0,
+                'newWatuThisMonth' => 0,
+                'totalBalozi' => 0,
+                'activeBaloziThisMonth' => 0,
+                'totalMeetings' => 0,
+                'upcomingMeetings' => 0,
+                'pendingMeetingRequests' => 0,
+                'totalAnnouncements' => 0,
+                'activeAnnouncements' => 0,
+                'totalUdhamini' => 0,
+                'udhaminiThisMonth' => 0,
+                'totalMahitajiMaalumu' => 0,
+                'totalKayaMaskini' => 0,
+                'totalMalalamiko' => 0,
+                'pendingMalalamiko' => 0,
+            ];
+        }
+
+        // WATU: Only people registered by THIS Mwenyekiti's Balozi
         $totalWatu = Watu::whereIn('created_by', $baloziIds)->count();
         $newWatuThisMonth = Watu::whereIn('created_by', $baloziIds)
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->count();
 
-        // Total Balozi under this Mwenyekiti
+        // BALOZI: Only THIS Mwenyekiti's Balozi
         $totalBalozi = $baloziIds->count();
         
-        // Active Balozi based on recent activity (those who have registered people recently)
+        // Active Balozi: Those who registered people recently OR are marked active
         $activeBaloziThisMonth = Balozi::where('mwenyekiti_id', $mwenyekitiId)
-            ->whereHas('watu', function($query) {
-                $query->where('created_at', '>=', now()->subMonth());
+            ->where(function($query) {
+                $query->whereHas('watu', function($subQuery) {
+                    $subQuery->where('created_at', '>=', now()->subMonth());
+                })->orWhere('is_active', true);
             })
             ->count();
 
-        // If no recent activity, count active Balozi based on is_active status
-        if ($activeBaloziThisMonth === 0) {
-            $activeBaloziThisMonth = Balozi::where('mwenyekiti_id', $mwenyekitiId)
-                ->where('is_active', true)
-                ->count();
-        }
-
-        // Meetings Statistics
+        // MEETINGS: Only meetings organized by THIS Mwenyekiti
         $totalMeetings = MtaaMeeting::where('organizer_id', $mwenyekitiId)->count();
         $upcomingMeetings = MtaaMeeting::where('organizer_id', $mwenyekitiId)
             ->where('meeting_date', '>', now())
             ->whereNull('outcome')
             ->count();
 
-        // Meeting Requests from Balozi
+        // MEETING REQUESTS: Only from THIS Mwenyekiti's Balozi
         $pendingMeetingRequests = MtaaMeetingRequest::whereHas('balozi', function($query) use ($mwenyekitiId) {
             $query->where('mwenyekiti_id', $mwenyekitiId);
         })->where('status', 'pending')->count();
 
-        // Announcements
+        // ANNOUNCEMENTS: Only created by THIS Mwenyekiti
         $totalAnnouncements = MatangazoYaKawaida::where('created_by', $mwenyekitiId)->count() +
                              Matangazo::where('created_by', $mwenyekitiId)->count();
+        
         $activeAnnouncements = MatangazoYaKawaida::where('created_by', $mwenyekitiId)
             ->where('effective_date', '<=', now())
             ->where(function($query) {
@@ -99,20 +116,20 @@ class Dashboard1Controller extends Controller
                       ->orWhere('expiry_date', '>=', now());
             })->count();
 
-        // Udhamini (Sponsorship forms)
+        // UDHAMINI: Only created by THIS Mwenyekiti
         $totalUdhamini = Udhamini::where('created_by', $mwenyekitiId)->count();
         $udhaminiThisMonth = Udhamini::where('created_by', $mwenyekitiId)
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->count();
 
-        // Special Needs People
+        // SPECIAL NEEDS: Only by THIS Mwenyekiti's Balozi
         $totalMahitajiMaalumu = MahitajiMaalumu::whereIn('created_by', $baloziIds)->count();
         
-        // Poor Families
+        // POOR FAMILIES: Only by THIS Mwenyekiti's Balozi
         $totalKayaMaskini = KayaMaskini::whereIn('created_by', $baloziIds)->count();
 
-        // Complaints
+        // COMPLAINTS: Only by THIS Mwenyekiti's Balozi
         $totalMalalamiko = Malalamiko::whereIn('created_by', $baloziIds)->count();
         $pendingMalalamiko = Malalamiko::whereIn('created_by', $baloziIds)
             ->where('status', 'pending')->count();
@@ -138,9 +155,21 @@ class Dashboard1Controller extends Controller
 
     private function getChartData($mwenyekitiId)
     {
+        // Get ONLY this Mwenyekiti's Balozi IDs
         $baloziIds = Balozi::where('mwenyekiti_id', $mwenyekitiId)->pluck('id');
 
-        // Monthly registration trends for the last 6 months
+        // If no Balozi, return empty data
+        if ($baloziIds->isEmpty()) {
+            return [
+                'monthlyWatu' => [],
+                'monthlyMeetings' => [],
+                'monthlyComplaints' => [],
+                'genderDistribution' => [],
+                'ageGroups' => [],
+            ];
+        }
+
+        // Monthly trends - ONLY for this Mwenyekiti's area
         $monthlyWatu = [];
         $monthlyMeetings = [];
         $monthlyComplaints = [];
@@ -149,6 +178,7 @@ class Dashboard1Controller extends Controller
             $date = now()->subMonths($i);
             $monthKey = $date->format('M Y');
             
+            // Only Watu registered by THIS Mwenyekiti's Balozi
             $monthlyWatu[] = [
                 'month' => $monthKey,
                 'count' => Watu::whereIn('created_by', $baloziIds)
@@ -157,6 +187,7 @@ class Dashboard1Controller extends Controller
                     ->count()
             ];
 
+            // Only meetings by THIS Mwenyekiti
             $monthlyMeetings[] = [
                 'month' => $monthKey,
                 'count' => MtaaMeeting::where('organizer_id', $mwenyekitiId)
@@ -165,6 +196,7 @@ class Dashboard1Controller extends Controller
                     ->count()
             ];
 
+            // Only complaints from THIS Mwenyekiti's Balozi
             $monthlyComplaints[] = [
                 'month' => $monthKey,
                 'count' => Malalamiko::whereIn('created_by', $baloziIds)
@@ -174,7 +206,7 @@ class Dashboard1Controller extends Controller
             ];
         }
 
-        // Gender distribution
+        // Gender distribution - ONLY from this Mwenyekiti's Balozi
         $genderDistribution = Watu::whereIn('created_by', $baloziIds)
             ->select('gender', DB::raw('count(*) as count'))
             ->groupBy('gender')
@@ -186,7 +218,7 @@ class Dashboard1Controller extends Controller
                 ];
             });
 
-        // Age groups
+        // Age groups - ONLY from this Mwenyekiti's Balozi
         $ageGroups = Watu::whereIn('created_by', $baloziIds)
             ->whereNotNull('date_of_birth')
             ->get()
@@ -216,12 +248,15 @@ class Dashboard1Controller extends Controller
 
     private function getRecentActivities($mwenyekitiId)
     {
+        // Get ONLY this Mwenyekiti's Balozi IDs
         $baloziIds = Balozi::where('mwenyekiti_id', $mwenyekitiId)->pluck('id');
         $activities = collect();
 
-        // Recent Watu registrations
+        // Recent Watu registrations - ONLY by this Mwenyekiti's Balozi
         $recentWatu = Watu::whereIn('created_by', $baloziIds)
-            ->with('balozi')
+            ->with(['balozi' => function($query) {
+                $query->select('id', 'first_name', 'last_name');
+            }])
             ->latest()
             ->take(5)
             ->get()
@@ -236,7 +271,7 @@ class Dashboard1Controller extends Controller
                 ];
             });
 
-        // Recent meetings
+        // Recent meetings - ONLY by this Mwenyekiti
         $recentMeetings = MtaaMeeting::where('organizer_id', $mwenyekitiId)
             ->latest()
             ->take(3)
@@ -252,11 +287,13 @@ class Dashboard1Controller extends Controller
                 ];
             });
 
-        // Recent meeting requests
+        // Recent meeting requests - ONLY from this Mwenyekiti's Balozi
         $recentRequests = MtaaMeetingRequest::whereHas('balozi', function($query) use ($mwenyekitiId) {
             $query->where('mwenyekiti_id', $mwenyekitiId);
         })
-        ->with('balozi')
+        ->with(['balozi' => function($query) {
+            $query->select('id', 'first_name', 'last_name');
+        }])
         ->latest()
         ->take(3)
         ->get()
@@ -264,14 +301,14 @@ class Dashboard1Controller extends Controller
             return [
                 'type' => 'meeting_request',
                 'title' => $request->title,
-                'description' => "Request from " . ($request->balozi->first_name ?: '') . " " . ($request->balozi->last_name ?: ''),
+                'description' => "Request from " . ($request->balozi->first_name ?? '') . " " . ($request->balozi->last_name ?? ''),
                 'time' => $request->created_at,
                 'icon' => 'fas fa-calendar-check',
                 'color' => $request->status === 'pending' ? 'warning' : ($request->status === 'approved' ? 'success' : 'danger')
             ];
         });
 
-        // Recent announcements
+        // Recent announcements - ONLY by this Mwenyekiti
         $recentAnnouncements = MatangazoYaKawaida::where('created_by', $mwenyekitiId)
             ->latest()
             ->take(3)
@@ -299,7 +336,10 @@ class Dashboard1Controller extends Controller
 
     private function getQuickActions($mwenyekitiId)
     {
-        $baloziIds = Balozi::where('mwenyekiti_id', $mwenyekitiId)->pluck('id');
+        // Get pending requests count - ONLY from this Mwenyekiti's Balozi
+        $pendingRequestsCount = MtaaMeetingRequest::whereHas('balozi', function($query) use ($mwenyekitiId) {
+            $query->where('mwenyekiti_id', $mwenyekitiId);
+        })->where('status', 'pending')->count();
 
         return [
             [
@@ -325,9 +365,7 @@ class Dashboard1Controller extends Controller
             ],
             [
                 'title' => 'Meeting Requests',
-                'description' => MtaaMeetingRequest::whereHas('balozi', function($query) use ($mwenyekitiId) {
-                    $query->where('mwenyekiti_id', $mwenyekitiId);
-                })->where('status', 'pending')->count() . ' pending requests',
+                'description' => $pendingRequestsCount . ' pending requests',
                 'route' => 'mwenyekiti.meeting-requests.index',
                 'icon' => 'fas fa-clock',
                 'color' => 'warning'
@@ -343,9 +381,10 @@ class Dashboard1Controller extends Controller
             return $mwenyekitiId;
         }
 
+        // Get ONLY this Mwenyekiti's Balozi
         $baloziIds = Balozi::where('mwenyekiti_id', $mwenyekitiId)->pluck('id');
 
-        // Statistics by Mtaa/Area
+        // Statistics by Mtaa/Area - ONLY from this Mwenyekiti's Balozi
         $areaStats = Watu::whereIn('created_by', $baloziIds)
             ->select('mtaa', DB::raw('count(*) as total_people'))
             ->whereNotNull('mtaa')
@@ -353,7 +392,7 @@ class Dashboard1Controller extends Controller
             ->orderByDesc('total_people')
             ->get();
 
-        // Statistics by Balozi - fixed relationship names
+        // Statistics by Balozi - ONLY this Mwenyekiti's Balozi
         $baloziStats = Balozi::where('mwenyekiti_id', $mwenyekitiId)
             ->withCount([
                 'watu as watu_entries_count',
