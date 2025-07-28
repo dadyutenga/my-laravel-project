@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sw">
 <head>
@@ -49,67 +48,347 @@
         .dashboard-container {
             display: flex;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Sidebar - Same styling as MeetingRequest */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: white;
-            border-right: 1px solid var(--border-color);
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-            transition: var(--transition);
-            z-index: 1000;
-        }
+        /* Sidebar - Complete Implementation (matching MeetingRequest) */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: white;
+    border-right: 1px solid var(--border-color);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed-width);
-        }
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
 
-        /* Main content area */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-        }
+.sidebar-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border-color);
+}
 
-        .sidebar.collapsed ~ .main-content {
-            margin-left: var(--sidebar-collapsed-width);
-        }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 18px;
+    transition: var(--transition);
+    text-decoration: none;
+}
 
-        /* Content Area */
-        .content-area {
-            padding: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+}
 
-        /* Page Header */
-        .page-header {
-            background: white;
-            padding: 24px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            margin-bottom: 24px;
-        }
+.logo-text {
+    transition: var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+}
 
-        .page-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
+.sidebar.collapsed .logo-text {
+    opacity: 0;
+    width: 0;
+}
 
-        .page-subtitle {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+.sidebar-toggle {
+    position: absolute;
+    top: 20px;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+    border: 2px solid white;
+    transition: var(--transition);
+}
 
-        /* Alert Styles */
+.sidebar-toggle i {
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.sidebar.collapsed .sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+.sidebar-menu {
+    padding: 20px 0;
+    overflow-y: auto;
+    height: calc(100vh - var(--header-height));
+}
+
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-title {
+    padding: 10px 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.sidebar.collapsed .menu-section-title {
+    opacity: 0;
+}
+
+.menu-item {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+    margin: 2px 0;
+}
+
+.menu-item:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.menu-item.active {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.menu-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--primary-color);
+}
+
+.menu-icon {
+    width: 20px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.menu-text {
+    transition: var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .menu-text {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar.collapsed .menu-item {
+    justify-content: center;
+    padding: 10px;
+}
+
+.sidebar.collapsed .menu-icon {
+    margin-right: 0;
+}
+
+/* Mobile Responsive - Matching MeetingRequest */
+@media (max-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width);
+        transform: translateX(-100%);
+        z-index: 1001;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .sidebar.collapsed ~ .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    .content-area {
+        padding: 16px;
+    }
+
+    .balozi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-group {
+        grid-column: span 1;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .people-table {
+        font-size: 12px;
+    }
+
+    .people-table th,
+    .people-table td {
+        padding: 8px 12px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content-area {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .search-group {
+        grid-column: span 2;
+    }
+}
+
+@media (min-width: 1025px) {
+    .mobile-header {
+        display: none;
+    }
+    
+    .content-area {
+        padding: 24px;
+        max-width: 100%;
+    }
+}
+
+/* Main content area - FIXED */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    transition: var(--transition);
+    min-height: 100vh;
+    width: calc(100% - var(--sidebar-width));
+}
+
+.sidebar.collapsed ~ .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+    width: calc(100% - var(--sidebar-collapsed-width));
+}
+
+/* Content Area - FIXED */
+.content-area {
+    padding: 24px;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+/* Mobile Header - FIXED */
+.mobile-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.mobile-header-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.mobile-menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.mobile-menu-btn:hover {
+    background: var(--secondary-color);
+}
+
+/* Sidebar Overlay - FIXED */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Alert Styles */
         .alert {
             padding: 12px 16px;
             border-radius: var(--radius-md);
@@ -540,7 +819,9 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
+                width: var(--sidebar-width);
                 transform: translateX(-100%);
+                z-index: 1001;
             }
 
             .sidebar.mobile-open {
@@ -549,6 +830,16 @@
 
             .main-content {
                 margin-left: 0;
+                width: 100%;
+            }
+
+            .sidebar.collapsed ~ .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-header {
+                display: flex;
             }
 
             .content-area {
@@ -587,6 +878,11 @@
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
+            .content-area {
+                padding: 20px;
+                max-width: 100%;
+            }
+
             .filters-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -595,12 +891,32 @@
                 grid-column: span 2;
             }
         }
+
+        @media (min-width: 1025px) {
+            .mobile-header {
+                display: none;
+            }
+            
+            .content-area {
+                padding: 24px;
+                max-width: 100%;
+            }
+        }
+        
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Include Shared Sidebar -->
         @include('Mwenyekiti.shared.sidebar-menu')
+
+        <!-- Mobile Header (shown only on mobile) -->
+        <div class="mobile-header">
+            <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="mobile-header-title">Watu wa Jamii</h1>
+        </div>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -918,8 +1234,25 @@
             document.getElementById('searchForm').submit();
         }
 
-        // Initialize on DOM load
+        // Sidebar toggle functionality (matching MeetingRequest)
         document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    document.querySelector('.sidebar').classList.toggle('collapsed');
+                });
+            }
+
+            // Close sidebar when clicking on overlay
+            const sidebarOverlay = document.querySelector('.sidebar-overlay');
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    document.querySelector('.sidebar').classList.add('collapsed');
+                    this.classList.remove('active');
+                });
+            }
+
             // Auto-submit form on filter change
             const genderSelect = document.querySelector('select[name="gender"]');
             const ageGroupSelect = document.querySelector('select[name="age_group"]');
