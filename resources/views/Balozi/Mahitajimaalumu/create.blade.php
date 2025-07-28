@@ -210,6 +210,7 @@
             padding: 20px;
             text-align: center;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .file-upload-area:hover {
@@ -367,12 +368,12 @@
 
                         <div class="form-group">
                             <label for="pdf_file">Supporting Document (PDF)</label>
-                            <div class="file-upload-area">
+                            <div class="file-upload-area" onclick="document.getElementById('pdf_file').click()">
                                 <input type="file" id="pdf_file" name="pdf_file" class="form-control" 
                                        accept=".pdf" style="display: none;">
                                 <div class="file-upload-text">
                                     <i class="fas fa-cloud-upload-alt" style="font-size: 24px; margin-bottom: 8px;"></i>
-                                    <p>Click to upload PDF file or drag and drop</p>
+                                    <p id="file-upload-text">Click to upload PDF file or drag and drop</p>
                                     <small>Maximum file size: 10MB</small>
                                 </div>
                             </div>
@@ -398,16 +399,14 @@
     </div>
 
     <script>
-        // File upload click handler
-        document.querySelector('.file-upload-area').addEventListener('click', function() {
-            document.getElementById('pdf_file').click();
-        });
-
         // File input change handler
         document.getElementById('pdf_file').addEventListener('change', function() {
             const fileName = this.files[0]?.name;
+            const textElement = document.getElementById('file-upload-text');
             if (fileName) {
-                document.querySelector('.file-upload-text p').textContent = fileName;
+                textElement.textContent = `Selected: ${fileName}`;
+            } else {
+                textElement.textContent = 'Click to upload PDF file or drag and drop';
             }
         });
 

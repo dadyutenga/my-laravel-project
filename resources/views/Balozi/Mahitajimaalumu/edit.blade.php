@@ -142,6 +142,7 @@
             padding: 20px;
             text-align: center;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .file-upload-area:hover {
@@ -198,6 +199,11 @@
             background-color: var(--secondary-color);
             color: var(--text-color);
             border: 1px solid var(--border-color);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 12px;
         }
 
         .btn-group {
@@ -351,19 +357,19 @@
                                     <i class="fas fa-file-pdf"></i>
                                     <span>Current file: {{ basename($record->pdf_file_path) }}</span>
                                     <a href="{{ route('balozi.mahitaji-maalumu.download-pdf', $record->id) }}" 
-                                       class="btn btn-sm" style="margin-left: auto;">
+                                       class="btn btn-sm btn-secondary" style="margin-left: auto;">
                                         <i class="fas fa-download"></i>
                                         Download
                                     </a>
                                 </div>
                             @endif
 
-                            <div class="file-upload-area">
+                            <div class="file-upload-area" onclick="document.getElementById('pdf_file').click()">
                                 <input type="file" id="pdf_file" name="pdf_file" class="form-control" 
                                        accept=".pdf" style="display: none;">
                                 <div class="file-upload-text">
                                     <i class="fas fa-cloud-upload-alt" style="font-size: 24px; margin-bottom: 8px;"></i>
-                                    <p>{{ $record->pdf_file_path ? 'Click to replace current PDF file' : 'Click to upload PDF file or drag and drop' }}</p>
+                                    <p id="file-upload-text">{{ $record->pdf_file_path ? 'Click to replace current PDF file' : 'Click to upload PDF file or drag and drop' }}</p>
                                     <small>Maximum file size: 10MB</small>
                                 </div>
                             </div>
@@ -389,16 +395,14 @@
     </div>
 
     <script>
-        // File upload click handler
-        document.querySelector('.file-upload-area').addEventListener('click', function() {
-            document.getElementById('pdf_file').click();
-        });
-
         // File input change handler
         document.getElementById('pdf_file').addEventListener('change', function() {
             const fileName = this.files[0]?.name;
+            const textElement = document.getElementById('file-upload-text');
             if (fileName) {
-                document.querySelector('.file-upload-text p').textContent = fileName;
+                textElement.textContent = `Selected: ${fileName}`;
+            } else {
+                textElement.textContent = '{{ $record->pdf_file_path ? "Click to replace current PDF file" : "Click to upload PDF file or drag and drop" }}';
             }
         });
     </script>
