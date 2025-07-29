@@ -16,10 +16,10 @@
                 <i class="fas fa-home menu-icon"></i>
                 <span class="menu-text">Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-chart-line menu-icon"></i>
-                <span class="menu-text">Reports</span>
-            </a>
+            <a href="{{ route('mwenyekiti.reports.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.reports.*') ? 'active' : '' }}">
+    <i class="fas fa-chart-line menu-icon"></i>
+    <span class="menu-text">Reports</span>
+</a>
         </div>
 
         <!-- Balozi Management -->

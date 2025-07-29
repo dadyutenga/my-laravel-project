@@ -27,6 +27,7 @@ use App\Http\Controllers\Mwenyekiti\MeetingController;
 use App\Http\Controllers\Balozi\MahitajiMaalumuController;
 use App\Http\Controllers\Mwenyekiti\Dashboard1Controller;
 use App\Http\Controllers\Mwenyekiti\WatuFetchController;
+use App\Http\Controllers\Mwenyekiti\ReportController;
 
 
     
@@ -214,10 +215,13 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::delete('matangazo/{id}/destroy/{type?}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'destroy'])->name('matangazo.destroy');
     Route::get('matangazo/{id}/download/{type}/{attachment}', [App\Http\Controllers\Mwenyekiti\MatangazoController::class, 'downloadAttachment'])->name('matangazo.download');
 
-     Route::get('/watu', [App\Http\Controllers\Mwenyekiti\WatuFetchController::class, 'index'])->name('watu.index');
+    Route::get('/watu', [App\Http\Controllers\Mwenyekiti\WatuFetchController::class, 'index'])->name('watu.index');
     Route::get('/watu/{id}', [App\Http\Controllers\Mwenyekiti\WatuFetchController::class, 'show'])->name('watu.show');
     Route::get('/watu/export/csv', [App\Http\Controllers\Mwenyekiti\WatuFetchController::class, 'export'])->name('watu.export');
 
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::get('/reports/{type}', [ReportController::class, 'show'])->name('reports.show');
+Route::get('/reports/export/{type}', [ReportController::class, 'export'])->name('reports.export');
    //Route::get('/mwenyekiti/dashboard', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'index'])->name('mwenyekiti.dashboard');
 //Route::get('/mwenyekiti/dashboard/area-stats', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'getAreaStats'])->name('mwenyekiti.dashboard.area-stats');
    });
