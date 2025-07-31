@@ -51,6 +51,158 @@
             position: relative;
         }
 
+        /* SIDEBAR STYLES - ADD THIS SECTION */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .sidebar-toggle i {
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .sidebar-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-section {
+            margin-bottom: 24px;
+        }
+
+        .menu-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0 20px;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            display: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            border-right: 3px solid transparent;
+        }
+
+        .menu-item:hover {
+            background: rgba(79, 70, 229, 0.05);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            border-right-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item {
+            padding: 12px;
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .menu-icon {
+            margin-right: 0;
+        }
+
         /* Main Content */
         .main-content {
             flex: 1;
@@ -409,6 +561,17 @@
             background: #d97706;
         }
 
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
         .btn-sm {
             padding: 6px 12px;
             font-size: 12px;
@@ -535,11 +698,51 @@
             border: 1px solid #fca5a5;
         }
 
-        /* Responsive */
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .sidebar {
+                width: var(--sidebar-width);
+                transform: translateX(-100%);
+                z-index: 1001;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
             .main-content {
                 margin-left: 0;
                 width: 100%;
+            }
+
+            .sidebar.collapsed ~ .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-header {
+                display: flex;
             }
 
             .content-area {
@@ -573,6 +776,21 @@
             .requests-table td {
                 padding: 8px;
             }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+
+            .sidebar.mobile-open ~ .sidebar-overlay {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -580,6 +798,15 @@
     <div class="dashboard-container">
         <!-- Include Shared Sidebar -->
         @include('Mwenyekiti.shared.sidebar-menu')
+
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Maombi ya Huduma</h1>
+            <div></div>
+        </div>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -782,7 +1009,7 @@
         </div>
 
         <!-- Sidebar Overlay -->
-        <div class="sidebar-overlay"></div>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
     </div>
 
     <!-- Status Update Modal -->
@@ -820,9 +1047,28 @@
         // Sidebar functionality
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+            // Desktop sidebar toggle
             if (sidebarToggle) {
                 sidebarToggle.addEventListener('click', function() {
-                    document.querySelector('.sidebar').classList.toggle('collapsed');
+                    sidebar.classList.toggle('collapsed');
+                });
+            }
+
+            // Mobile menu toggle
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('mobile-open');
+                });
+            }
+
+            // Close mobile menu when clicking overlay
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('mobile-open');
                 });
             }
         });
