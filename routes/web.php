@@ -222,8 +222,16 @@ Route::middleware(['auth.mwenyekiti'])->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 Route::get('/reports/{type}', [ReportController::class, 'show'])->name('reports.show');
 Route::get('/reports/export/{type}', [ReportController::class, 'export'])->name('reports.export');
-   //Route::get('/mwenyekiti/dashboard', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'index'])->name('mwenyekiti.dashboard');
-//Route::get('/mwenyekiti/dashboard/area-stats', [App\Http\Controllers\Mwenyekiti\Dashboard1Controller::class, 'getAreaStats'])->name('mwenyekiti.dashboard.area-stats');
+
+Route::prefix('requests')->name('requests.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'show'])->name('show');
+    Route::put('/{id}/update-status', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'updateStatus'])->name('update-status');
+    Route::get('/balozi/{baloziId}/requests', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'getRequestsByBalozi'])->name('by-balozi');
+    Route::get('/stats/overview', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'getStats'])->name('stats');
+    Route::put('/bulk-update', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'bulkUpdateStatus'])->name('bulk-update');
+});
+  
    });
     
 

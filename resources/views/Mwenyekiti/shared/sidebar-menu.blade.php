@@ -59,10 +59,10 @@
         <!-- Services & Assistance -->
         <div class="menu-section">
             <div class="menu-section-title">Services & Assistance</div>
-            <a href="#" class="menu-item">
-                <i class="fas fa-hand-holding-heart menu-icon"></i>
-                <span class="menu-text">Services Requested</span>
-            </a>
+            <a href="{{ route('mwenyekiti.requests.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.requests.*') ? 'active' : '' }}">
+    <i class="fas fa-hand-holding-heart menu-icon"></i>
+    <span class="menu-text">Services Requested</span>
+</a>
             <a href="#" class="menu-item">
                 <i class="fas fa-hands-helping menu-icon"></i>
                 <span class="menu-text">Request Assistance</span>
