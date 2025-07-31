@@ -28,6 +28,7 @@ use App\Http\Controllers\Balozi\MahitajiMaalumuController;
 use App\Http\Controllers\Mwenyekiti\Dashboard1Controller;
 use App\Http\Controllers\Mwenyekiti\WatuFetchController;
 use App\Http\Controllers\Mwenyekiti\ReportController;
+use App\Http\Controllers\Mwenyekiti\MalalamixoController;
 
 
     
@@ -230,6 +231,12 @@ Route::prefix('requests')->name('requests.')->group(function () {
     Route::get('/balozi/{baloziId}/requests', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'getRequestsByBalozi'])->name('by-balozi');
     Route::get('/stats/overview', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'getStats'])->name('stats');
     Route::put('/bulk-update', [App\Http\Controllers\Mwenyekiti\RequestController::class, 'bulkUpdateStatus'])->name('bulk-update');
+});
+
+Route::prefix('malalamiko')->name('malalamiko.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\MalalamixoController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\MalalamixoController::class, 'show'])->name('show');
+    Route::put('/{id}/update-status', [App\Http\Controllers\Mwenyekiti\MalalamixoController::class, 'updateStatus'])->name('update-status');
 });
   
    });

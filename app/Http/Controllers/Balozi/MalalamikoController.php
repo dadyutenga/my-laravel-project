@@ -5,16 +5,15 @@ namespace App\Http\Controllers\Balozi;
 use App\Http\Controllers\Controller;
 use App\Models\Malalamiko;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class MalalamikoController extends Controller
 {
     /**
-     * Get the current Balozi's ID
+     * Get the current Balozi's ID from session
      */
     private function getBaloziId()
     {
-        return Auth::id();
+        return session('balozi_id'); // Changed from Auth::id() to session
     }
 
     /**
@@ -30,23 +29,31 @@ class MalalamikoController extends Controller
      */
     public function store(Request $request)
     {
+        $baloziId = $this->getBaloziId();
+        
+        // Check if Balozi is logged in
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'mtaa' => 'required|string|max:255',
-            'jinsia' => 'required|string|max:255',
+            'jinsia' => 'required|in:male,female', // REVERTED: Back to what your form sends
             'malalamiko' => 'required|string',
-            'status' => 'required|in:pending,resolved',
         ]);
 
-        $validated['created_by'] = $this->getBaloziId();
+        // Add the Balozi ID and set default status
+        $validated['created_by'] = $baloziId;
+        $validated['status'] = 'pending'; // Default status
 
         Malalamiko::create($validated);
 
         return redirect()->route('balozi.malalamiko.index')
-            ->with('success', 'Malalamiko record created successfully');
+            ->with('success', 'Lalamiko limehifadhiwa kikamilifu');
     }
 
     /**
@@ -55,7 +62,15 @@ class MalalamikoController extends Controller
     public function index()
     {
         $baloziId = $this->getBaloziId();
-        $malalamiko = Malalamiko::where('created_by', $baloziId)->get();
+        
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
+        $malalamiko = Malalamiko::where('created_by', $baloziId)
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
         return view('Balozi.Malalamiko.index', compact('malalamiko'));
     }
 
@@ -64,11 +79,17 @@ class MalalamikoController extends Controller
      */
     public function edit($id)
     {
+        $baloziId = $this->getBaloziId();
+        
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
         $malalamiko = Malalamiko::findOrFail($id);
         
-        // Ensure the record belongs to the current user
-        if ($malalamiko->created_by !== $this->getBaloziId()) {
-            abort(403, 'Unauthorized action');
+        // Ensure the record belongs to the current Balozi
+        if ($malalamiko->created_by !== $baloziId) {
+            abort(403, 'Hauruhusiwi kubadilisha lalamiko hili');
         }
 
         return view('Balozi.Malalamiko.edit', compact('malalamiko'));
@@ -79,11 +100,17 @@ class MalalamikoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $baloziId = $this->getBaloziId();
+        
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
         $malalamiko = Malalamiko::findOrFail($id);
         
-        // Ensure the record belongs to the current user
-        if ($malalamiko->created_by !== $this->getBaloziId()) {
-            abort(403, 'Unauthorized action');
+        // Ensure the record belongs to the current Balozi
+        if ($malalamiko->created_by !== $baloziId) {
+            abort(403, 'Hauruhusiwi kubadilisha lalamiko hili');
         }
 
         $validated = $request->validate([
@@ -92,15 +119,14 @@ class MalalamikoController extends Controller
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'mtaa' => 'required|string|max:255',
-            'jinsia' => 'required|string|max:255',
+            'jinsia' => 'required|in:Me,Ke,Male,Female,M,F', // FIXED: Same here
             'malalamiko' => 'required|string',
-            'status' => 'required|in:pending,resolved',
         ]);
 
         $malalamiko->update($validated);
 
         return redirect()->route('balozi.malalamiko.index')
-            ->with('success', 'Malalamiko record updated successfully');
+            ->with('success', 'Lalamiko limebadilishwa kikamilifu');
     }
 
     /**
@@ -108,16 +134,40 @@ class MalalamikoController extends Controller
      */
     public function destroy($id)
     {
+        $baloziId = $this->getBaloziId();
+        
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
         $malalamiko = Malalamiko::findOrFail($id);
         
-        // Ensure the record belongs to the current user
-        if ($malalamiko->created_by !== $this->getBaloziId()) {
-            abort(403, 'Unauthorized action');
+        // Ensure the record belongs to the current Balozi
+        if ($malalamiko->created_by !== $baloziId) {
+            abort(403, 'Hauruhusiwi kufuta lalamiko hili');
         }
 
         $malalamiko->delete();
 
         return redirect()->route('balozi.malalamiko.index')
-            ->with('success', 'Malalamiko record deleted successfully');
+            ->with('success', 'Lalamiko limefutwa kikamilifu');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $baloziId = $this->getBaloziId();
+        
+        if (!$baloziId) {
+            return redirect()->route('balozi.login')->with('error', 'Tafadhali ingia kwanza');
+        }
+
+        $malalamiko = Malalamiko::where('id', $id)
+            ->where('created_by', $baloziId)
+            ->firstOrFail();
+
+        return view('Balozi.Malalamiko.show', compact('malalamiko'));
     }
 }

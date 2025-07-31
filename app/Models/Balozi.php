@@ -66,5 +66,11 @@ class Balozi extends Model
     public function services()
     {
         return $this->hasMany(Service::class, 'created_by');
+
+    }
+
+    public  function malalamiko()
+    {
+        return  $this->hasMany(Malalamiko::class, 'created_by');
     }
 }
