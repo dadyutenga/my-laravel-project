@@ -42,10 +42,10 @@
                 <i class="fas fa-users menu-icon"></i>
                 <span class="menu-text">Watu</span>
             </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-home menu-icon"></i>
-                <span class="menu-text">Angalia Kaya-Maskini</span>
-            </a>
+           <a href="{{ route('mwenyekiti.kaya-maskini.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.kaya-maskini.*') ? 'active' : '' }}">
+    <i class="fas fa-home menu-icon"></i>
+    <span class="menu-text">Kaya Maskini</span>
+</a>
             <a href="#" class="menu-item">
                 <i class="fas fa-wheelchair menu-icon"></i>
                 <span class="menu-text">Watu wenye Mahitaji Maalumu</span>

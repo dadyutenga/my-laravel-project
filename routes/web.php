@@ -238,6 +238,13 @@ Route::prefix('malalamiko')->name('malalamiko.')->group(function () {
     Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\MalalamixoController::class, 'show'])->name('show');
     Route::put('/{id}/update-status', [App\Http\Controllers\Mwenyekiti\MalalamixoController::class, 'updateStatus'])->name('update-status');
 });
+
+Route::prefix('kaya-maskini')->name('kaya-maskini.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'show'])->name('show');
+    Route::get('/export/{baloziId}', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'export'])->name('export');
+    Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'getBaloziStats'])->name('balozi-stats');
+});
   
    });
     

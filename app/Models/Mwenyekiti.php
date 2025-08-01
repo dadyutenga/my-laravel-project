@@ -81,4 +81,19 @@ class Mwenyekiti extends Model
                               ->orWhere('expiry_date', '>=', now()->toDateString());
                     });
     }
+
+    /**
+     * Get all KayaMaskini records through Balozi
+     */
+    public function kayaMaskini()
+    {
+        return $this->hasManyThrough(
+            KayaMaskini::class,
+            Balozi::class,
+            'mwenyekiti_id', // Foreign key on Balozi table
+            'created_by',    // Foreign key on KayaMaskini table
+            'id',           // Local key on Mwenyekiti table
+            'id'            // Local key on Balozi table
+        );
+    }
 }
