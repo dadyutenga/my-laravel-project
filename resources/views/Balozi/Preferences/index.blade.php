@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preferences | Prototype System</title>
+    <title>Mapendekezo | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -444,7 +444,7 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <div class="header-title">Preferences</div>
+                    <div class="header-title">Mapendekezo</div>
                 </div>
             </header>
 
@@ -466,7 +466,7 @@
                 <!-- Change Password Form -->
                 <div class="form-container">
                     <div class="form-section-title">
-                        <i class="fas fa-lock"></i> Change Password
+                        <i class="fas fa-lock"></i> Badilisha Nywila
                     </div>
                     @if($baloziAuth)
                         <form action="{{ route('balozi.preferences.update-password') }}" method="POST">
@@ -474,7 +474,7 @@
                             @method('PUT')
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="current_password">Current Password</label>
+                                    <label for="current_password">Nywila ya Sasa</label>
                                     <input type="password" id="current_password" name="current_password" class="form-control" required>
                                     @error('current_password')
                                         <span class="text-danger">{{ $message }}</span>
@@ -483,25 +483,25 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="new_password">New Password</label>
+                                    <label for="new_password">Nywila Mpya</label>
                                     <input type="password" id="new_password" name="new_password" class="form-control" required>
                                     @error('new_password')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="new_password_confirmation">Confirm New Password</label>
+                                    <label for="new_password_confirmation">Thibitisha Nywila Mpya</label>
                                     <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-key"></i> Update Password
+                                <i class="fas fa-key"></i> Sasisha Nywila
                             </button>
                         </form>
                     @else
                         <div class="alert alert-danger">
                             <i class="fas fa-exclamation-triangle"></i>
-                            Authentication record not found. Please contact administrator.
+                            Rekodi ya uthibitishaji haijapatikana. Tafadhali wasiliana na msimamizi.
                         </div>
                     @endif
                 </div>
