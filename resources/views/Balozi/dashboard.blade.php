@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balozi Dashboard | Prototype System</title>
+    <title>Dashibodi ya Balozi | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -495,7 +495,7 @@
     <div class="dashboard-container">
         <!-- Sidebar - Same as previous views -->
         @include('Balozi.shared.sidebar-menu')
-        
+
         <!-- Main Content -->
         <div class="main-content">
             <!-- Dashboard Header -->
@@ -504,7 +504,7 @@
                     <div class="mobile-menu-toggle" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="dashboard-title">Balozi Dashboard</h1>
+                    <h1 class="dashboard-title">Dashibodi ya Balozi</h1>
                 </div>
                 <div class="user-profile">
                     <div class="user-avatar">
@@ -512,70 +512,46 @@
                     </div>
                     <div class="user-info">
                         <div class="user-name">{{ auth()->user()->name ?? 'Balozi' }}</div>
-                        <div class="user-role">Balozi User</div>
+                        <div class="user-role">Mtumiaji Balozi</div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Service Requests</h3>
-                    <div class="number">120</div>
-                    <div class="trend">5% vs last month</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Meetings Scheduled</h3>
-                    <div class="number">45</div>
-                    <div class="trend">10% vs last month</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Community Members</h3>
-                    <div class="number">500</div>
-                    <div class="trend">3% vs last week</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Complaints Filed</h3>
-                    <div class="number">25</div>
-                    <div class="trend">8% vs last week</div>
                 </div>
             </div>
 
             <!-- Quick Actions -->
             <h2 class="section-title">
                 <i class="fas fa-bolt"></i>
-                Quick Actions
+                Vitendo vya Haraka
             </h2>
             <div class="actions-grid">
                 <div class="action-card">
                     <i class="fas fa-file-alt"></i>
-                    <h4>Request Services</h4>
-                    <p>Submit new service requests</p>
+                    <h4>Omba Huduma</h4>
+                    <p>Wasilisha maombi mapya ya huduma</p>
                 </div>
                 <div class="action-card">
                     <i class="fas fa-envelope"></i>
-                    <h4>Request Meetings</h4>
-                    <p>Schedule meetings with officials</p>
+                    <h4>Omba Mikutano</h4>
+                    <p>Panga mikutano na viongozi</p>
                 </div>
                 <div class="action-card">
                     <i class="fas fa-users"></i>
-                    <h4>Community</h4>
-                    <p>Manage community interactions</p>
+                    <h4>Jamii</h4>
+                    <p>Simamia mahusiano ya jamii</p>
                 </div>
                 <div class="action-card">
                     <i class="fas fa-home"></i>
-                    <h4>Register Kaya Maskini</h4>
-                    <p>Add new household registrations</p>
+                    <h4>Sajili Kaya Maskini</h4>
+                    <p>Ongeza usajili mpya wa kaya</p>
                 </div>
                 <div class="action-card">
                     <i class="fas fa-user-plus"></i>
-                    <h4>Register Watu</h4>
-                    <p>Register new individuals</p>
+                    <h4>Sajili Watu</h4>
+                    <p>Sajili watu wapya</p>
                 </div>
                 <div class="action-card">
                     <i class="fas fa-exclamation-circle"></i>
                     <h4>Tuma Malalamiko</h4>
-                    <p>File new complaints</p>
+                    <p>Wasilisha malalamiko mapya</p>
                 </div>
             </div>
 
@@ -583,28 +559,28 @@
             <div class="recent-activity">
                 <h2 class="section-title">
                     <i class="fas fa-history"></i>
-                    Recent Activity
+                    Shughuli za Hivi Karibuni
                 </h2>
                 <ul class="activity-list">
                     <li class="activity-item">
                         <i class="fas fa-file-alt"></i>
-                        <span>Service request submitted</span>
-                        <span class="time">1 hour ago</span>
+                        <span>Ombi la huduma limewasilishwa</span>
+                        <span class="time">Saa 1 iliyopita</span>
                     </li>
                     <li class="activity-item">
                         <i class="fas fa-envelope"></i>
-                        <span>Meeting scheduled with Mwenyekiti</span>
-                        <span class="time">3 hours ago</span>
+                        <span>Mkutano umepangwa na Mwenyekiti</span>
+                        <span class="time">Saa 3 zilizopita</span>
                     </li>
                     <li class="activity-item">
                         <i class="fas fa-users"></i>
-                        <span>Community member added</span>
-                        <span class="time">Today, 9:30 AM</span>
+                        <span>Mwanajamii ameongezwa</span>
+                        <span class="time">Leo, 9:30 Asubuhi</span>
                     </li>
                     <li class="activity-item">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Complaint filed</span>
-                        <span class="time">Yesterday</span>
+                        <span>Malalamiko yamewasilishwa</span>
+                        <span class="time">Jana</span>
                     </li>
                 </ul>
             </div>
