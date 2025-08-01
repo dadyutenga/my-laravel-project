@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
+            --primary-color: #4ee546;
+            --primary-hover: #4ee546;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -224,6 +224,49 @@
             margin: 0;
         }
 
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .mobile-menu-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
         /* Page Header */
         .page-header {
             background: white;
@@ -251,11 +294,33 @@
             font-weight: 700;
             color: var(--text-color);
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .page-subtitle {
             color: var(--text-muted);
             font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: rgba(79, 70, 229, 0.05);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--primary-color);
         }
 
         /* Statistics Cards */
@@ -274,11 +339,29 @@
             text-align: center;
             transition: var(--transition);
             border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .stat-card.total {
@@ -338,6 +421,23 @@
             font-weight: 500;
         }
 
+        .stat-trend {
+            font-size: 12px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .trend-up {
+            color: var(--success-color);
+        }
+
+        .trend-down {
+            color: var(--error-color);
+        }
+
         /* Balozi Selection */
         .balozi-selection {
             background: white;
@@ -356,6 +456,9 @@
             font-weight: 600;
             color: var(--text-color);
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .balozi-grid {
@@ -379,11 +482,13 @@
             border-color: var(--primary-color);
             background: var(--primary-light);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .balozi-card.selected {
             border-color: var(--primary-color);
             background: var(--primary-light);
+            box-shadow: var(--shadow-md);
         }
 
         .balozi-info {
@@ -421,7 +526,7 @@
         .record-count {
             background: var(--info-color);
             color: white;
-            padding: 2px 8px;
+            padding: 4px 8px;
             border-radius: var(--radius-sm);
             font-size: 12px;
             font-weight: 500;
@@ -487,7 +592,7 @@
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            justify-content: between;
+            justify-content: space-between;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -497,6 +602,9 @@
             font-weight: 600;
             color: var(--text-color);
             flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .export-btn {
@@ -517,6 +625,8 @@
 
         .export-btn:hover {
             background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .table-container {
@@ -540,6 +650,9 @@
             font-weight: 600;
             color: var(--text-color);
             font-size: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .kaya-maskini-table td {
@@ -591,6 +704,8 @@
 
         .btn-primary:hover {
             background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-sm {
@@ -639,25 +754,10 @@
             border: 1px solid #fca5a5;
         }
 
-        /* Mobile Header */
-        .mobile-header {
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            background: white;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .mobile-menu-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--text-color);
-            cursor: pointer;
+        .alert-info {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #93c5fd;
         }
 
         /* Pagination */
@@ -665,6 +765,26 @@
             padding: 20px;
             display: flex;
             justify-content: center;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Mobile Responsive */
@@ -740,6 +860,21 @@
                 display: block;
             }
         }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kaya-maskini-table {
+                font-size: 12px;
+            }
+
+            .kaya-maskini-table th,
+            .kaya-maskini-table td {
+                padding: 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -759,12 +894,28 @@
         <!-- Main Content -->
         <div class="main-content">
             <div class="content-area">
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="{{ route('mwenyekiti.dashboard') }}">Dashboard</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Kaya Maskini</span>
+                </div>
+
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="header-top">
                         <div class="header-left">
-                            <h1 class="page-title">Kaya Maskini</h1>
+                            <h1 class="page-title">
+                                <i class="fas fa-home"></i>
+                                Kaya Maskini
+                            </h1>
                             <p class="page-subtitle">Dhibiti na uangalie rekodi zote za Kaya Maskini kutoka kwa Balozi wako</p>
+                        </div>
+                        <div class="header-actions">
+                            <div class="quick-actions">
+                                <i class="fas fa-info-circle"></i>
+                                <span>{{ number_format($stats['total']) }} Kaya Maskini zimesajiliwa</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -784,65 +935,90 @@
                     </div>
                 @endif
 
+                @if(session('info'))
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        {{ session('info') }}
+                    </div>
+                @endif
+
                 <!-- Statistics Grid -->
                 <div class="stats-grid">
                     <div class="stat-card total">
                         <div class="stat-icon">
                             <i class="fas fa-home"></i>
                         </div>
-                        <div class="stat-number">{{ number_format($stats['total']) }}</div>
+                        <div class="stat-number">{{ number_format($stats['total'] ?? 0) }}</div>
                         <div class="stat-label">Jumla ya Kaya Maskini</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Kaya zote zilizosajiliwa</span>
+                        </div>
                     </div>
 
                     <div class="stat-card male">
                         <div class="stat-icon">
                             <i class="fas fa-male"></i>
                         </div>
-                        <div class="stat-number">{{ number_format($stats['male']) }}</div>
+                        <div class="stat-number">{{ number_format($stats['male'] ?? 0) }}</div>
                         <div class="stat-label">Wanaume</div>
+                        <div class="stat-trend">
+                            <span>{{ $stats['total'] > 0 ? round(($stats['male'] / $stats['total']) * 100, 1) : 0 }}% ya jumla</span>
+                        </div>
                     </div>
 
                     <div class="stat-card female">
                         <div class="stat-icon">
                             <i class="fas fa-female"></i>
                         </div>
-                        <div class="stat-number">{{ number_format($stats['female']) }}</div>
+                        <div class="stat-number">{{ number_format($stats['female'] ?? 0) }}</div>
                         <div class="stat-label">Wanawake</div>
+                        <div class="stat-trend">
+                            <span>{{ $stats['total'] > 0 ? round(($stats['female'] / $stats['total']) * 100, 1) : 0 }}% ya jumla</span>
+                        </div>
                     </div>
 
                     <div class="stat-card household">
                         <div class="stat-icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <div class="stat-number">{{ number_format($stats['total_household_members']) }}</div>
+                        <div class="stat-number">{{ number_format($stats['total_household_members'] ?? 0) }}</div>
                         <div class="stat-label">Jumla ya Watu Nyumbani</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Wastani: {{ $stats['total'] > 0 ? round($stats['total_household_members'] / $stats['total'], 1) : 0 }} kwa kaya</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Balozi Selection -->
                 <div class="balozi-selection">
                     <div class="selection-header">
-                        <h3 class="selection-title">Chagua Balozi ili Kuona Rekodi za Kaya Maskini</h3>
+                        <h3 class="selection-title">
+                            <i class="fas fa-user-tie"></i>
+                            Chagua Balozi ili Kuona Rekodi za Kaya Maskini
+                        </h3>
                         <p style="color: var(--text-muted); font-size: 14px;">Bofya jina la Balozi ili kuona rekodi zake zote za Kaya Maskini</p>
                     </div>
 
                     <div class="balozi-grid">
-                        @forelse($balozis as $balozi)
+                        @forelse($balozis ?? [] as $balozi)
                             <a href="{{ route('mwenyekiti.kaya-maskini.index', ['balozi_id' => $balozi->id]) }}" 
-                               class="balozi-card {{ $selectedBaloziId == $balozi->id ? 'selected' : '' }}">
+                               class="balozi-card {{ ($selectedBaloziId ?? 0) == $balozi->id ? 'selected' : '' }}"
+                               onclick="showLoading(this)">
                                 <div class="balozi-info">
                                     <div class="balozi-avatar">
-                                        {{ strtoupper(substr($balozi->first_name, 0, 1) . substr($balozi->last_name, 0, 1)) }}
+                                        {{ strtoupper(substr($balozi->first_name ?? 'B', 0, 1) . substr($balozi->last_name ?? 'L', 0, 1)) }}
                                     </div>
                                     <div class="balozi-details">
-                                        <h4>{{ $balozi->first_name }} {{ $balozi->last_name }}</h4>
+                                        <h4>{{ $balozi->first_name ?? 'Balozi' }} {{ $balozi->last_name ?? '' }}</h4>
                                         <div class="balozi-meta">
                                             <i class="fas fa-phone" style="font-size: 12px;"></i>
-                                            {{ $balozi->phone }}
+                                            {{ $balozi->phone ?? 'Hakuna nambari' }}
                                         </div>
                                     </div>
                                 </div>
-                                @if($balozi->kaya_maskini_count > 0)
+                                @if(($balozi->kaya_maskini_count ?? 0) > 0)
                                     <span class="record-count">{{ $balozi->kaya_maskini_count }}</span>
                                 @endif
                             </a>
@@ -850,16 +1026,16 @@
                             <div class="empty-state">
                                 <i class="fas fa-users"></i>
                                 <h3>Hakuna Balozi</h3>
-                                <p>Haujaongeza Balozi yoyote bado</p>
+                                <p>Haujaongeza Balozi yoyote bado. Ongeza Balozi ili kuanza kusajili Kaya Maskini.</p>
                             </div>
                         @endforelse
                     </div>
                 </div>
 
                 <!-- Search and Filters -->
-                @if($selectedBalozi)
+                @if(isset($selectedBalozi) && $selectedBalozi)
                     <div class="filters-section">
-                        <form method="GET" action="{{ route('mwenyekiti.kaya-maskini.index') }}">
+                        <form method="GET" action="{{ route('mwenyekiti.kaya-maskini.index') }}" id="filter-form">
                             <input type="hidden" name="balozi_id" value="{{ $selectedBaloziId }}">
                             <div class="filters-row">
                                 <div class="filter-group">
@@ -877,7 +1053,7 @@
                                     </select>
                                 </div>
                                 <div class="filter-group">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" id="search-btn">
                                         <i class="fas fa-search"></i> Tafuta
                                     </button>
                                 </div>
@@ -887,12 +1063,17 @@
                 @endif
 
                 <!-- KayaMaskini Table -->
-                @if($selectedBalozi && $kayaMaskini->count() > 0)
+                @if(isset($selectedBalozi) && $selectedBalozi && isset($kayaMaskini) && $kayaMaskini->count() > 0)
                     <div class="kaya-maskini-section">
                         <div class="section-header">
-                            <h3>Kaya Maskini za {{ $selectedBalozi->first_name }} {{ $selectedBalozi->last_name }}</h3>
+                            <h3>
+                                <i class="fas fa-table"></i>
+                                Kaya Maskini za {{ $selectedBalozi->first_name }} {{ $selectedBalozi->last_name }}
+                                <span style="font-size: 14px; color: var(--text-muted); font-weight: normal;">({{ $kayaMaskini->total() }} rekodi)</span>
+                            </h3>
                             <a href="{{ route('mwenyekiti.kaya-maskini.export', $selectedBalozi->id) }}" 
-                               class="export-btn">
+                               class="export-btn"
+                               onclick="showExportLoading(this)">
                                 <i class="fas fa-download"></i> Export CSV
                             </a>
                         </div>
@@ -923,13 +1104,13 @@
                                                 </span>
                                             </td>
                                             <td>{{ $kaya->phone ?: '-' }}</td>
-                                            <td>{{ $kaya->street }}</td>
+                                            <td>{{ $kaya->street ?? '-' }}</td>
                                             <td>
                                                 <strong>{{ $kaya->household_count ?: '0' }}</strong>
                                             </td>
                                             <td>
                                                 <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
-                                                    {{ Str::limit($kaya->description, 100) ?: 'Hakuna maelezo' }}
+                                                    {{ Str::limit($kaya->description ?? '', 100) ?: 'Hakuna maelezo' }}
                                                 </div>
                                             </td>
                                             <td>{{ $kaya->created_at->format('d/m/Y') }}</td>
@@ -952,12 +1133,20 @@
                             </div>
                         @endif
                     </div>
-                @elseif($selectedBalozi)
+                @elseif(isset($selectedBalozi) && $selectedBalozi)
                     <div class="kaya-maskini-section">
                         <div class="empty-state">
                             <i class="fas fa-home"></i>
                             <h3>Hakuna Rekodi za Kaya Maskini</h3>
                             <p>{{ $selectedBalozi->first_name }} {{ $selectedBalozi->last_name }} hajaongeza rekodi yoyote ya Kaya Maskini bado</p>
+                            @if(request('search') || request('gender'))
+                                <div style="margin-top: 16px;">
+                                    <a href="{{ route('mwenyekiti.kaya-maskini.index', ['balozi_id' => $selectedBaloziId]) }}" 
+                                       class="btn btn-primary">
+                                        <i class="fas fa-times"></i> Ondoa Kichujio
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endif
@@ -999,18 +1188,55 @@
 
             // Auto-submit search form with debounce
             const searchInput = document.querySelector('input[name="search"]');
+            const genderSelect = document.querySelector('select[name="gender"]');
+            
             if (searchInput) {
                 let timeout;
                 searchInput.addEventListener('input', function() {
                     clearTimeout(timeout);
                     timeout = setTimeout(() => {
+                        showSearchLoading();
                         this.form.submit();
                     }, 500);
                 });
             }
+
+            if (genderSelect) {
+                genderSelect.addEventListener('change', function() {
+                    showSearchLoading();
+                    this.form.submit();
+                });
+            }
         });
 
-        // Load Balozi statistics on hover
+        // Loading states
+        function showLoading(element) {
+            element.classList.add('loading');
+            const content = element.innerHTML;
+            element.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 8px;"><div class="spinner"></div> Inapakia...</div>';
+        }
+
+        function showSearchLoading() {
+            const searchBtn = document.getElementById('search-btn');
+            if (searchBtn) {
+                searchBtn.disabled = true;
+                searchBtn.innerHTML = '<div class="spinner"></div> Inatafuta...';
+            }
+        }
+
+        function showExportLoading(element) {
+            element.classList.add('loading');
+            const originalContent = element.innerHTML;
+            element.innerHTML = '<div class="spinner"></div> Inaexport...';
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                element.classList.remove('loading');
+                element.innerHTML = originalContent;
+            }, 3000);
+        }
+
+        // Load Balozi statistics on hover (if needed)
         function loadBaloziStats(baloziId) {
             fetch(`{{ route('mwenyekiti.kaya-maskini.balozi-stats', '') }}/${baloziId}`)
                 .then(response => response.json())
@@ -1020,3 +1246,18 @@
                 })
                 .catch(error => console.error('Error loading stats:', error));
         }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const searchInput = document.querySelector('input[name="search"]');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

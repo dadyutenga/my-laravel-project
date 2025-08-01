@@ -174,7 +174,7 @@
         }
 
         .btn {
-            background-color: #4f46e5;
+            background-color: #4ee546;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -187,7 +187,7 @@
         }
 
         .btn:hover {
-            background-color: #4338ca;
+            background-color: #4ee546;
         }
 
         .btn-secondary {

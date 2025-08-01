@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
+            --primary-color: #4ee546;
+            --primary-hover: #4ee546;
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
@@ -186,7 +186,7 @@
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, #4338ca, #4f46e5);
+            background: linear-gradient(135deg, #4ee546, #4ee546);
             box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
         }
 

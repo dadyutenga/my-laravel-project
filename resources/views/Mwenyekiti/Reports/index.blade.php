@@ -9,8 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
+            --primary-color: #4ee546;
+            --primary-hover: #4ee546;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -895,7 +895,7 @@
                         {{ $genderStats['male'] ?? 0 }},
                         {{ $genderStats['female'] ?? 0 }}
                     ],
-                    backgroundColor: ['#4f46e5', '#ec4899'],
+                    backgroundColor: ['#4ee546', '#ec4899'],
                     borderWidth: 0
                 }]
             },
@@ -960,7 +960,7 @@
                 datasets: [{
                     label: 'Usajili wa Kila Mwezi',
                     data: {!! json_encode(array_values($registrationTrends)) !!},
-                    borderColor: '#4f46e5',
+                    borderColor: '#4ee546',
                     backgroundColor: 'rgba(79, 70, 229, 0.1)',
                     tension: 0.4,
                     fill: true

@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
+            --primary-color: #4ee546;
+            --primary-hover: #4ee546;
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
