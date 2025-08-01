@@ -65,7 +65,7 @@
 </a>
             <a href="#" class="menu-item">
                 <i class="fas fa-hands-helping menu-icon"></i>
-                <span class="menu-text">Request Assistance</span>
+                <span class="menu-text">Request Support</span>
             </a>
             <a href="{{ route('mwenyekiti.udhamini.index') }}" class="menu-item">
                 <i class="fas fa-file-signature menu-icon"></i>
