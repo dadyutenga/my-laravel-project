@@ -19,7 +19,7 @@
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --info-color: #3b82f6;
-            --green-color: #059669;
+            --green-color: #37b025;
             --sidebar-width: 250px;
             --sidebar-collapsed-width: 70px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -627,7 +627,7 @@
         }
 
         .btn-success:hover {
-            background: #059669;
+            background: #37b025;
         }
 
         .btn-warning {

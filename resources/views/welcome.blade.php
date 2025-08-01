@@ -314,7 +314,7 @@
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, var(--success-color), #059669);
+            background: linear-gradient(135deg, var(--success-color), #37b025);
             color: white;
             box-shadow: var(--shadow-md);
         }

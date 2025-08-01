@@ -485,7 +485,7 @@
         }
 
         .btn-success:hover {
-            background-color: #059669;
+            background-color: #37b025;
         }
 
         .btn-danger {

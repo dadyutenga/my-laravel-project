@@ -18,7 +18,7 @@
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --info-color: #3b82f6;
-            --security-color: #059669;
+            --security-color: #37b025;
             --sidebar-width: 250px;
             --sidebar-collapsed-width: 70px;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

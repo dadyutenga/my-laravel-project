@@ -687,7 +687,7 @@
         }
 
         .btn-success:hover {
-            background: #059669;
+            background: #37b025;
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
         }

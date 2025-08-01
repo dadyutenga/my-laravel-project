@@ -10,7 +10,7 @@
     <style>
         :root {
             --primary-color: #37b025;
-            --primary-hover: #059669;
+            --primary-hover: #37b025;
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
@@ -181,7 +181,7 @@
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, #059669, #37b025);
+            background: linear-gradient(135deg, #37b025, #37b025);
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 

@@ -330,7 +330,7 @@
         }
 
         .stat-card.completed::before {
-            background: linear-gradient(90deg, var(--success-color), #34d399, #059669);
+            background: linear-gradient(90deg, var(--success-color), #34d399, #37b025);
         }
 
         .stat-card.upcoming::before {
