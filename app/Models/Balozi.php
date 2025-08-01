@@ -73,4 +73,6 @@ class Balozi extends Model
     {
         return  $this->hasMany(Malalamiko::class, 'created_by');
     }
+
+  
 }

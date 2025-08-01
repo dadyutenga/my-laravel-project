@@ -245,6 +245,14 @@ Route::prefix('kaya-maskini')->name('kaya-maskini.')->group(function () {
     Route::get('/export/{baloziId}', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'export'])->name('export');
     Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\KayaMAskiniFetchController::class, 'getBaloziStats'])->name('balozi-stats');
 });
+
+Route::prefix('mahitaji')->name('mahitaji.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'show'])->name('show');
+    Route::get('/export/{baloziId}', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'export'])->name('export');
+    Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'getBaloziStats'])->name('balozi-stats');
+    Route::get('/api/disability-types', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'getDisabilityTypes'])->name('disability-types');
+});
   
    });
     

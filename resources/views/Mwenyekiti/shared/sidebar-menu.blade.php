@@ -46,10 +46,10 @@
     <i class="fas fa-home menu-icon"></i>
     <span class="menu-text">Kaya Maskini</span>
 </a>
-            <a href="#" class="menu-item">
-                <i class="fas fa-wheelchair menu-icon"></i>
-                <span class="menu-text">Watu wenye Mahitaji Maalumu</span>
-            </a>
+            <a href="{{ route('mwenyekiti.mahitaji.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.mahitaji.*') ? 'active' : '' }}">
+    <i class="fas fa-wheelchair menu-icon"></i>
+    <span class="menu-text">Watu wenye Mahitaji Maalumu</span>
+</a>
            <a href="{{ route('mwenyekiti.malalamiko.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.malalamiko.*') ? 'active' : '' }}">
     <i class="fas fa-exclamation-triangle menu-icon"></i>
     <span class="menu-text">Malalamiko</span>
