@@ -63,7 +63,7 @@
     <i class="fas fa-hand-holding-heart menu-icon"></i>
     <span class="menu-text">Services Requested</span>
 </a>
-            <a href="#" class="menu-item">
+            <a href="{{ route('mwenyekiti.support.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.support.*') ? 'active' : '' }}">
                 <i class="fas fa-hands-helping menu-icon"></i>
                 <span class="menu-text">Request Support</span>
             </a>

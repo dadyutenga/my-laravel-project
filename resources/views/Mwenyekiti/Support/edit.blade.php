@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omba Msaada | Mwenyekiti Dashboard</title>
+    <title>Hariri Ombi la Msaada #{{ $ticket->ticket_number }} | Mwenyekiti Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -214,7 +214,7 @@
 
         .content-area {
             padding: 24px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -294,6 +294,26 @@
             font-size: 14px;
         }
 
+        .ticket-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--support-color);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* Form Layout */
+        .form-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
         /* Form Card */
         .form-card {
             background: white;
@@ -319,6 +339,53 @@
 
         .form-body {
             padding: 24px;
+        }
+
+        /* Sidebar Info Card */
+        .sidebar-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .info-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .status-badge.open {
+            background: rgba(59, 130, 246, 0.1);
+            color: #1d4ed8;
         }
 
         /* Form Elements */
@@ -439,9 +506,86 @@
             display: none;
         }
 
+        /* Existing Files */
+        .existing-files {
+            margin-bottom: 16px;
+        }
+
+        .existing-files h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .existing-file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: var(--radius-md);
+            margin-bottom: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .existing-file-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            background: var(--support-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .existing-file-info {
+            flex: 1;
+        }
+
+        .existing-file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .existing-file-size {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .file-remove {
+            background: none;
+            border: none;
+            color: var(--error-color);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .file-remove:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
         /* Selected Files */
         .selected-files {
             margin-top: 16px;
+        }
+
+        .selected-files h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .file-item {
@@ -479,20 +623,6 @@
         .file-size {
             font-size: 12px;
             color: var(--text-muted);
-        }
-
-        .file-remove {
-            background: none;
-            border: none;
-            color: var(--error-color);
-            cursor: pointer;
-            padding: 4px;
-            border-radius: var(--radius-sm);
-            transition: var(--transition);
-        }
-
-        .file-remove:hover {
-            background: rgba(239, 68, 68, 0.1);
         }
 
         /* Character Counter */
@@ -559,6 +689,15 @@
             color: white;
         }
 
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
         /* Alert Messages */
         .alert {
             padding: 12px 16px;
@@ -579,6 +718,12 @@
             background: #fee2e2;
             color: #dc2626;
             border: 1px solid #fca5a5;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
         }
 
         /* Mobile Responsive */
@@ -609,6 +754,11 @@
 
             .content-area {
                 padding: 16px;
+            }
+
+            .form-layout {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .form-row {
@@ -657,7 +807,7 @@
             <button class="mobile-menu-btn" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
-            <h1>Omba Msaada</h1>
+            <h1>Hariri Ombi</h1>
             <div></div>
         </div>
 
@@ -670,15 +820,21 @@
                     <span class="breadcrumb-separator">/</span>
                     <a href="{{ route('mwenyekiti.support.index') }}">Maombi ya Msaada</a>
                     <span class="breadcrumb-separator">/</span>
-                    <span>Omba Msaada</span>
+                    <a href="{{ route('mwenyekiti.support.show', $ticket->id) }}">{{ $ticket->ticket_number }}</a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>Hariri</span>
                 </div>
 
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="header-content">
                         <div class="header-left">
-                            <h1 class="page-title">Omba Msaada</h1>
-                            <p class="page-subtitle">Omba msaada kutoka kwa timu ya uongozi</p>
+                            <h1 class="page-title">Hariri Ombi la Msaada</h1>
+                            <p class="page-subtitle">Badilisha taarifa za ombi lako</p>
+                            <div class="ticket-badge">
+                                <i class="fas fa-ticket-alt"></i>
+                                {{ $ticket->ticket_number }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -698,147 +854,282 @@
                     </div>
                 @endif
 
-                <!-- Form Card -->
-                <div class="form-card">
-                    <div class="form-header">
-                        <h3>
-                            <i class="fas fa-headset"></i>
-                            Taarifa za Ombi la Msaada
-                        </h3>
+                @if($ticket->status != 'open')
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Onyo: Ombi hili si la "Mapya" tena. Unaweza kuhariri lakini mabadiliko yanaweza yasihusu msimamizi.
+                    </div>
+                @endif
+
+                <!-- Form Layout -->
+                <div class="form-layout">
+                    <!-- Main Form -->
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h3>
+                                <i class="fas fa-edit"></i>
+                                Hariri Taarifa za Ombi
+                            </h3>
+                        </div>
+
+                        <form method="POST" action="{{ route('mwenyekiti.support.update', $ticket->id) }}" enctype="multipart/form-data" id="edit-form">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-body">
+                                <!-- Basic Information Row -->
+                                <div class="form-row">
+                                    <!-- Category -->
+                                    <div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
+                                        <label class="form-label required" for="category">Kategoria ya Ombi</label>
+                                        <select id="category" name="category" class="form-select" required>
+                                            <option value="">Chagua kategoria...</option>
+                                            @foreach($categories as $key => $value)
+                                                <option value="{{ $key }}" {{ old('category', $ticket->category) == $key ? 'selected' : '' }}>
+                                                    {{ $value }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="form-help">Chagua kategoria inayofaa zaidi</div>
+                                        @if($errors->has('category'))
+                                            <div class="form-error">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                {{ $errors->first('category') }}
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <!-- Priority -->
+                                    <div class="form-group {{ $errors->has('priority') ? 'has-error' : '' }}">
+                                        <label class="form-label required" for="priority">Kipaumbele</label>
+                                        <select id="priority" name="priority" class="form-select" required>
+                                            <option value="">Chagua kipaumbele...</option>
+                                            <option value="low" {{ old('priority', $ticket->priority) == 'low' ? 'selected' : '' }}>
+                                                🟢 Chini - Si haraka
+                                            </option>
+                                            <option value="medium" {{ old('priority', $ticket->priority) == 'medium' ? 'selected' : '' }}>
+                                                🟡 Wastani - Kawaida
+                                            </option>
+                                            <option value="high" {{ old('priority', $ticket->priority) == 'high' ? 'selected' : '' }}>
+                                                🟠 Juu - Muhimu
+                                            </option>
+                                            <option value="urgent" {{ old('priority', $ticket->priority) == 'urgent' ? 'selected' : '' }}>
+                                                🔴 Haraka - Dharura
+                                            </option>
+                                        </select>
+                                        <div class="form-help">Je, ombi lako ni la haraka kiasi gani?</div>
+                                        @if($errors->has('priority'))
+                                            <div class="form-error">
+                                                <i class="fas fa-exclamation-circle"></i>
+                                                {{ $errors->first('priority') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Title -->
+                                <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
+                                    <label class="form-label required" for="title">Kichwa cha Ombi</label>
+                                    <input type="text" 
+                                           id="title" 
+                                           name="title" 
+                                           class="form-input" 
+                                           placeholder="Kwa ufupi, ombi lako ni kuhusu nini?"
+                                           value="{{ old('title', $ticket->title) }}"
+                                           maxlength="255"
+                                           required>
+                                    <div class="char-counter" id="title-counter">0/255 herufi</div>
+                                    <div class="form-help">Andika kichwa kifupi na kilichowazi</div>
+                                    @if($errors->has('title'))
+                                        <div class="form-error">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            {{ $errors->first('title') }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+                                    <label class="form-label required" for="description">Maelezo ya Kina</label>
+                                    <textarea id="description" 
+                                              name="description" 
+                                              class="form-textarea" 
+                                              placeholder="Eleza tatizo lako kwa undani zaidi..."
+                                              maxlength="2000"
+                                              style="min-height: 150px;"
+                                              required>{{ old('description', $ticket->description) }}</textarea>
+                                    <div class="char-counter" id="description-counter">0/2000 herufi</div>
+                                    <div class="form-help">Eleza tatizo lako kwa undani ili tuweze kukusaidia vizuri zaidi</div>
+                                    @if($errors->has('description'))
+                                        <div class="form-error">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            {{ $errors->first('description') }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Existing Files -->
+                                @if($ticket->attachments && count($ticket->attachments) > 0)
+                                    <div class="form-group">
+                                        <div class="existing-files">
+                                            <h5>
+                                                <i class="fas fa-paperclip"></i>
+                                                Faili Zilizopo ({{ count($ticket->attachments) }})
+                                            </h5>
+                                            <div id="existing-files-container">
+                                                @foreach($ticket->attachments as $index => $attachment)
+                                                    <div class="existing-file-item" data-index="{{ $index }}">
+                                                        <div class="existing-file-icon">
+                                                            @php
+                                                                $ext = strtolower(pathinfo($attachment['original_name'], PATHINFO_EXTENSION));
+                                                                $icon = 'file';
+                                                                if(in_array($ext, ['jpg', 'jpeg', 'png'])) $icon = 'image';
+                                                                elseif($ext == 'pdf') $icon = 'file-pdf';
+                                                                elseif(in_array($ext, ['doc', 'docx'])) $icon = 'file-word';
+                                                                elseif($ext == 'txt') $icon = 'file-alt';
+                                                            @endphp
+                                                            <i class="fas fa-{{ $icon }}"></i>
+                                                        </div>
+                                                        <div class="existing-file-info">
+                                                            <div class="existing-file-name">{{ $attachment['original_name'] }}</div>
+                                                            <div class="existing-file-size">
+                                                                {{ number_format($attachment['size'] / 1024, 1) }} KB
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="file-remove" onclick="removeExistingFile({{ $index }})">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <!-- New File Attachments -->
+                                <div class="form-group {{ $errors->has('attachments.*') ? 'has-error' : '' }}">
+                                    <label class="form-label" for="attachments">Ongeza Faili Mpya (Si lazima)</label>
+                                    <div class="file-upload" id="file-upload">
+                                        <div class="file-upload-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </div>
+                                        <div class="file-upload-text">Bofya hapa au buruta faili</div>
+                                        <div class="file-upload-hint">JPG, PNG, PDF, DOC, DOCX, TXT (Kila faili 5MB)</div>
+                                    </div>
+                                    <input type="file" 
+                                           id="attachments" 
+                                           name="attachments[]" 
+                                           class="file-input" 
+                                           multiple 
+                                           accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt">
+                                    <div class="selected-files" id="selected-files" style="display: none;">
+                                        <h5>
+                                            <i class="fas fa-plus"></i>
+                                            Faili Mpya
+                                        </h5>
+                                        <div id="new-files-container"></div>
+                                    </div>
+                                    <div class="form-help">Unaweza kuongeza faili mpya bila kuharibu zilizopo</div>
+                                    @if($errors->has('attachments.*'))
+                                        <div class="form-error">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            @foreach($errors->get('attachments.*') as $error)
+                                                {{ implode(', ', $error) }}
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <a href="{{ route('mwenyekiti.support.show', $ticket->id) }}" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i> Ghairi
+                                </a>
+                                <button type="submit" class="btn btn-primary" id="submit-btn">
+                                    <i class="fas fa-save"></i> Hifadhi Mabadiliko
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
-                    <form method="POST" action="{{ route('mwenyekiti.support.store') }}" enctype="multipart/form-data" id="support-form">
-                        @csrf
-                        <div class="form-body">
-                            <!-- Basic Information Row -->
-                            <div class="form-row">
-                                <!-- Category -->
-                                <div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
-                                    <label class="form-label required" for="category">Kategoria ya Ombi</label>
-                                    <select id="category" name="category" class="form-select" required>
-                                        <option value="">Chagua kategoria...</option>
-                                        @foreach($categories as $key => $value)
-                                            <option value="{{ $key }}" {{ old('category') == $key ? 'selected' : '' }}>
-                                                {{ $value }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="form-help">Chagua kategoria inayofaa zaidi</div>
-                                    @if($errors->has('category'))
-                                        <div class="form-error">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            {{ $errors->first('category') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <!-- Priority -->
-                                <div class="form-group {{ $errors->has('priority') ? 'has-error' : '' }}">
-                                    <label class="form-label required" for="priority">Kipaumbele</label>
-                                    <select id="priority" name="priority" class="form-select" required>
-                                        <option value="">Chagua kipaumbele...</option>
-                                        <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>
-                                            🟢 Chini - Si haraka
-                                        </option>
-                                        <option value="medium" {{ old('priority', 'medium') == 'medium' ? 'selected' : '' }}>
-                                            🟡 Wastani - Kawaida
-                                        </option>
-                                        <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>
-                                            🟠 Juu - Muhimu
-                                        </option>
-                                        <option value="urgent" {{ old('priority') == 'urgent' ? 'selected' : '' }}>
-                                            🔴 Haraka - Dharura
-                                        </option>
-                                    </select>
-                                    <div class="form-help">Je, ombi lako ni la haraka kiasi gani?</div>
-                                    @if($errors->has('priority'))
-                                        <div class="form-error">
-                                            <i class="fas fa-exclamation-circle"></i>
-                                            {{ $errors->first('priority') }}
-                                        </div>
-                                    @endif
+                    <!-- Sidebar Info -->
+                    <div>
+                        <!-- Ticket Status -->
+                        <div class="sidebar-card">
+                            <div class="form-header">
+                                <h3>
+                                    <i class="fas fa-info-circle"></i>
+                                    Hali ya Ombi
+                                </h3>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Hali ya Sasa</div>
+                                <div class="info-value">
+                                    <span class="status-badge {{ $ticket->status }}">
+                                        @if($ticket->status == 'open')
+                                            <i class="fas fa-folder-open"></i> Mapya
+                                        @elseif($ticket->status == 'in_progress')
+                                            <i class="fas fa-spinner"></i> Yanafanyiwa Kazi
+                                        @elseif($ticket->status == 'resolved')
+                                            <i class="fas fa-check-circle"></i> Yametatuliwa
+                                        @else
+                                            <i class="fas fa-times-circle"></i> Yamefungwa
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
-
-                            <!-- Title -->
-                            <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-                                <label class="form-label required" for="title">Kichwa cha Ombi</label>
-                                <input type="text" 
-                                       id="title" 
-                                       name="title" 
-                                       class="form-input" 
-                                       placeholder="Kwa ufupi, ombi lako ni kuhusu nini?"
-                                       value="{{ old('title') }}"
-                                       maxlength="255"
-                                       required>
-                                <div class="char-counter" id="title-counter">0/255 herufi</div>
-                                <div class="form-help">Andika kichwa kifupi na kilichowazi</div>
-                                @if($errors->has('title'))
-                                    <div class="form-error">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        {{ $errors->first('title') }}
-                                    </div>
-                                @endif
+                            <div class="info-item">
+                                <div class="info-label">Tarehe ya Kuomba</div>
+                                <div class="info-value">{{ $ticket->created_at->format('d/m/Y H:i') }}</div>
                             </div>
-
-                            <!-- Description -->
-                            <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-                                <label class="form-label required" for="description">Maelezo ya Kina</label>
-                                <textarea id="description" 
-                                          name="description" 
-                                          class="form-textarea" 
-                                          placeholder="Eleza tatizo lako kwa undani zaidi..."
-                                          maxlength="2000"
-                                          style="min-height: 150px;"
-                                          required>{{ old('description') }}</textarea>
-                                <div class="char-counter" id="description-counter">0/2000 herufi</div>
-                                <div class="form-help">Eleza tatizo lako kwa undani ili tuweze kukusaidia vizuri zaidi</div>
-                                @if($errors->has('description'))
-                                    <div class="form-error">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        {{ $errors->first('description') }}
-                                    </div>
-                                @endif
-                            </div>
-
-                            <!-- File Attachments -->
-                            <div class="form-group {{ $errors->has('attachments.*') ? 'has-error' : '' }}">
-                                <label class="form-label" for="attachments">Faili za Ziada (Si lazima)</label>
-                                <div class="file-upload" id="file-upload">
-                                    <div class="file-upload-icon">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                    </div>
-                                    <div class="file-upload-text">Bofya hapa au buruta faili</div>
-                                    <div class="file-upload-hint">JPG, PNG, PDF, DOC, DOCX, TXT (Kila faili 5MB)</div>
+                            @if($ticket->updated_at != $ticket->created_at)
+                                <div class="info-item">
+                                    <div class="info-label">Mara ya Mwisho Kubadilishwa</div>
+                                    <div class="info-value">{{ $ticket->updated_at->format('d/m/Y H:i') }}</div>
                                 </div>
-                                <input type="file" 
-                                       id="attachments" 
-                                       name="attachments[]" 
-                                       class="file-input" 
-                                       multiple 
-                                       accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt">
-                                <div class="selected-files" id="selected-files"></div>
-                                <div class="form-help">Unaweza kupakia hadi faili 5 za kuongeza uelewa</div>
-                                @if($errors->has('attachments.*'))
-                                    <div class="form-error">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        @foreach($errors->get('attachments.*') as $error)
-                                            {{ implode(', ', $error) }}
-                                        @endforeach
-                                    </div>
-                                @endif
+                            @endif
+                        </div>
+
+                        <!-- Edit Guidelines -->
+                        <div class="sidebar-card">
+                            <div class="form-header">
+                                <h3>
+                                    <i class="fas fa-lightbulb"></i>
+                                    Miongozo ya Kuhariri
+                                </h3>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-value" style="font-size: 13px; line-height: 1.5;">
+                                    <ul style="margin: 0; padding-left: 16px;">
+                                        <li>Unaweza kubadilisha kategoria na kipaumbele</li>
+                                        <li>Ongeza maelezo zaidi ili kufikia suluhisho</li>
+                                        <li>Unaweza kuongeza faili mpya</li>
+                                        <li>Faili zilizopo zitahifadhiwa</li>
+                                        @if($ticket->status != 'open')
+                                            <li style="color: var(--warning-color);">Ombi haliwa la "Mapya" - msimamizi atapata taarifa</li>
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-actions">
-                            <a href="{{ route('mwenyekiti.support.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Ghairi
-                            </a>
-                            <button type="submit" class="btn btn-primary" id="submit-btn">
-                                <i class="fas fa-paper-plane"></i> Tuma Ombi
-                            </button>
+                        <!-- Quick Actions -->
+                        <div class="sidebar-card">
+                            <div class="form-header">
+                                <h3>
+                                    <i class="fas fa-bolt"></i>
+                                    Vitendo vya Haraka
+                                </h3>
+                            </div>
+                            <div class="info-item">
+                                <a href="{{ route('mwenyekiti.support.show', $ticket->id) }}" class="btn btn-secondary" style="width: 100%; margin-bottom: 8px;">
+                                    <i class="fas fa-eye"></i> Ona Ombi
+                                </a>
+                                <a href="{{ route('mwenyekiti.support.index') }}" class="btn btn-warning" style="width: 100%;">
+                                    <i class="fas fa-list"></i> Maombi Yote
+                                </a>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -937,7 +1228,8 @@
             // File upload functionality
             const fileUpload = document.getElementById('file-upload');
             const fileInput = document.getElementById('attachments');
-            const selectedFiles = document.getElementById('selected-files');
+            const selectedFilesContainer = document.getElementById('selected-files');
+            const newFilesContainer = document.getElementById('new-files-container');
             let selectedFilesList = [];
 
             // Click to select files
@@ -1003,30 +1295,36 @@
 
             // Display selected files
             function displaySelectedFiles() {
-                selectedFiles.innerHTML = '';
+                newFilesContainer.innerHTML = '';
                 
-                selectedFilesList.forEach((file, index) => {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
+                if (selectedFilesList.length > 0) {
+                    selectedFilesContainer.style.display = 'block';
                     
-                    const fileIcon = getFileIcon(file);
-                    const fileSize = formatFileSize(file.size);
-                    
-                    fileItem.innerHTML = `
-                        <div class="file-icon">
-                            <i class="fas fa-${fileIcon}"></i>
-                        </div>
-                        <div class="file-info">
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-size">${fileSize}</div>
-                        </div>
-                        <button type="button" class="file-remove" onclick="removeFile(${index})">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
-                    
-                    selectedFiles.appendChild(fileItem);
-                });
+                    selectedFilesList.forEach((file, index) => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        
+                        const fileIcon = getFileIcon(file);
+                        const fileSize = formatFileSize(file.size);
+                        
+                        fileItem.innerHTML = `
+                            <div class="file-icon">
+                                <i class="fas fa-${fileIcon}"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${fileSize}</div>
+                            </div>
+                            <button type="button" class="file-remove" onclick="removeNewFile(${index})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        
+                        newFilesContainer.appendChild(fileItem);
+                    });
+                } else {
+                    selectedFilesContainer.style.display = 'none';
+                }
 
                 // Update file input
                 updateFileInput();
@@ -1050,8 +1348,8 @@
                 return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
             }
 
-            // Remove file function (global)
-            window.removeFile = function(index) {
+            // Remove new file function (global)
+            window.removeNewFile = function(index) {
                 selectedFilesList.splice(index, 1);
                 displaySelectedFiles();
             };
@@ -1064,12 +1362,12 @@
             }
 
             // Form submission handling
-            const form = document.getElementById('support-form');
+            const form = document.getElementById('edit-form');
             if (form) {
                 form.addEventListener('submit', function(e) {
                     if (submitBtn) {
                         submitBtn.disabled = true;
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inatuma...';
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inahifadhi...';
                     }
                 });
             }
@@ -1077,6 +1375,38 @@
             // Initial validation
             validateForm();
         });
+
+        // Remove existing file function (global)
+        function removeExistingFile(index) {
+            if (confirm('Je, una uhakika unataka kufuta faili hii?')) {
+                fetch(`{{ route('mwenyekiti.support.remove-attachment', $ticket->id) }}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ index: index })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelector(`[data-index="${index}"]`).remove();
+                        
+                        // Check if any files left
+                        const remainingFiles = document.querySelectorAll('#existing-files-container .existing-file-item');
+                        if (remainingFiles.length === 0) {
+                            document.querySelector('.existing-files').style.display = 'none';
+                        }
+                    } else {
+                        alert('Kuna tatizo katika kufuta faili');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Kuna tatizo katika kufuta faili');
+                });
+            }
+        }
     </script>
 </body>
 </html>

@@ -29,6 +29,7 @@ use App\Http\Controllers\Mwenyekiti\Dashboard1Controller;
 use App\Http\Controllers\Mwenyekiti\WatuFetchController;
 use App\Http\Controllers\Mwenyekiti\ReportController;
 use App\Http\Controllers\Mwenyekiti\MalalamixoController;
+use App\Http\Controllers\Mwenyekiti\SupportController;
 
 
     
@@ -264,6 +265,18 @@ Route::prefix('maendeleo')->name('maendeleo.')->group(function () {
     Route::delete('/{id}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'destroy'])->name('destroy');
     Route::get('/export/data', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'export'])->name('export');
     Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'getBaloziStats'])->name('balozi-stats');
+});
+
+Route::prefix('support')->name('support.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'create'])->name('create');
+    Route::post('/', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'store'])->name('store');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'update'])->name('update');
+    Route::post('/{id}/remove-attachment', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'removeAttachment'])->name('remove-attachment');
+    Route::get('/{id}/attachment/{index}', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'downloadAttachment'])->name('download');
+    Route::patch('/{id}/close', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'close'])->name('close');
 });
   
    });
