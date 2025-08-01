@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Balozi | InUse System</title>
+    <title>Usimamizi wa Balozi | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #10b981;
+            --primary-color: #37b025;
             --primary-hover: #059669;
             --primary-light: rgba(16, 185, 129, 0.1);
             --secondary-color: #f9fafb;
@@ -16,7 +16,7 @@
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --info-color: #3b82f6;
             --sidebar-width: 250px;
@@ -698,10 +698,10 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Manage Balozi</h1>
+                    <h1 class="page-title">Usimamizi wa Balozi</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Balozi</span>
@@ -742,16 +742,16 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Manage Balozi</h2>
+                        <h2 class="card-title">Usimamizi wa Balozi</h2>
                         <a href="{{ route('mwenyekiti.balozi.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New Balozi
+                            <i class="fas fa-plus"></i> Ongeza Balozi Mpya
                         </a>
                     </div>
                     <div class="card-body">
                         <div class="tabs">
-                            <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary {{ !request('edit_id') ? 'btn-primary' : '' }}">List View</a>
+                            <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary {{ !request('edit_id') ? 'btn-primary' : '' }}">Orodha</a>
                             @if(request('edit_id'))
-                                <span class="btn btn-primary">Edit Balozi</span>
+                                <span class="btn btn-primary">Hariri Balozi</span>
                             @endif
                         </div>
 

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balozi Details | InUse System</title>
+    <title>Taarifa za Balozi | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #10b981;
+            --primary-color: #37b025;
             --primary-hover: #059669;
             --primary-light: rgba(16, 185, 129, 0.1);
             --secondary-color: #f9fafb;
@@ -16,7 +16,7 @@
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --info-color: #3b82f6;
             --sidebar-width: 250px;
@@ -559,16 +559,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Balozi Details</h1>
+                    <h1 class="page-title">Taarifa za Balozi</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
                             <a href="{{ route('mwenyekiti.balozi.index') }}" class="breadcrumb-link">Balozi</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Details</span>
+                            <span class="breadcrumb-current">Taarifa</span>
                         </div>
                     </div>
                 </div>
@@ -601,39 +601,39 @@
                     <div class="card-header">
                         <h2 class="card-title">{{ $balozi->first_name }} {{ $balozi->middle_name }} {{ $balozi->last_name }}</h2>
                         <span class="badge {{ $balozi->is_active ? 'badge-success' : 'badge-danger' }}">
-                            {{ $balozi->is_active ? 'Active' : 'Inactive' }}
+                            {{ $balozi->is_active ? 'Anatumika' : 'Hatumiki' }}
                         </span>
                     </div>
                     <div class="card-body">
                         @if($balozi->photo)
-                            <img src="{{ Storage::url($balozi->photo) }}" alt="Balozi Photo" class="photo-preview" style="max-width: 100px; max-height: 100px; border-radius: var(--radius-md); margin-bottom: 15px;">
+                            <img src="{{ Storage::url($balozi->photo) }}" alt="Picha ya Balozi" class="photo-preview" style="max-width: 100px; max-height: 100px; border-radius: var(--radius-md); margin-bottom: 15px;">
                         @endif
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Personal Information</h3>
+                        <h3 class="card-title">Taarifa Binafsi</h3>
                     </div>
                     <div class="card-body">
                         <div class="info-item">
-                            <span class="info-label">Email</span>
+                            <span class="info-label">Barua Pepe</span>
                             <span class="info-value">{{ $balozi->email }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Phone</span>
+                            <span class="info-label">Simu</span>
                             <span class="info-value">{{ $balozi->phone }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Date of Birth</span>
+                            <span class="info-label">Tarehe ya Kuzaliwa</span>
                             <span class="info-value">{{ $balozi->date_of_birth->format('M d, Y') }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Gender</span>
-                            <span class="info-value">{{ ucfirst($balozi->gender) }}</span>
+                            <span class="info-label">Jinsia</span>
+                            <span class="info-value">{{ ucfirst($balozi->gender) == 'Male' ? 'Mwanaume' : (ucfirst($balozi->gender) == 'Female' ? 'Mwanamke' : 'Nyingine') }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">National ID</span>
+                            <span class="info-label">Kitambulisho cha Taifa</span>
                             <span class="info-value">{{ $balozi->national_id }}</span>
                         </div>
                     </div>
@@ -641,11 +641,11 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Location Information</h3>
+                        <h3 class="card-title">Taarifa za Makazi</h3>
                     </div>
                     <div class="card-body">
                         <div class="info-item">
-                            <span class="info-label">Street/Village</span>
+                            <span class="info-label">Mtaa/Kijiji</span>
                             <span class="info-value">{{ $balozi->street_village }}</span>
                         </div>
                         <div class="info-item">
@@ -653,7 +653,7 @@
                             <span class="info-value">{{ $balozi->shina }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">Shina Number</span>
+                            <span class="info-label">Namba ya Shina</span>
                             <span class="info-value">{{ $balozi->shina_number }}</span>
                         </div>
                     </div>
@@ -661,10 +661,10 @@
 
                 <div class="action-buttons">
                     <a href="{{ route('mwenyekiti.balozi.edit', $balozi->id) }}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i> Edit Details
+                        <i class="fas fa-edit"></i> Hariri Taarifa
                     </a>
                     <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i> Rudi Kwenye Orodha
                     </a>
                 </div>
             </div>

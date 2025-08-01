@@ -15,7 +15,7 @@
             --text-color: #1e293b;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --white: #ffffff;

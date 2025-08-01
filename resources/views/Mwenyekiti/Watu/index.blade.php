@@ -15,7 +15,7 @@
             --text-color: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --info-color: #3b82f6;
@@ -401,7 +401,7 @@
 
         .alert-success {
             background: #d1fae5;
-            border-color: #10b981;
+            border-color: #37b025;
             color: #047857;
         }
 

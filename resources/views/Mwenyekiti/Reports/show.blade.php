@@ -16,7 +16,7 @@
             --text-color: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --info-color: #3b82f6;
@@ -1020,7 +1020,7 @@
                         {
                             label: 'Yamekamilika',
                             data: completedData,
-                            backgroundColor: '#10b981'
+                            backgroundColor: '#37b025'
                         },
                         {
                             label: 'Yamepangwa',
@@ -1072,7 +1072,7 @@
                         {
                             label: 'Yamekubaliwa',
                             data: approvedData,
-                            backgroundColor: '#10b981'
+                            backgroundColor: '#37b025'
                         },
                         {
                             label: 'Yanangoja',

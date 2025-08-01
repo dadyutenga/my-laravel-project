@@ -163,7 +163,7 @@ class MatangazoYaKawaida extends Model
         return match($this->priority) {
             'urgent' => '#ef4444',
             'high' => '#f59e0b',
-            'normal' => '#10b981',
+            'normal' => '#37b025',
             'low' => '#6b7280',
             default => '#6b7280'
         };

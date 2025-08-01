@@ -16,7 +16,7 @@
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --sidebar-width: 250px;
             --sidebar-collapsed-width: 70px;
             --header-height: 70px;

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Balozi | InUse System</title>
+    <title>Sajili Balozi | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #10b981;
+            --primary-color: #37b025;
             --primary-hover: #059669;
             --primary-light: rgba(16, 185, 129, 0.1);
             --secondary-color: #f9fafb;
@@ -16,7 +16,7 @@
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --info-color: #3b82f6;
             --sidebar-width: 250px;
@@ -589,16 +589,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Create Balozi</h1>
+                    <h1 class="page-title">Sajili Balozi</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('mwenyekiti.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
                             <a href="{{ route('mwenyekiti.balozi.index') }}" class="breadcrumb-link">Balozi</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Create</span>
+                            <span class="breadcrumb-current">Sajili</span>
                         </div>
                     </div>
                 </div>
@@ -620,7 +620,7 @@
             </header>
 
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Create New Balozi</h2>
+                <h2 class="dashboard-title">Sajili Balozi Mpya</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -641,21 +641,21 @@
                         @csrf
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">Jina la Kwanza</label>
                                 <input type="text" name="first_name" id="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}" required>
                                 @error('first_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="middle_name">Middle Name</label>
+                                <label for="middle_name">Jina la Kati</label>
                                 <input type="text" name="middle_name" id="middle_name" class="form-control @error('middle_name') is-invalid @enderror" value="{{ old('middle_name') }}">
                                 @error('middle_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Jina la Mwisho</label>
                                 <input type="text" name="last_name" id="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" required>
                                 @error('last_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -665,21 +665,21 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="email">Barua Pepe</label>
                                 <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone</label>
+                                <label for="phone">Namba ya Simu</label>
                                 <input type="text" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="national_id">National ID</label>
+                                <label for="national_id">Namba ya Kitambulisho</label>
                                 <input type="text" name="national_id" id="national_id" class="form-control @error('national_id') is-invalid @enderror" value="{{ old('national_id') }}" required>
                                 @error('national_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -689,19 +689,19 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="date_of_birth">Date of Birth</label>
+                                <label for="date_of_birth">Tarehe ya Kuzaliwa</label>
                                 <input type="date" name="date_of_birth" id="date_of_birth" class="form-control @error('date_of_birth') is-invalid @enderror" value="{{ old('date_of_birth') }}" required>
                                 @error('date_of_birth')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="gender">Gender</label>
+                                <label for="gender">Jinsia</label>
                                 <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="">Chagua Jinsia</option>
+                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Mwanaume</option>
+                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Mwanamke</option>
+                                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Nyingine</option>
                                 </select>
                                 @error('gender')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -711,7 +711,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="street_village">Street/Village</label>
+                                <label for="street_village">Mtaa/Kijiji</label>
                                 <input type="text" name="street_village" id="street_village" class="form-control @error('street_village') is-invalid @enderror" value="{{ old('street_village') }}" required>
                                 @error('street_village')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -725,7 +725,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="shina_number">Shina Number</label>
+                                <label for="shina_number">Namba ya Shina</label>
                                 <input type="text" name="shina_number" id="shina_number" class="form-control @error('shina_number') is-invalid @enderror" value="{{ old('shina_number') }}" required>
                                 @error('shina_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -735,25 +735,25 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="photo">Photo</label>
+                                <label for="photo">Picha</label>
                                 <input type="file" name="photo" id="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/*">
                                 @error('photo')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <img id="photo-preview" class="photo-preview" alt="Photo Preview">
+                                <img id="photo-preview" class="photo-preview" alt="Hakiki Picha">
                             </div>
                             <div class="form-group">
-                                <label for="is_active">Active Status</label>
+                                <label for="is_active">Hali ya Utumiaji</label>
                                 <select name="is_active" id="is_active" class="form-control">
-                                    <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Inactive</option>
+                                    <option value="1" {{ old('is_active', 1) == 1 ? 'selected' : '' }}>Inatumika</option>
+                                    <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>Haitumiki</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group" style="margin-top: 20px;">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Balozi</button>
-                            <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Hifadhi Balozi</button>
+                            <a href="{{ route('mwenyekiti.balozi.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Ghairi</a>
                         </div>
                     </form>
                 </div>

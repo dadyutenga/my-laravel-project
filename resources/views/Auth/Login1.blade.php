@@ -9,14 +9,14 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #10b981;
+            --primary-color: #37b025;
             --primary-hover: #059669;
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --info-color: #3b82f6;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -181,7 +181,7 @@
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, #059669, #10b981);
+            background: linear-gradient(135deg, #059669, #37b025);
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 

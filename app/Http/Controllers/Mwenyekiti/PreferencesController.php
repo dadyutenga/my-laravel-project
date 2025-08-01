@@ -237,7 +237,7 @@ class PreferencesController extends Controller
         if ($score >= 80) {
             $strength = 'strong';
             $message = 'Nenosiri ni lenye nguvu! 💪';
-            $color = '#10b981';
+            $color = '#37b025';
         } elseif ($score >= 60) {
             $strength = 'medium';
             $message = 'Nenosiri ni la wastani 👍';

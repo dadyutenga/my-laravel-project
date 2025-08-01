@@ -16,7 +16,7 @@
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
             --error-color: #ef4444;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --info-color: #3b82f6;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

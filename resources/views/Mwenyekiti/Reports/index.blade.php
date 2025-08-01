@@ -16,7 +16,7 @@
             --text-color: #1f2937;
             --text-muted: #6b7280;
             --border-color: #e5e7eb;
-            --success-color: #10b981;
+            --success-color: #37b025;
             --warning-color: #f59e0b;
             --error-color: #ef4444;
             --info-color: #3b82f6;
@@ -923,7 +923,7 @@
                 datasets: [{
                     label: 'Idadi',
                     data: {!! json_encode(array_values($ageGroups)) !!},
-                    backgroundColor: '#10b981',
+                    backgroundColor: '#37b025',
                     borderRadius: 4
                 }]
             },
@@ -1002,7 +1002,7 @@
                         {{ $meetingStats['upcoming'] }},
                         {{ $meetingStats['cancelled'] }}
                     ],
-                    backgroundColor: ['#10b981', '#3b82f6', '#ef4444'],
+                    backgroundColor: ['#37b025', '#3b82f6', '#ef4444'],
                     borderWidth: 0
                 }]
             },
