@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Announcement Details | Prototype System</title>
+    <title>Taarifa za Tangazo | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -527,23 +527,15 @@
         <div class="main-content">
             <div class="dashboard-content">
                 <div class="page-header">
-                    <h2 class="dashboard-title">Announcement Details</h2>
-                    <div class="btn-group">
-                        <a href="{{ route('mwenyekiti.matangazo.edit', ['id' => $announcement->id, 'type' => $type]) }}" class="btn btn-warning">
+                    <h2 class="dashboard-title">Taarifa za Tangazo</h2>
+                    <div class="header-actions">
+                        <a href="{{ route('mwenyekiti.matangazo.edit', ['id' => $announcement->id]) }}" class="btn btn-primary">
                             <i class="fas fa-edit"></i>
-                            Edit
+                            Hariri
                         </a>
-                        <form action="{{ route('mwenyekiti.matangazo.destroy', ['id' => $announcement->id, 'type' => $type]) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this announcement?')">
-                                <i class="fas fa-trash"></i>
-                                Delete
-                            </button>
-                        </form>
                         <a href="{{ route('mwenyekiti.matangazo.index') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i>
-                            Back to List
+                            Rudi Kwenye Orodha
                         </a>
                     </div>
                 </div>
@@ -555,163 +547,150 @@
                     </div>
                 @endif
 
-                <!-- Announcement Details -->
-                <div class="detail-container">
-                    <div class="announcement-header">
-                        <div>
-                            <h1 class="announcement-title">{{ $announcement->title }}</h1>
-                            @if($announcement->title_sw)
-                                <div class="announcement-title-sw">{{ $announcement->title_sw }}</div>
-                            @endif
-                        </div>
-                        <div class="announcement-badges">
-                            @if($type === 'general')
-                                <span class="status-badge {{ $announcement->status }}">{{ $announcement->status }}</span>
-                                <span class="priority-badge {{ $announcement->priority }}">{{ $announcement->priority }}</span>
-                                <span class="category-badge">{{ $announcement->category }}</span>
-                            @endif
-                        </div>
-                    </div>
-
-                    <h3 class="section-title">
-                        <i class="fas fa-info-circle"></i>
-                        Basic Information
-                    </h3>
-                    
-                    <div class="detail-row">
-                        <div class="detail-label">Announcement ID:</div>
-                        <div class="detail-value">#{{ $type === 'general' ? 'GEN' : 'MTG' }}-{{ str_pad($announcement->id, 5, '0', STR_PAD_LEFT) }}</div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Type:</div>
-                        <div class="detail-value">{{ $type === 'general' ? 'General Announcement' : 'Meeting Announcement' }}</div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Location (Mtaa):</div>
-                        <div class="detail-value">{{ $announcement->mtaa }}</div>
-                    </div>
-
-                    @if($type === 'general')
-                        <div class="detail-row">
-                            <div class="detail-label">Category:</div>
-                            <div class="detail-value">{{ ucfirst($announcement->category) }}</div>
-                        </div>
-
-                        <div class="detail-row">
-                            <div class="detail-label">Priority:</div>
-                            <div class="detail-value">{{ ucfirst($announcement->priority) }}</div>
-                        </div>
-
-                        <div class="detail-row">
-                            <div class="detail-label">Target Audience:</div>
-                            <div class="detail-value">{{ ucfirst(str_replace('_', ' ', $announcement->target_audience)) }}</div>
-                        </div>
-
-                        <div class="detail-row">
-                            <div class="detail-label">Views:</div>
-                            <div class="detail-value">{{ $announcement->views_count }}</div>
-                        </div>
-
-                        @if($announcement->effective_date)
-                            <div class="detail-row">
-                                <div class="detail-label">Effective Date:</div>
-                                <div class="detail-value">{{ $announcement->effective_date->format('d/m/Y') }}</div>
-                            </div>
-                        @endif
-
-                        @if($announcement->expiry_date)
-                            <div class="detail-row">
-                                <div class="detail-label">Expiry Date:</div>
-                                <div class="detail-value">{{ $announcement->expiry_date->format('d/m/Y') }}</div>
-                            </div>
-                        @endif
-
-                        <div class="detail-row">
-                            <div class="detail-label">Featured:</div>
-                            <div class="detail-value">{{ $announcement->is_featured ? 'Yes' : 'No' }}</div>
-                        </div>
-                    @else
-                        @if($announcement->mtaaMeeting)
-                            <div class="detail-row">
-                                <div class="detail-label">Related Meeting:</div>
-                                <div class="detail-value">{{ $announcement->mtaaMeeting->title }}</div>
-                            </div>
-
-                            <div class="detail-row">
-                                <div class="detail-label">Meeting Date:</div>
-                                <div class="detail-value">{{ $announcement->mtaaMeeting->meeting_date->format('d/m/Y') }}</div>
-                            </div>
-                        @endif
-                    @endif
-
-                    <div class="detail-row">
-                        <div class="detail-label">Created By:</div>
-                        <div class="detail-value">{{ $announcement->createdBy->first_name }} {{ $announcement->createdBy->last_name }}</div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Created On:</div>
-                        <div class="detail-value">{{ $announcement->created_at->format('d/m/Y H:i') }}</div>
-                    </div>
-                </div>
-
-                <!-- Content Section -->
-                <div class="detail-container">
-                    <h3 class="section-title">
-                        <i class="fas fa-file-alt"></i>
-                        Announcement Content
-                    </h3>
-                    
-                    <div class="content-section">{{ $announcement->content }}</div>
-                    
-                    @if($announcement->content_sw)
-                        <div class="content-sw">
-                            <h4 style="margin-bottom: 10px; color: var(--primary-color);">
-                                <i class="fas fa-language"></i>
-                                Maudhui ya Kiswahili
-                            </h4>
-                            <div class="content-section">{{ $announcement->content_sw }}</div>
-                        </div>
-                    @endif
-                </div>
-
-                <!-- Attachments Section -->
-                @if(!empty($announcement->attachments))
-                    <div class="detail-container">
+                <div class="content-container">
+                    <!-- Basic Information -->
+                    <div class="content-section">
                         <h3 class="section-title">
-                            <i class="fas fa-paperclip"></i>
-                            Attachments ({{ count($announcement->attachments) }})
+                            <i class="fas fa-info-circle"></i>
+                            Taarifa za Msingi
                         </h3>
                         
-                        <div class="attachments-grid">
-                            @foreach($announcement->attachments as $index => $attachment)
-                                <div class="attachment-card">
-                                    <div class="attachment-icon">
-                                        @php
-                                            $extension = pathinfo($attachment['name'], PATHINFO_EXTENSION);
-                                            $iconClass = match(strtolower($extension)) {
-                                                'pdf' => 'fas fa-file-pdf',
-                                                'doc', 'docx' => 'fas fa-file-word',
-                                                'jpg', 'jpeg', 'png', 'gif' => 'fas fa-file-image',
-                                                default => 'fas fa-file'
-                                            };
-                                        @endphp
-                                        <i class="{{ $iconClass }}"></i>
-                                    </div>
-                                    <div class="attachment-name">{{ $attachment['name'] }}</div>
-                                    <div class="attachment-size">{{ number_format($attachment['size'] / 1024, 1) }} KB</div>
-                                    <a href="{{ route('matangazo.download-attachment', ['id' => $announcement->id, 'type' => $type, 'index' => $index]) }}" 
-                                       class="btn btn-primary" style="margin-top: 10px; font-size: 12px; padding: 6px 12px;">
-                                        <i class="fas fa-download"></i>
-                                        Download
-                                    </a>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="detail-label">Namba ya Tangazo</div>
+                                <div class="detail-value">{{ $announcement->id }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Aina</div>
+                                <div class="detail-value">{{ $announcement->type == 'general' ? 'Tangazo la Kawaida' : 'Tangazo la Mkutano' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Mtaa</div>
+                                <div class="detail-value">{{ $announcement->mtaa }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Kategoria</div>
+                                <div class="detail-value">{{ ucfirst($announcement->category) }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Kipaumbele</div>
+                                <div class="detail-value">
+                                    <span class="priority-badge {{ $announcement->priority }}">
+                                        @switch($announcement->priority)
+                                            @case('urgent')
+                                                Haraka
+                                                @break
+                                            @case('high')
+                                                Juu
+                                                @break
+                                            @case('normal')
+                                                Kawaida
+                                                @break
+                                            @case('low')
+                                                Chini
+                                                @break
+                                        @endswitch
+                                    </span>
                                 </div>
-                            @endforeach
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Walengwa</div>
+                                <div class="detail-value">{{ $announcement->target_audience }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Idadi ya Watazamaji</div>
+                                <div class="detail-value">{{ $announcement->views_count }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Tarehe ya Kuanza</div>
+                                <div class="detail-value">{{ $announcement->effective_date ? $announcement->effective_date->format('d/m/Y') : 'Hakuna' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Tarehe ya Mwisho</div>
+                                <div class="detail-value">{{ $announcement->expiry_date ? $announcement->expiry_date->format('d/m/Y') : 'Hakuna' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Tangazo Maalum</div>
+                                <div class="detail-value">{{ $announcement->is_featured ? 'Ndio' : 'Hapana' }}</div>
+                            </div>
+
+                            @if($announcement->type == 'meeting')
+                                <div class="info-item">
+                                    <div class="detail-label">Mkutano Husika</div>
+                                    <div class="detail-value">{{ $announcement->mtaaMeeting ? $announcement->mtaaMeeting->title : 'Hakuna' }}</div>
+                                </div>
+
+                                <div class="info-item">
+                                    <div class="detail-label">Tarehe ya Mkutano</div>
+                                    <div class="detail-value">{{ $announcement->mtaaMeeting ? $announcement->mtaaMeeting->meeting_date->format('d/m/Y') : 'Hakuna' }}</div>
+                                </div>
+                            @endif
+
+                            <div class="info-item">
+                                <div class="detail-label">Imetengenezwa Na</div>
+                                <div class="detail-value">{{ $announcement->creator ? $announcement->creator->name : 'Hakuna' }}</div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="detail-label">Tarehe ya Kutengenezwa</div>
+                                <div class="detail-value">{{ $announcement->created_at->format('d/m/Y H:i') }}</div>
+                            </div>
                         </div>
                     </div>
-                @endif
+
+                    <!-- Announcement Content -->
+                    <div class="content-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-file-alt"></i>
+                            Maudhui ya Tangazo
+                        </h3>
+                        
+                        <div class="announcement-content">
+                            <h4>Kiingereza</h4>
+                            <div class="content-text">{{ $announcement->content }}</div>
+
+                            <h4>Kiswahili</h4>
+                            <div class="content-text">{{ $announcement->content_sw ?: 'Hakuna tafsiri ya Kiswahili' }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Attachments -->
+                    @if($announcement->attachments && count($announcement->attachments) > 0)
+                        <div class="content-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-paperclip"></i>
+                                Viambatisho
+                            </h3>
+                            
+                            <div class="attachments-grid">
+                                @foreach($announcement->attachments as $attachment)
+                                    <div class="attachment-card">
+                                        <div class="attachment-icon">
+                                            <i class="fas fa-file"></i>
+                                        </div>
+                                        <div class="attachment-info">
+                                            <div class="attachment-name">{{ $attachment->original_name }}</div>
+                                            <div class="attachment-size">{{ $attachment->formatted_size }}</div>
+                                        </div>
+                                        <a href="{{ route('mwenyekiti.matangazo.download', $attachment->id) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-download"></i>
+                                            Pakua
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matangazo Management | Prototype System</title>
+    <title>Usimamizi wa Matangazo | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -619,10 +619,10 @@
         <div class="main-content">
             <div class="dashboard-content">
                 <div class="page-header">
-                    <h2 class="dashboard-title">Matangazo Management</h2>
+                    <h2 class="dashboard-title">Usimamizi wa Matangazo</h2>
                     <a href="{{ route('mwenyekiti.matangazo.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
-                        Create New Announcement
+                        Tengeneza Tangazo Jipya
                     </a>
                 </div>
 
@@ -645,7 +645,7 @@
                     <div class="stat-card general">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">General Announcements</div>
+                                <div class="stat-title">Matangazo ya Kawaida</div>
                                 <div class="stat-value">{{ $totalGeneral }}</div>
                             </div>
                             <div class="stat-icon general">
@@ -657,7 +657,7 @@
                     <div class="stat-card meeting">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Meeting Announcements</div>
+                                <div class="stat-title">Matangazo ya Mikutano</div>
                                 <div class="stat-value">{{ $totalMeeting }}</div>
                             </div>
                             <div class="stat-icon meeting">
@@ -669,7 +669,7 @@
                     <div class="stat-card active">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Active Announcements</div>
+                                <div class="stat-title">Matangazo Yanayoendelea</div>
                                 <div class="stat-value">{{ $activeGeneral }}</div>
                             </div>
                             <div class="stat-icon active">
@@ -681,7 +681,7 @@
                     <div class="stat-card urgent">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Urgent Announcements</div>
+                                <div class="stat-title">Matangazo ya Haraka</div>
                                 <div class="stat-value">{{ $urgentGeneral }}</div>
                             </div>
                             <div class="stat-icon urgent">
@@ -696,11 +696,11 @@
                     <div class="tab-header">
                         <button class="tab-button active" onclick="switchTab('general')">
                             <i class="fas fa-bullhorn"></i>
-                            General Announcements ({{ $generalAnnouncements->total() }})
+                            Matangazo ya Kawaida ({{ $generalAnnouncements->total() }})
                         </button>
                         <button class="tab-button" onclick="switchTab('meeting')">
                             <i class="fas fa-calendar-alt"></i>
-                            Meeting Announcements ({{ $meetingAnnouncements->total() }})
+                            Matangazo ya Mikutano ({{ $meetingAnnouncements->total() }})
                         </button>
                     </div>
 
@@ -714,12 +714,39 @@
                                         <div class="announcement-meta">
                                             <span><i class="fas fa-calendar"></i> {{ $announcement->formatted_date }}</span>
                                             <span><i class="fas fa-map-marker-alt"></i> {{ $announcement->mtaa }}</span>
-                                            <span><i class="fas fa-eye"></i> {{ $announcement->views_count }} views</span>
+                                            <span><i class="fas fa-eye"></i> {{ $announcement->views_count }} watazamaji</span>
                                         </div>
                                     </div>
                                     <div style="display: flex; gap: 5px; flex-direction: column; align-items: flex-end;">
-                                        <span class="status-badge {{ $announcement->status }}">{{ $announcement->status }}</span>
-                                        <span class="priority-badge {{ $announcement->priority }}">{{ $announcement->priority }}</span>
+                                        <span class="status-badge {{ $announcement->status }}">
+                                            @switch($announcement->status)
+                                                @case('active')
+                                                    Inaendelea
+                                                    @break
+                                                @case('expired')
+                                                    Imeisha
+                                                    @break
+                                                @case('draft')
+                                                    Rasimu
+                                                    @break
+                                            @endswitch
+                                        </span>
+                                        <span class="priority-badge {{ $announcement->priority }}">
+                                            @switch($announcement->priority)
+                                                @case('urgent')
+                                                    Haraka
+                                                    @break
+                                                @case('high')
+                                                    Juu
+                                                    @break
+                                                @case('normal')
+                                                    Kawaida
+                                                    @break
+                                                @case('low')
+                                                    Chini
+                                                    @break
+                                            @endswitch
+                                        </span>
                                     </div>
                                 </div>
                                 
@@ -730,18 +757,18 @@
                                 <div class="announcement-actions">
                                     <a href="{{ route('mwenyekiti.matangazo.show', ['id' => $announcement->id, 'type' => 'general']) }}" class="btn btn-primary btn-sm">
                                         <i class="fas fa-eye"></i>
-                                        View
+                                        Tazama
                                     </a>
                                     <a href="{{ route('mwenyekiti.matangazo.edit', ['id' => $announcement->id, 'type' => 'general']) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
-                                        Edit
+                                        Hariri
                                     </a>
                                     <form action="{{ route('mwenyekiti.matangazo.destroy', ['id' => $announcement->id, 'type' => 'general']) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Una uhakika?')">
                                             <i class="fas fa-trash"></i>
-                                            Delete
+                                            Futa
                                         </button>
                                     </form>
                                 </div>
@@ -749,11 +776,11 @@
                         @empty
                             <div style="text-align: center; padding: 40px;">
                                 <i class="fas fa-bullhorn" style="font-size: 48px; color: var(--text-muted); margin-bottom: 15px;"></i>
-                                <h3>No General Announcements Yet</h3>
-                                <p style="color: var(--text-muted); margin-bottom: 20px;">Create your first general announcement to get started.</p>
+                                <h3>Hakuna Matangazo ya Kawaida</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 20px;">Tengeneza tangazo lako la kwanza la kawaida kuanza.</p>
                                 <a href="{{ route('mwenyekiti.matangazo.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i>
-                                    Create First Announcement
+                                    Tengeneza Tangazo la Kwanza
                                 </a>
                             </div>
                         @endforelse
@@ -776,7 +803,7 @@
                                             <span><i class="fas fa-calendar"></i> {{ $announcement->created_at->format('d/m/Y') }}</span>
                                             <span><i class="fas fa-map-marker-alt"></i> {{ $announcement->mtaa }}</span>
                                             @if($announcement->mtaaMeeting)
-                                                <span><i class="fas fa-clock"></i> Meeting: {{ $announcement->mtaaMeeting->meeting_date->format('d/m/Y') }}</span>
+                                                <span><i class="fas fa-clock"></i> Mkutano: {{ $announcement->mtaaMeeting->meeting_date->format('d/m/Y') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -789,18 +816,18 @@
                                 <div class="announcement-actions">
                                     <a href="{{ route('mwenyekiti.matangazo.show', ['id' => $announcement->id, 'type' => 'meeting']) }}" class="btn btn-primary btn-sm">
                                         <i class="fas fa-eye"></i>
-                                        View
+                                        Tazama
                                     </a>
                                     <a href="{{ route('mwenyekiti.matangazo.edit', ['id' => $announcement->id, 'type' => 'meeting']) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
-                                        Edit
+                                        Hariri
                                     </a>
                                     <form action="{{ route('mwenyekiti.matangazo.destroy', ['id' => $announcement->id, 'type' => 'meeting']) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Una uhakika?')">
                                             <i class="fas fa-trash"></i>
-                                            Delete
+                                            Futa
                                         </button>
                                     </form>
                                 </div>
@@ -808,11 +835,11 @@
                         @empty
                             <div style="text-align: center; padding: 40px;">
                                 <i class="fas fa-calendar-alt" style="font-size: 48px; color: var(--text-muted); margin-bottom: 15px;"></i>
-                                <h3>No Meeting Announcements Yet</h3>
-                                <p style="color: var(--text-muted); margin-bottom: 20px;">Create announcements for your upcoming meetings.</p>
+                                <h3>Hakuna Matangazo ya Mikutano</h3>
+                                <p style="color: var(--text-muted); margin-bottom: 20px;">Tengeneza matangazo ya mikutano inayokuja.</p>
                                 <a href="{{ route('mwenyekiti.matangazo.create') }}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i>
-                                    Create Meeting Announcement
+                                    Tengeneza Tangazo la Mkutano
                                 </a>
                             </div>
                         @endforelse
@@ -828,7 +855,6 @@
         </div>
     </div>
 
-    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay"></div>
 
     <script>
