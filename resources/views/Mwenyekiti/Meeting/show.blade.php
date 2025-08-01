@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meeting Details | Prototype System</title>
+    <title>Maelezo ya Mkutano | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -443,23 +443,23 @@
         <div class="main-content">
             <div class="dashboard-content">
                 <div class="page-header">
-                    <h2 class="dashboard-title">Meeting Details</h2>
+                    <h2 class="dashboard-title">Maelezo ya Mkutano</h2>
                     <div class="btn-group">
                         @if(!$meeting->outcome && $meeting->meeting_date <= now())
                             <button onclick="toggleOutcomeForm()" class="btn btn-success">
                                 <i class="fas fa-pen"></i>
-                                Record Outcome
+                                Rekodi Matokeo
                             </button>
                         @endif
                         @if(!$meeting->outcome)
                             <a href="{{ route('mwenyekiti.meetings.edit', $meeting->id) }}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
-                                Edit Meeting
+                                Hariri Mkutano
                             </a>
                         @endif
                         <a href="{{ route('mwenyekiti.meetings.index') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i>
-                            Back to List
+                            Rudi Kwenye Orodha
                         </a>
                     </div>
                 </div>
@@ -473,15 +473,15 @@
 
                 <!-- Meeting Details -->
                 <div class="detail-container">
-                    <h3 class="section-title">Meeting Information</h3>
+                    <h3 class="section-title">Taarifa za Mkutano</h3>
                     
                     <div class="detail-row">
-                        <div class="detail-label">Meeting ID:</div>
+                        <div class="detail-label">Namba ya Mkutano:</div>
                         <div class="detail-value">#MTG-{{ str_pad($meeting->id, 5, '0', STR_PAD_LEFT) }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Title (English):</div>
+                        <div class="detail-label">Kichwa (Kiingereza):</div>
                         <div class="detail-value">{{ $meeting->title }}</div>
                     </div>
 
@@ -491,49 +491,49 @@
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Meeting Date:</div>
+                        <div class="detail-label">Tarehe ya Mkutano:</div>
                         <div class="detail-value">{{ $meeting->meeting_date->format('d/m/Y') }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Location (Mtaa):</div>
+                        <div class="detail-label">Eneo (Mtaa):</div>
                         <div class="detail-value">{{ $meeting->mtaa }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Status:</div>
+                        <div class="detail-label">Hali:</div>
                         <div class="detail-value">
                             @if($meeting->outcome)
-                                <span class="status-badge completed">Completed</span>
+                                <span class="status-badge completed">Imekamilika</span>
                             @elseif($meeting->meeting_date > now())
-                                <span class="status-badge upcoming">Upcoming</span>
+                                <span class="status-badge upcoming">Inakuja</span>
                             @else
-                                <span class="status-badge scheduled">Scheduled</span>
+                                <span class="status-badge scheduled">Imepangwa</span>
                             @endif
                         </div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Organizer:</div>
+                        <div class="detail-label">Mpangaji:</div>
                         <div class="detail-value">{{ $meeting->organizer->first_name }} {{ $meeting->organizer->last_name }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Created:</div>
+                        <div class="detail-label">Imetengenezwa:</div>
                         <div class="detail-value">{{ $meeting->created_at->format('d/m/Y H:i') }}</div>
                     </div>
                 </div>
 
                 <!-- Meeting Agenda -->
                 <div class="detail-container">
-                    <h3 class="section-title">Meeting Agenda</h3>
+                    <h3 class="section-title">Ajenda ya Mkutano</h3>
                     <div style="line-height: 1.6; white-space: pre-line;">{{ $meeting->agenda }}</div>
                 </div>
 
                 <!-- Meeting Outcome (if exists) -->
                 @if($meeting->outcome)
                     <div class="detail-container">
-                        <h3 class="section-title">Meeting Outcome</h3>
+                        <h3 class="section-title">Matokeo ya Mkutano</h3>
                         <div style="line-height: 1.6; white-space: pre-line;">{{ $meeting->outcome }}</div>
                     </div>
                 @endif
@@ -541,28 +541,28 @@
                 <!-- Record Outcome Form (hidden by default) -->
                 @if(!$meeting->outcome && $meeting->meeting_date <= now())
                     <div id="outcomeForm" class="detail-container" style="display: none;">
-                        <h3 class="section-title">Record Meeting Outcome</h3>
+                        <h3 class="section-title">Rekodi Matokeo ya Mkutano</h3>
                         <div class="outcome-form">
                             <form action="{{ route('mwenyekiti.meetings.record-outcome', $meeting->id) }}" method="POST">
                                 @csrf
                                 
                                 <div class="form-group">
-                                    <label for="outcome">Meeting Outcome & Results</label>
+                                    <label for="outcome">Matokeo na Maazimio ya Mkutano</label>
                                     <textarea id="outcome" name="outcome" class="form-control" rows="6" 
-                                              placeholder="Record what was discussed, decisions made, and action items..." required></textarea>
+                                              placeholder="Rekodi yaliyojadiliwa, maamuzi yaliyofikiwa, na hatua za kuchukuliwa..." required></textarea>
                                     <small style="color: var(--text-muted);">
-                                        Include key decisions, action items, and next steps
+                                        Jumuisha maamuzi muhimu, hatua za kuchukuliwa, na hatua zinazofuata
                                     </small>
                                 </div>
 
                                 <div class="btn-group">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-save"></i>
-                                        Record Outcome
+                                        Rekodi Matokeo
                                     </button>
                                     <button type="button" onclick="toggleOutcomeForm()" class="btn btn-secondary">
                                         <i class="fas fa-times"></i>
-                                        Cancel
+                                        Ghairi
                                     </button>
                                 </div>
                             </form>
@@ -573,7 +573,6 @@
         </div>
     </div>
 
-    <!-- Sidebar Overlay -->
     <div class="sidebar-overlay"></div>
 
     <script>

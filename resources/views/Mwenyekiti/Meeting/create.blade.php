@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule New Meeting | Prototype System</title>
+    <title>Panga Mkutano Mpya | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -372,7 +372,7 @@
         <div class="main-content">
             <div class="dashboard-content">
                 <div class="page-header">
-                    <h2 class="dashboard-title">Schedule New Meeting</h2>
+                    <h2 class="dashboard-title">Panga Mkutano Mpya</h2>
                 </div>
 
                 @if ($errors->any())
@@ -392,16 +392,16 @@
                         
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="title">Meeting Title (English)</label>
+                                <label for="title">Kichwa cha Mkutano (Kiingereza)</label>
                                 <input type="text" id="title" name="title" class="form-control" 
-                                       value="{{ old('title') }}" placeholder="e.g., Community Development Meeting" required>
+                                       value="{{ old('title') }}" placeholder="mfano: Community Development Meeting" required>
                                 @error('title')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="title_sw">Kichwa cha Kikao (Kiswahili)</label>
+                                <label for="title_sw">Kichwa cha Mkutano (Kiswahili)</label>
                                 <input type="text" id="title_sw" name="title_sw" class="form-control" 
                                        value="{{ old('title_sw') }}" placeholder="mfano: Kikao cha Maendeleo ya Jamii" required>
                                 @error('title_sw')
@@ -410,7 +410,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="meeting_date">Meeting Date</label>
+                                <label for="meeting_date">Tarehe ya Mkutano</label>
                                 <input type="date" id="meeting_date" name="meeting_date" class="form-control" 
                                        value="{{ old('meeting_date') }}" min="{{ date('Y-m-d') }}" required>
                                 @error('meeting_date')
@@ -419,20 +419,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="mtaa">Mtaa/Location</label>
+                                <label for="mtaa">Mtaa/Eneo</label>
                                 <input type="text" id="mtaa" name="mtaa" class="form-control" 
-                                       value="{{ old('mtaa') }}" placeholder="e.g., Mtaa wa Amani" required>
+                                       value="{{ old('mtaa') }}" placeholder="mfano: Mtaa wa Amani" required>
                                 @error('mtaa')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group full-width">
-                                <label for="agenda">Meeting Agenda</label>
+                                <label for="agenda">Ajenda ya Mkutano</label>
                                 <textarea id="agenda" name="agenda" class="form-control" rows="6" 
-                                          placeholder="Enter the detailed meeting agenda..." required>{{ old('agenda') }}</textarea>
+                                          placeholder="Ingiza ajenda ya mkutano kwa undani..." required>{{ old('agenda') }}</textarea>
                                 <small style="color: var(--text-muted);">
-                                    Include main discussion points, objectives, and expected outcomes
+                                    Jumuisha hoja kuu za majadiliano, malengo, na matokeo yanayotarajiwa
                                 </small>
                                 @error('agenda')
                                     <span class="text-danger">{{ $message }}</span>
@@ -443,11 +443,11 @@
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-calendar-plus"></i>
-                                Schedule Meeting
+                                Panga Mkutano
                             </button>
                             <a href="{{ route('mwenyekiti.meetings.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i>
-                                Back to Meetings
+                                Rudi Kwenye Mikutano
                             </a>
                         </div>
                     </form>

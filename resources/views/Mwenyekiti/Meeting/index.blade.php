@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meeting Management | Prototype System</title>
+    <title>Usimamizi wa Mikutano | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #4ee546;
-            --primary-hover: #4ee546;
+            --primary-hover: #37b025;
             --primary-light: rgba(79, 70, 229, 0.1);
             --secondary-color: #f9fafb;
             --text-color: #1f2937;
@@ -532,10 +532,10 @@
         <div class="main-content">
             <div class="dashboard-content">
                 <div class="page-header">
-                    <h2 class="dashboard-title">Meeting Management</h2>
+                    <h2 class="dashboard-title">Usimamizi wa Mikutano</h2>
                     <a href="{{ route('mwenyekiti.meetings.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
-                        Schedule New Meeting
+                        Panga Mkutano Mpya
                     </a>
                 </div>
 
@@ -558,7 +558,7 @@
                     <div class="stat-card total">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Total Meetings</div>
+                                <div class="stat-title">Jumla ya Mikutano</div>
                                 <div class="stat-value">{{ $totalMeetings }}</div>
                             </div>
                             <div class="stat-icon total">
@@ -570,7 +570,7 @@
                     <div class="stat-card month">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">This Month</div>
+                                <div class="stat-title">Mwezi Huu</div>
                                 <div class="stat-value">{{ $thisMonthMeetings }}</div>
                             </div>
                             <div class="stat-icon month">
@@ -582,7 +582,7 @@
                     <div class="stat-card completed">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Completed</div>
+                                <div class="stat-title">Imekamilika</div>
                                 <div class="stat-value">{{ $completedMeetings }}</div>
                             </div>
                             <div class="stat-icon completed">
@@ -594,7 +594,7 @@
                     <div class="stat-card upcoming">
                         <div class="stat-header">
                             <div class="stat-info">
-                                <div class="stat-title">Upcoming</div>
+                                <div class="stat-title">Inakuja</div>
                                 <div class="stat-value">{{ $upcomingMeetings }}</div>
                             </div>
                             <div class="stat-icon upcoming">
@@ -610,11 +610,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Title</th>
-                                <th>Date</th>
+                                <th>Kichwa</th>
+                                <th>Tarehe</th>
                                 <th>Mtaa</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Hali</th>
+                                <th>Vitendo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -631,23 +631,23 @@
                                     <td>{{ $meeting->mtaa }}</td>
                                     <td>
                                         @if($meeting->outcome)
-                                            <span class="status-badge completed">Completed</span>
+                                            <span class="status-badge completed">Imekamilika</span>
                                         @elseif($meeting->meeting_date > now())
-                                            <span class="status-badge upcoming">Upcoming</span>
+                                            <span class="status-badge upcoming">Inakuja</span>
                                         @else
-                                            <span class="status-badge scheduled">Scheduled</span>
+                                            <span class="status-badge scheduled">Imepangwa</span>
                                         @endif
                                     </td>
                                     <td>
                                         <div style="display: flex; gap: 5px;">
                                             <a href="{{ route('mwenyekiti.meetings.show', $meeting->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-eye"></i>
-                                                View
+                                                Angalia
                                             </a>
                                             @if(!$meeting->outcome)
                                                 <a href="{{ route('mwenyekiti.meetings.edit', $meeting->id) }}" class="btn btn-warning btn-sm">
                                                     <i class="fas fa-edit"></i>
-                                                    Edit
+                                                    Hariri
                                                 </a>
                                             @endif
                                         </div>
@@ -657,10 +657,10 @@
                                 <tr>
                                     <td colspan="6" style="text-align: center; padding: 40px;">
                                         <i class="fas fa-calendar-times" style="font-size: 48px; color: var(--text-muted); margin-bottom: 10px;"></i>
-                                        <p>No meetings found</p>
+                                        <p>Hakuna mikutano iliyopatikana</p>
                                         <a href="{{ route('mwenyekiti.meetings.create') }}" class="btn btn-primary" style="margin-top: 10px;">
                                             <i class="fas fa-plus"></i>
-                                            Schedule First Meeting
+                                            Panga Mkutano wa Kwanza
                                         </a>
                                     </td>
                                 </tr>
