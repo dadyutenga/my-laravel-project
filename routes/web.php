@@ -31,7 +31,6 @@ use App\Http\Controllers\Mwenyekiti\ReportController;
 use App\Http\Controllers\Mwenyekiti\MalalamixoController;
 use App\Http\Controllers\Mwenyekiti\SupportController;
 
-
     
 
 
@@ -277,6 +276,15 @@ Route::prefix('support')->name('support.')->group(function () {
     Route::post('/{id}/remove-attachment', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'removeAttachment'])->name('remove-attachment');
     Route::get('/{id}/attachment/{index}', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'downloadAttachment'])->name('download');
     Route::patch('/{id}/close', [App\Http\Controllers\Mwenyekiti\SupportController::class, 'close'])->name('close');
+});
+
+Route::prefix('preferences')->name('preferences.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'index'])->name('index');
+    Route::put('/password', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'updatePassword'])->name('update-password');
+    Route::put('/profile', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'updateProfile'])->name('update-profile');
+    Route::get('/password-requirements', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'getPasswordRequirements'])->name('password-requirements');
+    Route::post('/check-password-strength', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'checkPasswordStrength'])->name('check-password-strength');
+    Route::get('/security-activities', [App\Http\Controllers\Mwenyekiti\PreferencesController::class, 'getSecurityActivities'])->name('security-activities');
 });
   
    });

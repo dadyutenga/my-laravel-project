@@ -107,10 +107,10 @@
         <!-- Account -->
         <div class="menu-section">
             <div class="menu-section-title">Account</div>
-            <a href="#" class="menu-item">
-                <i class="fas fa-cog menu-icon"></i>
-                <span class="menu-text">Settings</span>
-            </a>
+          <a href="{{ route('mwenyekiti.preferences.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.preferences.*') ? 'active' : '' }}">
+    <i class="fas fa-cog menu-icon"></i>
+    <span class="menu-text">Settings</span>
+</a>
             <a href="#" class="menu-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt menu-icon"></i>
                 <span class="menu-text">Logout</span>
