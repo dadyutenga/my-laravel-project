@@ -76,7 +76,7 @@
         <!-- Development & Progress -->
         <div class="menu-section">
             <div class="menu-section-title">Development & Progress</div>
-            <a href="#" class="menu-item">
+            <a href="{{ route('mwenyekiti.maendeleo.index') }}" class="menu-item {{ request()->routeIs('mwenyekiti.maendeleo.*') ? 'active' : '' }}">
                 <i class="fas fa-chart-bar menu-icon"></i>
                 <span class="menu-text">Maendeleo ya kila siku</span>
             </a>

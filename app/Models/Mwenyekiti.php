@@ -96,4 +96,11 @@ class Mwenyekiti extends Model
             'id'            // Local key on Balozi table
         );
     }
+
+
+// Add this to your Mwenyekiti model
+   public function maendeleoYaSiku()
+{
+    return $this->hasMany(MaendeleoYaSiku::class, 'created_by');
+}
 }

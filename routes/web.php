@@ -253,6 +253,18 @@ Route::prefix('mahitaji')->name('mahitaji.')->group(function () {
     Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'getBaloziStats'])->name('balozi-stats');
     Route::get('/api/disability-types', [App\Http\Controllers\Mwenyekiti\MahitajiController::class, 'getDisabilityTypes'])->name('disability-types');
 });
+
+Route::prefix('maendeleo')->name('maendeleo.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'index'])->name('index');
+    Route::get('/create', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'create'])->name('create');
+    Route::post('/', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'store'])->name('store');
+    Route::get('/{id}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'update'])->name('update');
+    Route::delete('/{id}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'destroy'])->name('destroy');
+    Route::get('/export/data', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'export'])->name('export');
+    Route::get('/api/balozi-stats/{baloziId}', [App\Http\Controllers\Mwenyekiti\MaendeleoController::class, 'getBaloziStats'])->name('balozi-stats');
+});
   
    });
     
