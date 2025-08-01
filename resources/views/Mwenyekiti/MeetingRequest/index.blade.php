@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meeting Requests | Prototype System</title>
+    <title>Maombi ya Mikutano | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -438,7 +438,7 @@
         @include('Mwenyekiti.shared.sidebar-menu')
         <div class="main-content">
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Meeting Requests Management</h2>
+                <h2 class="dashboard-title">Usimamizi wa Maombi ya Mikutano</h2>
 
                 @if(session('success'))
                     <div class="alert alert-success">
@@ -451,7 +451,7 @@
                 <div class="stats-row">
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Pending Requests</span>
+                            <span class="stat-title">Maombi Yanayosubiri</span>
                             <div class="stat-icon pending">
                                 <i class="fas fa-clock"></i>
                             </div>
@@ -461,7 +461,7 @@
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Approved</span>
+                            <span class="stat-title">Yamekubaliwa</span>
                             <div class="stat-icon approved">
                                 <i class="fas fa-check"></i>
                             </div>
@@ -471,7 +471,7 @@
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Rejected</span>
+                            <span class="stat-title">Yamekataliwa</span>
                             <div class="stat-icon rejected">
                                 <i class="fas fa-times"></i>
                             </div>
@@ -481,7 +481,7 @@
 
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Total Requests</span>
+                            <span class="stat-title">Jumla ya Maombi</span>
                             <div class="stat-icon" style="background-color: var(--primary-light); color: var(--primary-color);">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
@@ -496,12 +496,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Balozi Name</th>
-                                <th>Phone</th>
-                                <th>Request Details</th>
-                                <th>Requested Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Jina la Balozi</th>
+                                <th>Simu</th>
+                                <th>Maelezo ya Ombi</th>
+                                <th>Tarehe ya Ombi</th>
+                                <th>Hali</th>
+                                <th>Vitendo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -511,16 +511,22 @@
                                     <td>{{ $request->balozi->first_name }} {{ $request->balozi->last_name }}</td>
                                     <td>{{ $request->balozi->phone }}</td>
                                     <td>{{ Str::limit($request->request_details, 50) }}</td>
-                                    <td>{{ $request->requested_at ? $request->requested_at->format('d/m/Y H:i') : 'N/A' }}</td>
+                                    <td>{{ $request->requested_at ? $request->requested_at->format('d/m/Y H:i') : 'Hakuna' }}</td>
                                     <td>
                                         <span class="status-badge {{ $request->status }}">
-                                            {{ ucfirst($request->status) }}
+                                            @if($request->status == 'pending')
+                                                Inasubiri
+                                            @elseif($request->status == 'approved')
+                                                Imekubaliwa
+                                            @elseif($request->status == 'rejected')
+                                                Imekataliwa
+                                            @endif
                                         </span>
                                     </td>
                                     <td>
                                         <a href="{{ route('mwenyekiti.meeting-requests.show', $request->id) }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-eye"></i>
-                                            View & Process
+                                            Tazama na Chakata
                                         </a>
                                     </td>
                                 </tr>
@@ -528,7 +534,7 @@
                                 <tr>
                                     <td colspan="7" style="text-align: center; padding: 40px;">
                                         <i class="fas fa-calendar-times" style="font-size: 48px; color: var(--text-muted); margin-bottom: 10px;"></i>
-                                        <p>No meeting requests found</p>
+                                        <p>Hakuna maombi ya mikutano yaliyopatikana</p>
                                     </td>
                                 </tr>
                             @endforelse

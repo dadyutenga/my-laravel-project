@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Process Meeting Request | Prototype System</title>
+    <title>Chakata Ombi la Mkutano | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -431,7 +431,7 @@
         @include('Mwenyekiti.shared.sidebar-menu')
         <div class="main-content">
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Process Meeting Request</h2>
+                <h2 class="dashboard-title">Chakata Ombi la Mkutano</h2>
 
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -446,42 +446,48 @@
 
                 <!-- Request Details -->
                 <div class="form-container">
-                    <h3 class="section-title">Request Information</h3>
+                    <h3 class="section-title">Taarifa za Ombi</h3>
                     
                     <div class="detail-row">
-                        <div class="detail-label">Request ID:</div>
+                        <div class="detail-label">Namba ya Ombi:</div>
                         <div class="detail-value">#MTG-{{ str_pad($meetingRequest->id, 5, '0', STR_PAD_LEFT) }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Current Status:</div>
+                        <div class="detail-label">Hali ya Sasa:</div>
                         <div class="detail-value">
                             <span class="status-badge {{ $meetingRequest->status }}">
-                                {{ ucfirst($meetingRequest->status) }}
+                                @if($meetingRequest->status == 'pending')
+                                    Inasubiri
+                                @elseif($meetingRequest->status == 'approved')
+                                    Imekubaliwa
+                                @elseif($meetingRequest->status == 'rejected')
+                                    Imekataliwa
+                                @endif
                             </span>
                         </div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Requested Date:</div>
-                        <div class="detail-value">{{ $meetingRequest->requested_at ? $meetingRequest->requested_at->format('d/m/Y H:i') : 'N/A' }}</div>
+                        <div class="detail-label">Tarehe ya Ombi:</div>
+                        <div class="detail-value">{{ $meetingRequest->requested_at ? $meetingRequest->requested_at->format('d/m/Y H:i') : 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Request Details:</div>
+                        <div class="detail-label">Maelezo ya Ombi:</div>
                         <div class="detail-value">{{ $meetingRequest->request_details }}</div>
                     </div>
 
                     @if($meetingRequest->processed_at)
                     <div class="detail-row">
-                        <div class="detail-label">Processed Date:</div>
+                        <div class="detail-label">Tarehe ya Kuchakatwa:</div>
                         <div class="detail-value">{{ $meetingRequest->processed_at->format('d/m/Y H:i') }}</div>
                     </div>
                     @endif
 
                     @if($meetingRequest->admin_comments)
                     <div class="detail-row">
-                        <div class="detail-label">Previous Comments:</div>
+                        <div class="detail-label">Maoni ya Awali:</div>
                         <div class="detail-value">{{ $meetingRequest->admin_comments }}</div>
                     </div>
                     @endif
@@ -489,54 +495,54 @@
 
                 <!-- Balozi Information -->
                 <div class="form-container">
-                    <h3 class="section-title">Balozi Information</h3>
+                    <h3 class="section-title">Taarifa za Balozi</h3>
                     
                     <div class="detail-row">
-                        <div class="detail-label">Full Name:</div>
+                        <div class="detail-label">Jina Kamili:</div>
                         <div class="detail-value">{{ $meetingRequest->balozi->first_name }} {{ $meetingRequest->balozi->middle_name }} {{ $meetingRequest->balozi->last_name }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Phone Number:</div>
+                        <div class="detail-label">Namba ya Simu:</div>
                         <div class="detail-value">{{ $meetingRequest->balozi->phone }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Email:</div>
-                        <div class="detail-value">{{ $meetingRequest->balozi->email ?? 'N/A' }}</div>
+                        <div class="detail-label">Barua Pepe:</div>
+                        <div class="detail-value">{{ $meetingRequest->balozi->email ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Street/Village:</div>
-                        <div class="detail-value">{{ $meetingRequest->balozi->street_village ?? 'N/A' }}</div>
+                        <div class="detail-label">Mtaa/Kijiji:</div>
+                        <div class="detail-value">{{ $meetingRequest->balozi->street_village ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
                         <div class="detail-label">Shina:</div>
-                        <div class="detail-value">{{ $meetingRequest->balozi->shina ?? 'N/A' }}</div>
+                        <div class="detail-value">{{ $meetingRequest->balozi->shina ?? 'Hakuna' }}</div>
                     </div>
                 </div>
 
                 <!-- Process Request Form -->
                 <div class="form-container">
-                    <h3 class="section-title">Update Request Status</h3>
+                    <h3 class="section-title">Sasisha Hali ya Ombi</h3>
                     
                     <form action="{{ route('mwenyekiti.meeting-requests.update-status', $meetingRequest->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         
                         <div class="form-group">
-                            <label for="status">Update Status</label>
+                            <label for="status">Sasisha Hali</label>
                             <select id="status" name="status" class="form-control" required>
-                                <option value="">Choose action...</option>
+                                <option value="">Chagua hatua...</option>
                                 <option value="approved" {{ old('status') == 'approved' ? 'selected' : '' }}>
-                                    ✅ Approve Request
+                                    ✅ Kubali Ombi
                                 </option>
                                 <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>
-                                    ❌ Reject Request
+                                    ❌ Kataa Ombi
                                 </option>
                                 <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>
-                                    ⏳ Keep Pending
+                                    ⏳ Acha Lisubiri
                                 </option>
                             </select>
                             @error('status')
@@ -545,11 +551,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_comments">Comments & Instructions</label>
+                            <label for="admin_comments">Maoni na Maelekezo</label>
                             <textarea id="admin_comments" name="admin_comments" class="form-control" rows="4" 
-                                      placeholder="Add your comments and instructions for the Balozi..." required>{{ old('admin_comments') }}</textarea>
+                                      placeholder="Ongeza maoni na maelekezo yako kwa Balozi..." required>{{ old('admin_comments') }}</textarea>
                             <small style="color: var(--text-muted);">
-                                Example instructions: Meeting approved for next Wednesday at 2 PM. Please prepare agenda and notify all members.
+                                Mfano wa maelekezo: Mkutano umekubaliwa kwa Jumatano ijayo saa 8 mchana. Tafadhali andaa ajenda na wataarifuni wanachama wote.
                             </small>
                             @error('admin_comments')
                                 <span class="text-danger">{{ $message }}</span>
@@ -559,11 +565,11 @@
                         <div class="btn-group">
                             <button type="submit" class="btn btn-success">
                                 <i class="fas fa-check"></i>
-                                Update Request
+                                Sasisha Ombi
                             </button>
                             <a href="{{ route('mwenyekiti.meeting-requests.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i>
-                                Back to List
+                                Rudi Kwenye Orodha
                             </a>
                         </div>
                     </form>
