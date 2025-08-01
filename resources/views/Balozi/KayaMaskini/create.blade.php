@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Kaya Maskini Record | Prototype System</title>
+    <title>Unda Rekodi ya Kaya Maskini | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -624,7 +624,7 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Create Kaya Maskini Record</h1>
+                    <h1 class="page-title">Unda Rekodi ya Kaya Maskini</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
                             <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
@@ -633,7 +633,7 @@
                             <a href="{{ route('balozi.kaya-maskini.index') }}" class="breadcrumb-link">Kaya Maskini</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Create Record</span>
+                            <span class="breadcrumb-current">Unda Rekodi</span>
                         </div>
                     </div>
                 </div>
@@ -660,7 +660,7 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <div class="form-container">
-                    <h2 class="dashboard-title">Create New Kaya Maskini Record</h2>
+                    <h2 class="dashboard-title">Unda Rekodi Mpya ya Kaya Maskini</h2>
 
                     @if (session('success'))
                         <div class="alert alert-success">
@@ -685,7 +685,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">Jina la Kwanza</label>
                                 <input type="text" name="first_name" id="first_name" 
                                     class="form-control @error('first_name') is-invalid @enderror" 
                                     value="{{ old('first_name') }}" required>
@@ -695,7 +695,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="middle_name">Middle Name</label>
+                                <label for="middle_name">Jina la Kati</label>
                                 <input type="text" name="middle_name" id="middle_name" 
                                     class="form-control @error('middle_name') is-invalid @enderror" 
                                     value="{{ old('middle_name') }}">
@@ -705,7 +705,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Jina la Mwisho</label>
                                 <input type="text" name="last_name" id="last_name" 
                                     class="form-control @error('last_name') is-invalid @enderror" 
                                     value="{{ old('last_name') }}" required>
@@ -717,12 +717,12 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="gender">Gender</label>
+                                <label for="gender">Jinsia</label>
                                 <select name="gender" id="gender" 
                                     class="form-control @error('gender') is-invalid @enderror" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="">Chagua Jinsia</option>
+                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Mwanaume</option>
+                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Mwanamke</option>
                                 </select>
                                 @error('gender')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -730,7 +730,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="street">Street</label>
+                                <label for="street">Mtaa</label>
                                 <input type="text" name="street" id="street" 
                                     class="form-control @error('street') is-invalid @enderror" 
                                     value="{{ old('street') }}" required>
@@ -740,7 +740,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="phone">Phone</label>
+                                <label for="phone">Simu</label>
                                 <input type="text" name="phone" id="phone" 
                                     class="form-control @error('phone') is-invalid @enderror" 
                                     value="{{ old('phone') }}" required>
@@ -752,7 +752,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="household_count">Household Count</label>
+                                <label for="household_count">Idadi ya Kaya</label>
                                 <input type="number" name="household_count" id="household_count" 
                                     class="form-control @error('household_count') is-invalid @enderror" 
                                     value="{{ old('household_count') }}" required min="1">
@@ -762,7 +762,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="household_members">Household Members</label>
+                                <label for="household_members">Wanachama wa Kaya</label>
                                 <textarea name="household_members" id="household_members" 
                                     class="form-control @error('household_members') is-invalid @enderror" 
                                     rows="3" required>{{ old('household_members') }}</textarea>
@@ -774,7 +774,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="description">Description</label>
+                                <label for="description">Maelezo</label>
                                 <textarea name="description" id="description" 
                                     class="form-control @error('description') is-invalid @enderror" 
                                     rows="4" required>{{ old('description') }}</textarea>
@@ -786,10 +786,10 @@
 
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Save Record
+                                <i class="fas fa-save"></i> Hifadhi Rekodi
                             </button>
                             <a href="{{ route('balozi.kaya-maskini.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Back to List
+                                <i class="fas fa-arrow-left"></i> Rudi kwenye Orodha
                             </a>
                         </div>
                     </form>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Daily Progress | Prototype System</title>
+    <title>Unda Maendeleo ya Kila Siku | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -631,16 +631,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Create Daily Progress</h1>
+                    <h1 class="page-title">Unda Maendeleo ya Kila Siku</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.daily-progress.index') }}" class="breadcrumb-link">Daily Progress</a>
+                            <a href="{{ route('balozi.daily-progress.index') }}" class="breadcrumb-link">Maendeleo ya Kila Siku</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Create Progress</span>
+                            <span class="breadcrumb-current">Unda Maendeleo</span>
                         </div>
                     </div>
                 </div>
@@ -666,7 +666,7 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Create New Daily Progress</h2>
+                <h2 class="dashboard-title">Unda Maendeleo Mpya ya Kila Siku</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -694,7 +694,7 @@
                 @endif
 
                 <div class="form-container">
-                    <h2 class="dashboard-title">Progress Information</h2>
+                    <h2 class="dashboard-title">Maelezo ya Maendeleo</h2>
                     <form method="POST" action="{{ route('balozi.daily-progress.store') }}">
                         @csrf
                         <div class="form-row">
@@ -725,10 +725,10 @@
 
                         <div class="form-group" style="margin-top: 25px;">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Save Progress
+                                <i class="fas fa-save"></i> Hifadhi Maendeleo
                             </button>
                             <a href="{{ route('balozi.daily-progress.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Back to Progress
+                                <i class="fas fa-arrow-left"></i> Rudi kwa Maendeleo
                             </a>
                         </div>
                     </form>

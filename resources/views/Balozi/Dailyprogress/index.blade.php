@@ -640,10 +640,10 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Daily Progress</h1>
+                    Maendeleo ya Kila Siku
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            Nyumbani
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Daily Progress</span>
@@ -673,10 +673,10 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <div class="form-container">
-                    <h2 class="dashboard-title">Daily Progress Entries</h2>
+                    Ingizo za Maendeleo ya Kila Siku
                     <div class="btn-group">
                         <a href="{{ route('balozi.daily-progress.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New Progress
+                            Ongeza Maendeleo Mpya
                         </a>
                     </div>
                 </div>
@@ -699,10 +699,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Description</th>
-                                <th>Comments</th>
-                                <th>Actions</th>
+                                Tarehe
+                                Maelezo
+                                Maoni
+                                Vitendo
                             </tr>
                         </thead>
                         <tbody>
@@ -714,13 +714,13 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('balozi.daily-progress.edit', $progress->id) }}" class="btn btn-secondary">
-                                                <i class="fas fa-edit"></i> Edit
+                                                Hariri
                                             </a>
                                             <form action="{{ route('balozi.daily-progress.destroy', $progress->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this entry?')">
-                                                    <i class="fas fa-trash"></i> Delete
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Je, una hakika unataka kufuta ingizo hili?')">
+                                                    Futa
                                                 </button>
                                             </form>
                                         </div>
@@ -729,7 +729,7 @@
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center text-muted">
-                                        No daily progress entries found
+                                        Hakuna ingizo za maendeleo ya kila siku zilizopatikana
                                     </td>
                                 </tr>
                             @endforelse

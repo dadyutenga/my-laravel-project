@@ -242,7 +242,7 @@ class UserAuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.Login1');
+        return view('Auth.Login1');
     }
 
     // Add new method to handle login

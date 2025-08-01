@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaya Maskini Records | Prototype System</title>
+    <title>Rekodi za Kaya Maskini | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -624,10 +624,10 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Kaya Maskini Records</h1>
+                    <h1 class="page-title">Rekodi za Kaya Maskini</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
                             <span class="breadcrumb-current">Kaya Maskini</span>
@@ -657,10 +657,10 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <div class="form-container">
-                    <h2 class="dashboard-title">Kaya Maskini Records</h2>
+                    <h2 class="dashboard-title">Rekodi za Kaya Maskini</h2>
                     <div class="btn-group">
                         <a href="{{ route('balozi.kaya-maskini.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New Record
+                            <i class="fas fa-plus"></i> Ongeza Rekodi Mpya
                         </a>
                     </div>
                 </div>
@@ -683,12 +683,12 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Gender</th>
-                                <th>Street</th>
-                                <th>Phone</th>
-                                <th>Household Count</th>
-                                <th>Actions</th>
+                                <th>Jina</th>
+                                <th>Jinsia</th>
+                                <th>Mtaa</th>
+                                <th>Simu</th>
+                                <th>Idadi ya Kaya</th>
+                                <th>Vitendo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -704,13 +704,13 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('balozi.kaya-maskini.edit', $record->id) }}" class="btn btn-secondary">
-                                                <i class="fas fa-edit"></i> Edit
+                                                <i class="fas fa-edit"></i> Hariri
                                             </a>
                                             <form action="{{ route('balozi.kaya-maskini.destroy', $record->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">
-                                                    <i class="fas fa-trash"></i> Delete
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Je, una hakika unataka kufuta rekodi hii?')">
+                                                    <i class="fas fa-trash"></i> Futa
                                                 </button>
                                             </form>
                                         </div>
@@ -719,7 +719,7 @@
                             @empty
                                 <tr>
                                     <td colspan="6" class="text-center text-muted">
-                                        No Kaya Maskini records found
+                                        Hakuna rekodi za Kaya Maskini zilizopatikana
                                     </td>
                                 </tr>
                             @endforelse
