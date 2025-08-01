@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Watu Entries | Prototype System</title>
+    <title>Orodha ya Watu | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -658,13 +658,13 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">View Watu Entries</h1>
+                    <h1 class="page-title">Orodha ya Watu</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Watu Entries</span>
+                            <span class="breadcrumb-current">Orodha ya Watu</span>
                         </div>
                     </div>
                 </div>
@@ -690,7 +690,7 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Watu Entries</h2>
+                <h2 class="dashboard-title">Orodha ya Watu</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -711,12 +711,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Status</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
+                                    <th>Jina</th>
+                                    <th>Barua Pepe</th>
+                                    <th>Simu</th>
+                                    <th>Hali</th>
+                                    <th>Imetengenezwa Tarehe</th>
+                                    <th>Vitendo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -727,27 +727,27 @@
                                             {{ $watu->middle_name }} 
                                             {{ $watu->last_name }}
                                         </td>
-                                        <td>{{ $watu->email ?? 'N/A' }}</td>
+                                        <td>{{ $watu->email ?? 'Hakuna' }}</td>
                                         <td>{{ $watu->phone_number }}</td>
                                         <td>
                                             <span class="status-badge {{ $watu->is_active ? 'status-active' : 'status-inactive' }}">
-                                                {{ $watu->is_active ? 'Active' : 'Inactive' }}
+                                                {{ $watu->is_active ? 'Inafanya kazi' : 'Haifanyi kazi' }}
                                             </span>
                                         </td>
                                         <td>{{ $watu->created_at->format('M d, Y H:i') }}</td>
                                         <td>
                                             <div style="display: flex; gap: 5px;">
                                                 <a href="{{ route('balozi.watu.show', $watu->id) }}" class="btn btn-primary" style="padding: 5px 10px;">
-                                                    <i class="fas fa-eye"></i> View
+                                                    <i class="fas fa-eye"></i> Angalia
                                                 </a>
                                                 <a href="{{ route('balozi.watu.edit', $watu->id) }}" class="btn btn-primary" style="padding: 5px 10px;">
-                                                    <i class="fas fa-edit"></i> Edit
+                                                    <i class="fas fa-edit"></i> Hariri
                                                 </a>
                                                 <form action="{{ route('balozi.watu.destroy', $watu->id) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" style="padding: 5px 10px;" onclick="return confirm('Are you sure you want to delete this entry?')">
-                                                        <i class="fas fa-trash"></i> Delete
+                                                    <button type="submit" class="btn btn-danger" style="padding: 5px 10px;" onclick="return confirm('Una uhakika unataka kufuta rekodi hii?')">
+                                                        <i class="fas fa-trash"></i> Futa
                                                     </button>
                                                 </form>
                                             </div>
@@ -763,23 +763,21 @@
                         </div>
                     @endif
                     <div style="margin-top: 20px;">
-                        <a href="{{ route('balozi.watu.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Entry</a>
+                        <a href="{{ route('balozi.watu.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Sajili Mtu Mpya</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay"></div>
+
     <script>
         // Mobile menu toggle functionality
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('collapsed');
             document.querySelector('.sidebar-overlay').classList.toggle('active');
-        });
-
-        // Sidebar toggle functionality
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('collapsed');
         });
 
         // Close sidebar when clicking on overlay

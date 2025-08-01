@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Watu Entry | Prototype System</title>
+    <title>Sajili Watu | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -607,16 +607,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Create Watu Entry</h1>
+                    <h1 class="page-title">Sajili Watu</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.watu.index') }}" class="breadcrumb-link">Watu Entries</a>
+                            <a href="{{ route('balozi.watu.index') }}" class="breadcrumb-link">Orodha ya Watu</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Create Entry</span>
+                            <span class="breadcrumb-current">Sajili</span>
                         </div>
                     </div>
                 </div>
@@ -642,7 +642,7 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Create New Watu Entry</h2>
+                <h2 class="dashboard-title">Sajili Mtu Mpya</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -669,26 +669,26 @@
                 @endif
 
                 <div class="form-container">
-                    <h2 class="dashboard-title">Watu Information</h2>
+                    <h2 class="dashboard-title">Taarifa za Mtu</h2>
                     <form method="POST" action="{{ route('balozi.watu.store') }}">
                         @csrf
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">Jina la Kwanza</label>
                                 <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" class="form-control @error('first_name') is-invalid @enderror" required>
                                 @error('first_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="middle_name">Middle Name</label>
+                                <label for="middle_name">Jina la Kati</label>
                                 <input type="text" name="middle_name" id="middle_name" value="{{ old('middle_name') }}" class="form-control @error('middle_name') is-invalid @enderror">
                                 @error('middle_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Jina la Mwisho</label>
                                 <input type="text" name="last_name" id="last_name" value="{{ old('last_name') }}" class="form-control @error('last_name') is-invalid @enderror" required>
                                 @error('last_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -697,21 +697,21 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="email">Barua Pepe</label>
                                 <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror">
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="phone_number">Phone Number</label>
+                                <label for="phone_number">Namba ya Simu</label>
                                 <input type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}" class="form-control @error('phone_number') is-invalid @enderror" required>
                                 @error('phone_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="date_of_birth">Date of Birth</label>
+                                <label for="date_of_birth">Tarehe ya Kuzaliwa</label>
                                 <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth') }}" class="form-control @error('date_of_birth') is-invalid @enderror">
                                 @error('date_of_birth')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -720,35 +720,35 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="gender">Gender</label>
+                                <label for="gender">Jinsia</label>
                                 <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror">
-                                    <option value="">Select Gender</option>
-                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="">Chagua Jinsia</option>
+                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Mwanaume</option>
+                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Mwanamke</option>
+                                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Nyingine</option>
                                 </select>
                                 @error('gender')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="marital_status">Marital Status</label>
+                                <label for="marital_status">Hali ya Ndoa</label>
                                 <select name="marital_status" id="marital_status" class="form-control @error('marital_status') is-invalid @enderror">
-                                    <option value="">Select Marital Status</option>
-                                    <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Married</option>
-                                    <option value="Divorced" {{ old('marital_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
-                                    <option value="Single" {{ old('marital_status') == 'Single' ? 'selected' : '' }}>Single</option>
+                                    <option value="">Chagua Hali ya Ndoa</option>
+                                    <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Ameoa/Ameolewa</option>
+                                    <option value="Divorced" {{ old('marital_status') == 'Divorced' ? 'selected' : '' }}>Talaka</option>
+                                    <option value="Single" {{ old('marital_status') == 'Single' ? 'selected' : '' }}>Hajaoa/Hajaolewa</option>
                                 </select>
                                 @error('marital_status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="occupation">Occupation</label>
+                                <label for="occupation">Kazi</label>
                                 <select name="occupation" id="occupation" class="form-control @error('occupation') is-invalid @enderror">
-                                    <option value="">Select Occupation</option>
-                                    <option value="Employed" {{ old('occupation') == 'Employed' ? 'selected' : '' }}>Employed</option>
-                                    <option value="Unemployed" {{ old('occupation') == 'Unemployed' ? 'selected' : '' }}>Unemployed</option>
+                                    <option value="">Chagua Kazi</option>
+                                    <option value="Employed" {{ old('occupation') == 'Employed' ? 'selected' : '' }}>Ameajiriwa</option>
+                                    <option value="Unemployed" {{ old('occupation') == 'Unemployed' ? 'selected' : '' }}>Hajaajiriwa</option>
                                 </select>
                                 @error('occupation')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -757,37 +757,37 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="education_level">Education Level</label>
+                                <label for="education_level">Kiwango cha Elimu</label>
                                 <select name="education_level" id="education_level" class="form-control @error('education_level') is-invalid @enderror">
-                                    <option value="">Select Education Level</option>
-                                    <option value="Primary School" {{ old('education_level') == 'Primary School' ? 'selected' : '' }}>Primary School</option>
-                                    <option value="O Level" {{ old('education_level') == 'O Level' ? 'selected' : '' }}>O Level</option>
-                                    <option value="A Level" {{ old('education_level') == 'A Level' ? 'selected' : '' }}>A Level</option>
-                                    <option value="University" {{ old('education_level') == 'University' ? 'selected' : '' }}>University</option>
-                                    <option value="Technical" {{ old('education_level') == 'Technical' ? 'selected' : '' }}>Technical</option>
+                                    <option value="">Chagua Kiwango cha Elimu</option>
+                                    <option value="Primary School" {{ old('education_level') == 'Primary School' ? 'selected' : '' }}>Shule ya Msingi</option>
+                                    <option value="O Level" {{ old('education_level') == 'O Level' ? 'selected' : '' }}>Kidato cha Nne</option>
+                                    <option value="A Level" {{ old('education_level') == 'A Level' ? 'selected' : '' }}>Kidato cha Sita</option>
+                                    <option value="University" {{ old('education_level') == 'University' ? 'selected' : '' }}>Chuo Kikuu</option>
+                                    <option value="Technical" {{ old('education_level') == 'Technical' ? 'selected' : '' }}>Elimu ya Ufundi</option>
                                 </select>
                                 @error('education_level')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="income_range">Income Range</label>
+                                <label for="income_range">Kipato</label>
                                 <select name="income_range" id="income_range" class="form-control @error('income_range') is-invalid @enderror">
-                                    <option value="">Select Income Range</option>
+                                    <option value="">Chagua Kipato</option>
                                     <option value="0-10000" {{ old('income_range') == '0-10000' ? 'selected' : '' }}>0 - 10,000</option>
                                     <option value="10001-50000" {{ old('income_range') == '10001-50000' ? 'selected' : '' }}>10,001 - 50,000</option>
                                     <option value="50001-100000" {{ old('income_range') == '50001-100000' ? 'selected' : '' }}>50,001 - 100,000</option>
                                     <option value="100001-200000" {{ old('income_range') == '100001-200000' ? 'selected' : '' }}>100,001 - 200,000</option>
                                     <option value="200001-500000" {{ old('income_range') == '200001-500000' ? 'selected' : '' }}>200,001 - 500,000</option>
                                     <option value="500001-1000000" {{ old('income_range') == '500001-1000000' ? 'selected' : '' }}>500,001 - 1,000,000</option>
-                                    <option value="1000001+" {{ old('income_range') == '1000001+' ? 'selected' : '' }}>1,000,001 and above</option>
+                                    <option value="1000001+" {{ old('income_range') == '1000001+' ? 'selected' : '' }}>Zaidi ya 1,000,001</option>
                                 </select>
                                 @error('income_range')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="health_status">Health Status</label>
+                                <label for="health_status">Hali ya Afya</label>
                                 <input type="text" name="health_status" id="health_status" value="{{ old('health_status') }}" class="form-control @error('health_status') is-invalid @enderror">
                                 @error('health_status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -796,21 +796,21 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nida_number">NIDA Number</label>
+                                <label for="nida_number">Namba ya NIDA</label>
                                 <input type="text" name="nida_number" id="nida_number" value="{{ old('nida_number') }}" class="form-control @error('nida_number') is-invalid @enderror">
                                 @error('nida_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="house_no">House No</label>
+                                <label for="house_no">Namba ya Nyumba</label>
                                 <input type="text" name="house_no" id="house_no" value="{{ old('house_no') }}" class="form-control @error('house_no') is-invalid @enderror">
                                 @error('house_no')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="household_count">Household Count</label>
+                                <label for="household_count">Idadi ya Watu Nyumbani</label>
                                 <input type="number" name="household_count" id="household_count" value="{{ old('household_count') }}" class="form-control @error('household_count') is-invalid @enderror" min="0">
                                 @error('household_count')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -826,14 +826,14 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="region">Region</label>
+                                <label for="region">Mkoa</label>
                                 <input type="text" name="region" id="region" value="{{ old('region') }}" class="form-control @error('region') is-invalid @enderror">
                                 @error('region')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="district">District</label>
+                                <label for="district">Wilaya</label>
                                 <input type="text" name="district" id="district" value="{{ old('district') }}" class="form-control @error('district') is-invalid @enderror">
                                 @error('district')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -842,7 +842,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="ward">Ward</label>
+                                <label for="ward">Kata</label>
                                 <input type="text" name="ward" id="ward" value="{{ old('ward') }}" class="form-control @error('ward') is-invalid @enderror">
                                 @error('ward')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -850,8 +850,8 @@
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 20px;">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Create Entry</button>
-                            <a href="{{ route('balozi.watu.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Entries</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Sajili</button>
+                            <a href="{{ route('balozi.watu.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Rudi Kwenye Orodha</a>
                         </div>
                     </form>
                 </div>
@@ -864,11 +864,6 @@
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('collapsed');
             document.querySelector('.sidebar-overlay').classList.toggle('active');
-        });
-
-        // Sidebar toggle functionality
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('collapsed');
         });
 
         // Close sidebar when clicking on overlay

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Watu Details | Prototype System</title>
+    <title>Taarifa za Mtu | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -366,116 +366,116 @@
         <div class="main-content">
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Watu Details</h2>
+                <h2 class="dashboard-title">Taarifa za Mtu</h2>
 
                 <div class="form-container">
-                    <h3 style="margin-bottom: 20px; color: var(--primary-color);">Personal Information</h3>
+                    <h3 style="margin-bottom: 20px; color: var(--primary-color);">Taarifa Binafsi</h3>
                     
                     <div class="detail-row">
-                        <div class="detail-label">Full Name:</div>
+                        <div class="detail-label">Jina Kamili:</div>
                         <div class="detail-value">{{ $watu->first_name }} {{ $watu->middle_name }} {{ $watu->last_name }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Email:</div>
-                        <div class="detail-value">{{ $watu->email ?? 'N/A' }}</div>
+                        <div class="detail-label">Barua Pepe:</div>
+                        <div class="detail-value">{{ $watu->email ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Phone Number:</div>
+                        <div class="detail-label">Namba ya Simu:</div>
                         <div class="detail-value">{{ $watu->phone_number }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Date of Birth:</div>
-                        <div class="detail-value">{{ $watu->date_of_birth ? $watu->date_of_birth->format('M d, Y') : 'N/A' }}</div>
+                        <div class="detail-label">Tarehe ya Kuzaliwa:</div>
+                        <div class="detail-value">{{ $watu->date_of_birth ? $watu->date_of_birth->format('M d, Y') : 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Gender:</div>
-                        <div class="detail-value">{{ ucfirst($watu->gender) ?? 'N/A' }}</div>
+                        <div class="detail-label">Jinsia:</div>
+                        <div class="detail-value">{{ ucfirst($watu->gender) ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Marital Status:</div>
-                        <div class="detail-value">{{ $watu->marital_status ?? 'N/A' }}</div>
+                        <div class="detail-label">Hali ya Ndoa:</div>
+                        <div class="detail-value">{{ $watu->marital_status ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Occupation:</div>
-                        <div class="detail-value">{{ $watu->occupation ?? 'N/A' }}</div>
+                        <div class="detail-label">Kazi:</div>
+                        <div class="detail-value">{{ $watu->occupation ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Education Level:</div>
-                        <div class="detail-value">{{ $watu->education_level ?? 'N/A' }}</div>
+                        <div class="detail-label">Kiwango cha Elimu:</div>
+                        <div class="detail-value">{{ $watu->education_level ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Income Range:</div>
-                        <div class="detail-value">{{ $watu->income_range ?? 'N/A' }}</div>
+                        <div class="detail-label">Kipato:</div>
+                        <div class="detail-value">{{ $watu->income_range ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Health Status:</div>
-                        <div class="detail-value">{{ $watu->health_status ?? 'N/A' }}</div>
+                        <div class="detail-label">Hali ya Afya:</div>
+                        <div class="detail-value">{{ $watu->health_status ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">NIDA Number:</div>
-                        <div class="detail-value">{{ $watu->nida_number ?? 'N/A' }}</div>
+                        <div class="detail-label">Namba ya NIDA:</div>
+                        <div class="detail-value">{{ $watu->nida_number ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">House Number:</div>
-                        <div class="detail-value">{{ $watu->house_no ?? 'N/A' }}</div>
+                        <div class="detail-label">Namba ya Nyumba:</div>
+                        <div class="detail-value">{{ $watu->house_no ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
                         <div class="detail-label">Mtaa:</div>
-                        <div class="detail-value">{{ $watu->mtaa ?? 'N/A' }}</div>
+                        <div class="detail-value">{{ $watu->mtaa ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Region:</div>
-                        <div class="detail-value">{{ $watu->region ?? 'N/A' }}</div>
+                        <div class="detail-label">Mkoa:</div>
+                        <div class="detail-value">{{ $watu->region ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">District:</div>
-                        <div class="detail-value">{{ $watu->district ?? 'N/A' }}</div>
+                        <div class="detail-label">Wilaya:</div>
+                        <div class="detail-value">{{ $watu->district ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Ward:</div>
-                        <div class="detail-value">{{ $watu->ward ?? 'N/A' }}</div>
+                        <div class="detail-label">Kata:</div>
+                        <div class="detail-value">{{ $watu->ward ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Household Count:</div>
-                        <div class="detail-value">{{ $watu->household_count ?? 'N/A' }}</div>
+                        <div class="detail-label">Idadi ya Watu Nyumbani:</div>
+                        <div class="detail-value">{{ $watu->household_count ?? 'Hakuna' }}</div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Status:</div>
+                        <div class="detail-label">Hali:</div>
                         <div class="detail-value">
                             <span class="status-badge {{ $watu->is_active ? 'status-active' : 'status-inactive' }}">
-                                {{ $watu->is_active ? 'Active' : 'Inactive' }}
+                                {{ $watu->is_active ? 'Inafanya kazi' : 'Haifanyi kazi' }}
                             </span>
                         </div>
                     </div>
 
                     <div class="detail-row">
-                        <div class="detail-label">Created At:</div>
+                        <div class="detail-label">Imetengenezwa Tarehe:</div>
                         <div class="detail-value">{{ $watu->created_at->format('M d, Y H:i') }}</div>
                     </div>
 
                     <div class="btn-group">
                         <a href="{{ route('balozi.watu.edit', $watu->id) }}" class="btn btn-primary">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i> Hariri
                         </a>
                         <a href="{{ route('balozi.watu.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i> Rudi Kwenye Orodha
                         </a>
                     </div>
                 </div>
@@ -487,9 +487,10 @@
     <div class="sidebar-overlay"></div>
 
     <script>
-        // Sidebar toggle functionality
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
         });
 
         // Close sidebar when clicking on overlay
