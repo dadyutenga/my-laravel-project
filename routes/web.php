@@ -352,6 +352,23 @@ Route::middleware('auth:admin')->group(function () {
                 Route::get('/requests/{requestId}', [BaloziAccountController::class, 'showRequest'])->name('show-request');
                 Route::post('/requests/{requestId}/process', [BaloziAccountController::class, 'processRequest'])->name('process-request');
             });
+
+              Route::prefix('tickets')->name('tickets.')->group(function () {
+                Route::get('/export/csv', [App\Http\Controllers\Admin\TicketsAdminController::class, 'export'])->name('export');
+                Route::get('/', [App\Http\Controllers\Admin\TicketsAdminController::class, 'index'])->name('index');
+                Route::get('/{id}', [App\Http\Controllers\Admin\TicketsAdminController::class, 'show'])->name('show');
+                Route::post('/{id}/assign', [App\Http\Controllers\Admin\TicketsAdminController::class, 'assign'])->name('assign');
+                Route::post('/{id}/status', [App\Http\Controllers\Admin\TicketsAdminController::class, 'updateStatus'])->name('update-status');
+                Route::post('/{id}/respond', [App\Http\Controllers\Admin\TicketsAdminController::class, 'respond'])->name('respond');
+                Route::post('/bulk-action', [App\Http\Controllers\Admin\TicketsAdminController::class, 'bulkAction'])->name('bulk-action');
+                Route::get('/{ticketId}/attachment/{attachmentIndex}', [App\Http\Controllers\Admin\TicketsAdminController::class, 'downloadAttachment'])->name('download-attachment');
+            });
+
+
+
+   
+
+
         });
     });
 
