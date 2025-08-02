@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Mahitaji Maalumu | Prototype System</title>
+    <title>Hariri Mahitaji Maalumu | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -459,7 +459,7 @@
                     <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <h1 class="header-title">Edit Mahitaji Maalumu</h1>
+                    <h1 class="header-title">Hariri Mahitaji Maalumu</h1>
                 </div>
             </div>
 
@@ -485,18 +485,18 @@
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="first_name">First Name *</label>
+                                <label for="first_name">Jina la Kwanza *</label>
                                 <input type="text" id="first_name" name="first_name" class="form-control" 
-                                       value="{{ old('first_name', $record->first_name) }}" placeholder="Enter first name" required>
+                                       value="{{ old('first_name', $record->first_name) }}" placeholder="Weka jina la kwanza" required>
                                 @error('first_name')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="middle_name">Middle Name</label>
+                                <label for="middle_name">Jina la Kati</label>
                                 <input type="text" id="middle_name" name="middle_name" class="form-control" 
-                                       value="{{ old('middle_name', $record->middle_name) }}" placeholder="Enter middle name">
+                                       value="{{ old('middle_name', $record->middle_name) }}" placeholder="Weka jina la kati">
                                 @error('middle_name')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
@@ -505,18 +505,18 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="last_name">Last Name *</label>
+                                <label for="last_name">Jina la Mwisho *</label>
                                 <input type="text" id="last_name" name="last_name" class="form-control" 
-                                       value="{{ old('last_name', $record->last_name) }}" placeholder="Enter last name" required>
+                                       value="{{ old('last_name', $record->last_name) }}" placeholder="Weka jina la mwisho" required>
                                 @error('last_name')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="age">Age *</label>
+                                <label for="age">Umri *</label>
                                 <input type="number" id="age" name="age" class="form-control" 
-                                       value="{{ old('age', $record->age) }}" placeholder="Enter age" min="1" max="120" required>
+                                       value="{{ old('age', $record->age) }}" placeholder="Weka umri" min="1" max="120" required>
                                 @error('age')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
@@ -525,11 +525,11 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="gender">Gender *</label>
+                                <label for="gender">Jinsia *</label>
                                 <select id="gender" name="gender" class="form-control" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male" {{ old('gender', $record->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender', $record->gender) == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="">Chagua Jinsia</option>
+                                    <option value="male" {{ old('gender', $record->gender) == 'male' ? 'selected' : '' }}>Mwanaume</option>
+                                    <option value="female" {{ old('gender', $record->gender) == 'female' ? 'selected' : '' }}>Mwanamke</option>
                                 </select>
                                 @error('gender')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
@@ -537,9 +537,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="phone">Phone Number *</label>
+                                <label for="phone">Namba ya Simu *</label>
                                 <input type="tel" id="phone" name="phone" class="form-control" 
-                                       value="{{ old('phone', $record->phone) }}" placeholder="Enter phone number" required>
+                                       value="{{ old('phone', $record->phone) }}" placeholder="Weka namba ya simu" required>
                                 @error('phone')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
@@ -548,18 +548,18 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nida_number">NIDA Number *</label>
+                                <label for="nida_number">Namba ya NIDA *</label>
                                 <input type="text" id="nida_number" name="nida_number" class="form-control" 
-                                       value="{{ old('nida_number', $record->nida_number) }}" placeholder="Enter NIDA number" required>
+                                       value="{{ old('nida_number', $record->nida_number) }}" placeholder="Weka namba ya NIDA" required>
                                 @error('nida_number')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="disability_type">Disability Type *</label>
+                                <label for="disability_type">Aina ya Ulemavu *</label>
                                 <input type="text" id="disability_type" name="disability_type" class="form-control" 
-                                       value="{{ old('disability_type', $record->disability_type) }}" placeholder="Enter disability type" required>
+                                       value="{{ old('disability_type', $record->disability_type) }}" placeholder="Weka aina ya ulemavu" required>
                                 @error('disability_type')
                                     <span style="color: var(--error-color); font-size: 12px; margin-top: 4px;">{{ $message }}</span>
                                 @enderror
@@ -567,16 +567,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="pdf_file">Supporting Document (PDF)</label>
+                            <label for="pdf_file">Hati ya Kusaidia (PDF)</label>
                             
                             @if($record->pdf_file_path)
                                 <div class="current-file">
                                     <i class="fas fa-file-pdf"></i>
-                                    <span>Current file: {{ basename($record->pdf_file_path) }}</span>
+                                    <span>Faili la sasa: {{ basename($record->pdf_file_path) }}</span>
                                     <a href="{{ route('balozi.mahitaji-maalumu.download-pdf', $record->id) }}" 
                                        class="btn btn-sm btn-secondary" style="margin-left: auto;">
                                         <i class="fas fa-download"></i>
-                                        Download
+                                        Pakua
                                     </a>
                                 </div>
                             @endif
@@ -586,8 +586,8 @@
                                        accept=".pdf" style="display: none;">
                                 <div class="file-upload-text">
                                     <i class="fas fa-cloud-upload-alt" style="font-size: 24px; margin-bottom: 8px;"></i>
-                                    <p id="file-upload-text">{{ $record->pdf_file_path ? 'Click to replace current PDF file' : 'Click to upload PDF file or drag and drop' }}</p>
-                                    <small>Maximum file size: 10MB</small>
+                                    <p id="file-upload-text">{{ $record->pdf_file_path ? 'Bofya kubadilisha faili la sasa la PDF' : 'Bofya kupakia faili ya PDF au buruta na kuacha' }}</p>
+                                    <small>Ukubwa wa juu wa faili: 10MB</small>
                                 </div>
                             </div>
                             @error('pdf_file')
@@ -598,11 +598,11 @@
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i>
-                                Update Record
+                                Sasisha Rekodi
                             </button>
                             <a href="{{ route('balozi.mahitaji-maalumu.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i>
-                                Back to List
+                                Rudi kwenye Orodha
                             </a>
                         </div>
                     </form>
@@ -620,9 +620,9 @@
             const fileName = this.files[0]?.name;
             const textElement = document.getElementById('file-upload-text');
             if (fileName) {
-                textElement.textContent = `Selected: ${fileName}`;
+                textElement.textContent = `Imechaguliwa: ${fileName}`;
             } else {
-                textElement.textContent = '{{ $record->pdf_file_path ? "Click to replace current PDF file" : "Click to upload PDF file or drag and drop" }}';
+                textElement.innerHTML = `{{ $record->pdf_file_path ? 'Bofya kubadilisha faili la sasa la PDF' : 'Bofya kupakia faili ya PDF au buruta na kuacha' }}`;
             }
         });
 

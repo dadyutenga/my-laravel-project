@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Malalamiko | Prototype System</title>
+    <title>Weka Malalamiko | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -423,7 +423,7 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <div class="header-title">Create Malalamiko Record</div>
+                    <div class="header-title">Weka Rekodi ya Malalamiko</div>
                 </div>
             </header>
 
@@ -459,7 +459,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
+                                <label for="first_name">Jina la Kwanza</label>
                                 <input type="text" id="first_name" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name') }}" required>
                                 @error('first_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -467,7 +467,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="middle_name">Middle Name</label>
+                                <label for="middle_name">Jina la Kati</label>
                                 <input type="text" id="middle_name" name="middle_name" class="form-control @error('middle_name') is-invalid @enderror" value="{{ old('middle_name') }}">
                                 @error('middle_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -475,7 +475,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="last_name">Last Name</label>
+                                <label for="last_name">Jina la Mwisho</label>
                                 <input type="text" id="last_name" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name') }}" required>
                                 @error('last_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -485,7 +485,7 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="phone">Phone</label>
+                                <label for="phone">Simu</label>
                                 <input type="text" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
                                 @error('phone')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -503,9 +503,9 @@
                             <div class="form-group">
                                 <label for="jinsia">Jinsia</label>
                                 <select id="jinsia" name="jinsia" class="form-control @error('jinsia') is-invalid @enderror" required>
-                                    <option value="">Select Gender</option>
-                                    <option value="male" {{ old('jinsia') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('jinsia') == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="">Chagua Jinsia</option>
+                                    <option value="male" {{ old('jinsia') == 'male' ? 'selected' : '' }}>Mwanaume</option>
+                                    <option value="female" {{ old('jinsia') == 'female' ? 'selected' : '' }}>Mwanamke</option>
                                 </select>
                                 @error('jinsia')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -523,21 +523,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="status">Status</label>
+                                <label for="status">Hali</label>
                                 <select name="status" id="status" class="form-control" required>
-                                    <option value="">Select Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="resolved">Resolved</option>
+                                    <option value="">Chagua Hali</option>
+                                    <option value="pending">Inasubiri</option>
+                                    <option value="resolved">Imetatuliwa</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="btn-group">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Save Record
+                                <i class="fas fa-save"></i> Hifadhi Rekodi
                             </button>
                             <a href="{{ route('balozi.malalamiko.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left"></i> Back to List
+                                <i class="fas fa-arrow-left"></i> Rudi kwenye Orodha
                             </a>
                         </div>
                     </form>

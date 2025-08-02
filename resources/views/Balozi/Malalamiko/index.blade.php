@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malalamiko Records | Prototype System</title>
+    <title>Rekodi za Malalamiko | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -452,12 +452,12 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <div class="header-title">Malalamiko Records</div>
+                    <div class="header-title">Rekodi za Malalamiko</div>
                 </div>
                 <div class="header-right">
                     <div class="btn-group">
                         <a href="{{ route('balozi.malalamiko.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New Record
+                            <i class="fas fa-plus"></i> Weka Rekodi Mpya
                         </a>
                     </div>
                 </div>
@@ -482,13 +482,13 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Phone</th>
+                                <th>Jina</th>
+                                <th>Simu</th>
                                 <th>Mtaa</th>
                                 <th>Jinsia</th>
                                 <th>Malalamiko</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Hali</th>
+                                <th>Vitendo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -505,13 +505,13 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('balozi.malalamiko.edit', $record->id) }}" class="btn btn-secondary">
-                                                <i class="fas fa-edit"></i> Edit
+                                                <i class="fas fa-edit"></i> Hariri
                                             </a>
                                             <form action="{{ route('balozi.malalamiko.destroy', $record->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">
-                                                    <i class="fas fa-trash"></i> Delete
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Una uhakika unataka kufuta rekodi hii?')">
+                                                    <i class="fas fa-trash"></i> Futa
                                                 </button>
                                             </form>
                                         </div>
@@ -520,7 +520,7 @@
                             @empty
                                 <tr>
                                     <td colspan="7" class="text-center text-muted">
-                                        No Malalamiko records found
+                                        Hakuna rekodi za malalamiko zilizopatikana
                                     </td>
                                 </tr>
                             @endforelse

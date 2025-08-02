@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,16 +45,201 @@
             overflow-x: hidden;
         }
 
+        /* Layout */
         .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar - Complete Implementation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+        }
+
+        .logo-text {
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            top: 20px;
+            right: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            z-index: 10;
+            border: 2px solid white;
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle i {
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .sidebar-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--header-height));
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .menu-section-title {
+            padding: 10px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-section-title {
+            opacity: 0;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            margin: 2px 0;
+        }
+
+        .menu-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .menu-icon {
+            width: 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed .menu-badge {
+            opacity: 0;
+            width: 0;
+        }
+
+        /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
             transition: var(--transition);
             min-height: 100vh;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: var(--sidebar-collapsed-width);
         }
 
         .header {
@@ -65,6 +250,9 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
             box-shadow: var(--shadow-sm);
         }
 
@@ -76,7 +264,7 @@
 
         .header-title {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-color);
         }
 
@@ -102,7 +290,7 @@
             border: none;
             border-radius: var(--radius-md);
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
@@ -164,7 +352,7 @@
             padding: 20px 30px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -234,9 +422,60 @@
             color: var(--border-color);
         }
 
+        /* Mobile menu */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         @media (max-width: 768px) {
+            .sidebar {
+                width: var(--sidebar-collapsed-width);
+                transform: translateX(calc(var(--sidebar-collapsed-width) * -1));
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(0);
+            }
+
             .main-content {
                 margin-left: 0;
+            }
+
+            .sidebar.collapsed ~ .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                right: -30px;
+                transform: rotate(180deg);
+            }
+
+            .sidebar.collapsed .sidebar-toggle {
+                transform: rotate(0);
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                margin-right: 15px;
             }
 
             .dashboard-content {
@@ -257,6 +496,12 @@
                 min-width: 800px;
             }
         }
+
+        @media (min-width: 769px) {
+            .sidebar-overlay {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -266,12 +511,15 @@
         <div class="main-content">
             <div class="header">
                 <div class="header-left">
+                    <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </div>
                     <h1 class="header-title">Mahitaji Maalumu</h1>
                 </div>
                 <div class="header-action">
                     <a href="{{ route('balozi.mahitaji-maalumu.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
-                        Add New Record
+                        Weka Rekodi Mpya
                     </a>
                 </div>
             </div>
@@ -293,21 +541,21 @@
 
                 <div class="table-container">
                     <div class="table-header">
-                        <h2 class="table-title">Special Needs Individuals Records</h2>
+                        <h2 class="table-title">Rekodi za Watu Wenye Mahitaji Maalumu</h2>
                     </div>
 
                     @if($mahitajiMaalumu->count() > 0)
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Full Name</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>NIDA Number</th>
-                                    <th>Disability Type</th>
-                                    <th>Document</th>
-                                    <th>Actions</th>
+                                    <th>Jina Kamili</th>
+                                    <th>Umri</th>
+                                    <th>Jinsia</th>
+                                    <th>Simu</th>
+                                    <th>Namba ya NIDA</th>
+                                    <th>Aina ya Ulemavu</th>
+                                    <th>Hati</th>
+                                    <th>Vitendo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -327,7 +575,7 @@
                                                     PDF
                                                 </a>
                                             @else
-                                                <span class="text-muted">No file</span>
+                                                <span class="text-muted">Hakuna faili</span>
                                             @endif
                                         </td>
                                         <td>
@@ -338,7 +586,7 @@
                                                 </a>
                                                 <form action="{{ route('balozi.mahitaji-maalumu.destroy', $record->id) }}" 
                                                       method="POST" style="display: inline;"
-                                                      onsubmit="return confirm('Are you sure you want to delete this record?')">
+                                                      onsubmit="return confirm('Una uhakika unataka kufuta rekodi hii?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-delete">
@@ -354,11 +602,11 @@
                     @else
                         <div class="empty-state">
                             <i class="fas fa-users"></i>
-                            <h3>No records found</h3>
-                            <p>You haven't added any Mahitaji Maalumu records yet.</p>
+                            <h3>Hakuna rekodi zilizopatikana</h3>
+                            <p>Bado hujaongeza rekodi zozote za Mahitaji Maalumu.</p>
                             <a href="{{ route('balozi.mahitaji-maalumu.create') }}" class="btn btn-primary" style="margin-top: 16px;">
                                 <i class="fas fa-plus"></i>
-                                Add First Record
+                                Weka Rekodi ya Kwanza
                             </a>
                         </div>
                     @endif
@@ -366,5 +614,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay"></div>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        });
+
+        // Sidebar toggle functionality
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        });
+
+        // Close sidebar when clicking on overlay
+        document.querySelector('.sidebar-overlay').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.add('collapsed');
+            this.classList.remove('active');
+        });
+    </script>
 </body>
 </html>

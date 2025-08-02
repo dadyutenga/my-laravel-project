@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Mtaa Meeting | Prototype System</title>
+    <title>Omba Mkutano wa Mtaa | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -490,12 +490,12 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <div class="header-title">Request Mtaa Meeting</div>
+                    <div class="header-title">Omba Mkutano wa Mtaa</div>
                 </div>
                 <div class="header-right">
                     <div class="btn-group">
                         <a href="{{ route('balozi.mtaameetingrequest.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i> Rudi kwenye Orodha
                         </a>
                     </div>
                 </div>
@@ -521,19 +521,19 @@
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="request_details">Request Details</label>
+                            <label for="request_details">Maelezo ya Ombi</label>
                             <textarea name="request_details" id="request_details" class="form-control" rows="4" required></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="requested_at">Requested Date</label>
+                            <label for="requested_at">Tarehe ya Kuomba</label>
                             <input type="date" name="requested_at" id="requested_at" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Submit Request
+                            <i class="fas fa-save"></i> Tuma Ombi
                         </button>
                     </div>
                 </form>
