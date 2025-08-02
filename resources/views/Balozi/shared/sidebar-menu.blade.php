@@ -113,10 +113,15 @@
                 <div class="menu-icon"><i class="fas fa-headset"></i></div>
                 <div class="menu-text">Omba Msaada</div>
             </a>
-            <a href="#" class="menu-item">
+                <a href="#" class="menu-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <div class="menu-icon"><i class="fas fa-right-from-bracket"></i></div>
                 <div class="menu-text">Ondoka</div>
             </a>
+            
+            <!-- Hidden logout form -->
+            <form id="logout-form" action="{{ route('logout1') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     </div>
 </aside>
