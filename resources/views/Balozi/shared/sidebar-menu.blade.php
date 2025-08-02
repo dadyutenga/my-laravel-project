@@ -109,7 +109,7 @@
                 <div class="menu-icon"><i class="fas fa-gear"></i></div>
                 <div class="menu-text">Mapendekezo</div>
             </a>
-            <a href='#' class="menu-item">
+           <a href="{{ route('balozi.tickets.index') }}" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-headset"></i></div>
                 <div class="menu-text">Omba Msaada</div>
             </a>

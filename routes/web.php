@@ -30,6 +30,7 @@ use App\Http\Controllers\Mwenyekiti\WatuFetchController;
 use App\Http\Controllers\Mwenyekiti\ReportController;
 use App\Http\Controllers\Mwenyekiti\MalalamixoController;
 use App\Http\Controllers\Mwenyekiti\SupportController;
+use App\Http\Controllers\Balozi\TicketBaloziController;
 
     
 
@@ -141,6 +142,17 @@ Route::middleware(['auth.balozi'])->group(function () {
         Route::put('/{id}', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'update'])->name('update');
         Route::delete('/{id}', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'destroy'])->name('destroy');
         Route::get('/{id}/download-pdf', [App\Http\Controllers\Balozi\MahitajiMaalumuController::class, 'downloadPdf'])->name('download-pdf');
+    });
+
+    Route::prefix('balozi/tickets')->name('balozi.tickets.')->group(function () {
+        Route::get('/', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'create'])->name('create');
+        Route::post('/', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'store'])->name('store');
+        Route::get('/{id}', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'update'])->name('update');
+        Route::delete('/{id}', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'destroy'])->name('destroy');
+        Route::get('/{ticketId}/attachment/{attachmentIndex}', [App\Http\Controllers\Balozi\TicketBaloziController::class, 'downloadAttachment'])->name('download-attachment');
     });
 
 
