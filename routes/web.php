@@ -31,6 +31,8 @@ use App\Http\Controllers\Mwenyekiti\ReportController;
 use App\Http\Controllers\Mwenyekiti\MalalamixoController;
 use App\Http\Controllers\Mwenyekiti\SupportController;
 use App\Http\Controllers\Balozi\TicketBaloziController;
+use App\Http\Controllers\Admin\TicketAdminController;
+
 
     
 
@@ -353,7 +355,10 @@ Route::middleware('auth:admin')->group(function () {
                 Route::post('/requests/{requestId}/process', [BaloziAccountController::class, 'processRequest'])->name('process-request');
             });
 
-              Route::prefix('tickets')->name('tickets.')->group(function () {
+              
+        });
+
+            Route::prefix('tickets')->name('admin.tickets.')->group(function () {
                 Route::get('/export/csv', [App\Http\Controllers\Admin\TicketsAdminController::class, 'export'])->name('export');
                 Route::get('/', [App\Http\Controllers\Admin\TicketsAdminController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\Admin\TicketsAdminController::class, 'show'])->name('show');
@@ -363,13 +368,6 @@ Route::middleware('auth:admin')->group(function () {
                 Route::post('/bulk-action', [App\Http\Controllers\Admin\TicketsAdminController::class, 'bulkAction'])->name('bulk-action');
                 Route::get('/{ticketId}/attachment/{attachmentIndex}', [App\Http\Controllers\Admin\TicketsAdminController::class, 'downloadAttachment'])->name('download-attachment');
             });
-
-
-
-   
-
-
-        });
     });
 
     // Superadmin dashboard routes

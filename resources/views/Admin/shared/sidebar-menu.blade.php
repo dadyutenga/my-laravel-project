@@ -52,7 +52,7 @@
 
         <div class="menu-section">
             <div class="menu-section-title">Support</div>
-            <a href="{{ route('admin.tickets') }}" class="menu-item {{ request()->routeIs('admin.tickets') ? 'active' : '' }}">
+            <a href="{{ route('admin.tickets.index') }}" class="menu-item {{ request()->routeIs('admin.tickets.*') ? 'active' : '' }}">
                 <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
                 <div class="menu-text">Support Tickets</div>
             </a>
