@@ -597,16 +597,16 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Request Service</h1>
+                    <h1 class="page-title">Omba Huduma</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.services.index') }}" class="breadcrumb-link">Service Requests</a>
+                            <a href="{{ route('balozi.services.index') }}" class="breadcrumb-link">Maombi ya Huduma</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Request Service</span>
+                            <span class="breadcrumb-current">Omba Huduma</span>
                         </div>
                     </div>
                 </div>
@@ -632,7 +632,7 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Request New Service</h2>
+                <h2 class="dashboard-title">Omba Huduma Mpya</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -659,19 +659,19 @@
                 @endif
 
                 <div class="form-container">
-                    <h2 class="dashboard-title">Service Request Information</h2>
+                    <h2 class="dashboard-title">Taarifa za Ombi la Huduma</h2>
                     <form method="POST" action="{{ route('balozi.services.store') }}">
                         @csrf
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="title">Title (English)</label>
+                                <label for="title">Kichwa (Kiingereza)</label>
                                 <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control @error('title') is-invalid @enderror" required>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="title_sw">Title (Swahili)</label>
+                                <label for="title_sw">Kichwa (Kiswahili)</label>
                                 <input type="text" name="title_sw" id="title_sw" value="{{ old('title_sw') }}" class="form-control @error('title_sw') is-invalid @enderror">
                                 @error('title_sw')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -680,7 +680,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="description">Description</label>
+                                <label for="description">Maelezo</label>
                                 <textarea name="description" id="description" rows="5" class="form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -697,8 +697,8 @@
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 20px;">
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Submit Request</button>
-                            <a href="{{ route('balozi.services.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Requests</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Tuma Ombi</button>
+                            <a href="{{ route('balozi.services.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Rudi Kwenye Maombi</a>
                         </div>
                     </form>
                 </div>

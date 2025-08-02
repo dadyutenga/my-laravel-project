@@ -663,13 +663,13 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">View Service Requests</h1>
+                    <h1 class="page-title">Tazama Maombi ya Huduma</h1>
                     <div class="breadcrumb">
                         <div class="breadcrumb-item">
-                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Home</a>
+                            <a href="{{ route('balozi.dashboard') }}" class="breadcrumb-link">Nyumbani</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Service Requests</span>
+                            <span class="breadcrumb-current">Maombi ya Huduma</span>
                         </div>
                     </div>
                 </div>
@@ -695,7 +695,7 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content">
-                <h2 class="dashboard-title">Service Requests</h2>
+                <h2 class="dashboard-title">Maombi ya Huduma</h2>
 
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -716,12 +716,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Title (Swahili)</th>
+                                    <th>Kichwa</th>
+                                    <th>Kichwa (Kiswahili)</th>
                                     <th>Mtaa</th>
-                                    <th>Status</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
+                                    <th>Hali</th>
+                                    <th>Imeundwa</th>
+                                    <th>Vitendo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -742,7 +742,7 @@
                                         <td>
                                             <div style="display: flex; gap: 5px;">
                                                 <a href="{{ route('balozi.services.show', $service->id) }}" class="btn btn-primary" style="padding: 5px 10px;">
-                                                    <i class="fas fa-eye"></i> View
+                                                    <i class="fas fa-eye"></i> Tazama
                                                 </a>
                                             </div>
                                         </td>
@@ -757,7 +757,7 @@
                         </div>
                     @endif
                     <div style="margin-top: 20px;">
-                        <a href="{{ route('balozi.services.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Request New Service</a>
+                        <a href="{{ route('balozi.services.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Omba Huduma Mpya</a>
                     </div>
                 </div>
             </div>
