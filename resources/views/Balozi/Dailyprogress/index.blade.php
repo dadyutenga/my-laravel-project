@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Progress | Prototype System</title>
+    <title>Maendeleo ya Kila Siku | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -646,7 +646,7 @@
                             Nyumbani
                         </div>
                         <div class="breadcrumb-item">
-                            <span class="breadcrumb-current">Daily Progress</span>
+                            <span class="breadcrumb-current">Maendeleo ya Kila Siku</span>
                         </div>
                     </div>
                 </div>
@@ -673,10 +673,10 @@
             <!-- Dashboard Content -->
             <div class="dashboard-content">
                 <div class="form-container">
-                    Ingizo za Maendeleo ya Kila Siku
+                    Maendeleo ya Kila Siku
                     <div class="btn-group">
                         <a href="{{ route('balozi.daily-progress.create') }}" class="btn btn-primary">
-                            Ongeza Maendeleo Mpya
+                            Weka Kipya
                         </a>
                     </div>
                 </div>
@@ -714,12 +714,12 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('balozi.daily-progress.edit', $progress->id) }}" class="btn btn-secondary">
-                                                Hariri
+                                                Badilisha
                                             </a>
                                             <form action="{{ route('balozi.daily-progress.destroy', $progress->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Je, una hakika unataka kufuta ingizo hili?')">
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Unahakika unataka kufuta hii?')">
                                                     Futa
                                                 </button>
                                             </form>
@@ -729,7 +729,7 @@
                             @empty
                                 <tr>
                                     <td colspan="4" class="text-center text-muted">
-                                        Hakuna ingizo za maendeleo ya kila siku zilizopatikana
+                                        Hakuna maendeleo ya kila siku yaliyopatikana
                                     </td>
                                 </tr>
                             @endforelse

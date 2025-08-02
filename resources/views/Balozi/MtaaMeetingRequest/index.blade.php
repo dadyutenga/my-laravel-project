@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mtaa Meeting Requests | Prototype System</title>
+    <title>Maombi ya Mkutano wa Mtaa | Prototype System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -542,12 +542,12 @@
                     <div class="mobile-menu-toggle header-action" id="mobile-menu-toggle">
                         <i class="fas fa-bars"></i>
                     </div>
-                    <h1 class="page-title">Mtaa Meeting Requests</h1>
+                    <h1 class="page-title">Maombi ya Mkutano wa Mtaa</h1>
                 </div>
                 <div class="header-right">
                     <div class="btn-group">
                         <a href="{{ route('balozi.mtaameetingrequest.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> New Request
+                            <i class="fas fa-plus"></i> Ombi Jipya
                         </a>
                     </div>
                 </div>
@@ -570,18 +570,18 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Meeting Requests List</h3>
+                        <h3 class="card-title">Orodha ya Maombi ya Mkutano</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Status</th>
-                                        <th>Request Details</th>
-                                        <th>Requested Date</th>
-                                        <th>Processed Date</th>
-                                        <th>Actions</th>
+                                        <th>Hali</th>
+                                        <th>Maelezo ya Ombi</th>
+                                        <th>Tarehe ya Kuombwa</th>
+                                        <th>Tarehe ya Kushughulikiwa</th>
+                                        <th>Vitendo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -603,7 +603,7 @@
                                                     <form action="{{ route('balozi.mtaameetingrequest.destroy', $request->id) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this request?')">
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Unahakika unataka kufuta ombi hili?')">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </form>
@@ -612,7 +612,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="text-center">No meeting requests found</td>
+                                            <td colspan="5" class="text-center">Hakuna maombi ya mkutano yaliyopatikana</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
