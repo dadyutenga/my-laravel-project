@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +59,7 @@
             top: 0;
             left: 0;
             z-index: 100;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-sm);
         }
 
@@ -99,7 +100,7 @@
         }
 
         .logo-text {
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
         }
 
@@ -122,12 +123,13 @@
             cursor: pointer;
             box-shadow: var(--shadow-md);
             border: 2px solid white;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 101;
         }
 
         .sidebar-toggle i {
             font-size: 12px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar.collapsed .sidebar-toggle i {
@@ -139,6 +141,7 @@
             padding: 20px 0;
             height: calc(100vh - var(--header-height));
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .menu-section {
@@ -152,7 +155,7 @@
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 0.5px;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar.collapsed .menu-section-title {
@@ -165,7 +168,7 @@
             padding: 12px 20px;
             color: var(--text-color);
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             margin: 2px 0;
         }
@@ -200,10 +203,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .menu-text {
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
             flex: 1;
         }
@@ -212,73 +216,56 @@
             opacity: 0;
         }
 
-        .menu-badge {
-            margin-left: auto;
-            background: var(--primary-color);
+        /* Tooltip for collapsed sidebar */
+        .sidebar.collapsed .menu-item {
+            position: relative;
+        }
+
+        .sidebar.collapsed .menu-item:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 10px;
-            transition: opacity 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-left: 10px;
+            pointer-events: none;
         }
 
-        .sidebar.collapsed .menu-badge {
-            opacity: 0;
-        }
-
-        /* Navigation Item Icons */
-        .menu-item i {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Dropdown Menu Styles (if needed) */
-        .menu-dropdown {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .menu-dropdown.open {
-            max-height: 500px;
-        }
-
-        .menu-dropdown .menu-item {
-            padding-left: 52px;
-            font-size: 13px;
-        }
-
-        .sidebar.collapsed .menu-dropdown {
-            display: none;
-        }
-
-        /* Submenu Toggle */
-        .menu-toggle {
-            margin-left: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-toggle.rotated {
-            transform: rotate(90deg);
-        }
-
-        .sidebar.collapsed .menu-toggle {
-            opacity: 0;
+        .sidebar.collapsed .menu-item:hover::before {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: rgba(0, 0, 0, 0.8);
+            margin-left: 5px;
+            z-index: 1000;
+            pointer-events: none;
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar.collapsed + .main-content {
             margin-left: var(--sidebar-collapsed-width);
         }
 
+        /* Content Header - Fixed Structure */
         .content-header {
             background: white;
             padding: 20px 30px;
@@ -287,10 +274,69 @@
             top: 0;
             z-index: 10;
             box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
         }
 
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            max-width: 100%;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-hover);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* Content Body - Proper Padding and Structure */
         .content-body {
             padding: 30px;
+            flex: 1;
+            overflow-x: auto;
         }
 
         /* Mobile Menu Toggle */
@@ -305,7 +351,393 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .btn-primary { 
+            background: var(--primary-color); 
+            color: white; 
+        }
+        
+        .btn-primary:hover { 
+            background: var(--primary-hover); 
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary { 
+            background: white; 
+            color: var(--text-color); 
+            border: 1px solid var(--border-color); 
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-success { 
+            background: var(--success-color); 
+            color: white; 
+        }
+        
+        .btn-warning { 
+            background: var(--warning-color); 
+            color: white; 
+        }
+        
+        .btn-danger { 
+            background: var(--error-color); 
+            color: white; 
+        }
+
+        /* Main Grid Layout - Responsive */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* Card Components */
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* Ticket Header - Improved */
+        .ticket-header {
+            padding: 30px 24px;
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .ticket-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ticket-title {
+            font-size: 20px;
+            font-weight: 500;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+
+        /* Meta Grid - Better Spacing */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        /* Badge Improvements */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: fit-content;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-status-open { background: #fef3c7; color: #92400e; }
+        .badge-status-in_progress { background: #dbeafe; color: #1e40af; }
+        .badge-status-resolved { background: #d1fae5; color: #065f46; }
+        .badge-status-closed { background: #f3f4f6; color: #374151; }
+
+        .badge-priority-low { background: #d1fae5; color: #065f46; }
+        .badge-priority-medium { background: #fef3c7; color: #92400e; }
+        .badge-priority-high { background: #fed7aa; color: #9a3412; }
+        .badge-priority-urgent { background: #fee2e2; color: #991b1b; }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .description {
+            background: var(--secondary-color);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            white-space: pre-wrap;
+            line-height: 1.7;
+            border-left: 4px solid var(--primary-color);
+            font-size: 15px;
+        }
+
+        /* Creator Info Card */
+        .creator-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--secondary-color), #f1f5f9);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .creator-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .creator-details {
+            flex: 1;
+        }
+
+        .creator-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .creator-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Attachments */
+        .attachments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .attachment-item:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .attachment-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .attachment-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .attachment-name {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .attachment-size {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Admin Response */
+        .admin-response {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid var(--info-color);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid #bae6fd;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: var(--info-color);
+            font-weight: 600;
+        }
+
+        .response-content {
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Form Improvements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        /* Alert Improvements */
+        .alert {
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border-color: #a7f3d0;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .alert i {
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         /* Sidebar Overlay */
@@ -319,7 +751,7 @@
             z-index: 99;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar-overlay.active {
@@ -327,7 +759,22 @@
             visibility: visible;
         }
 
-        /* Custom Scrollbar for Sidebar */
+        /* Sidebar Actions - Right Column */
+        .actions-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Custom Scrollbar */
         .sidebar-menu::-webkit-scrollbar {
             width: 4px;
         }
@@ -346,6 +793,25 @@
         }
 
         /* Mobile Responsiveness */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr 300px;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .meta-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -367,8 +833,36 @@
                 padding: 20px;
             }
 
-            .main-grid {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .header-left {
+                width: 100%;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .ticket-number {
+                font-size: 28px;
+            }
+
+            .ticket-title {
+                font-size: 18px;
+            }
+
+            .meta-grid {
                 grid-template-columns: 1fr;
+                gap: 16px;
             }
 
             .sidebar-toggle {
@@ -376,354 +870,18 @@
             }
         }
 
-        @media (min-width: 769px) {
-            .sidebar-overlay {
-                display: none !important;
-            }
-
-            .mobile-menu-toggle {
-                display: none !important;
-            }
-        }
-
-        /* Tooltip for collapsed sidebar */
-        .sidebar.collapsed .menu-item {
-            position: relative;
-        }
-
-        .sidebar.collapsed .menu-item:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--text-color);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-size: 12px;
-            white-space: nowrap;
-            z-index: 1000;
-            margin-left: 10px;
-        }
-
-        .sidebar.collapsed .menu-item:hover::before {
-            content: '';
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            border: 5px solid transparent;
-            border-right-color: var(--text-color);
-            margin-left: 5px;
-            z-index: 1000;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .page-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .breadcrumb a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border: none;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary { background: var(--primary-color); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); }
-        .btn-secondary { background: white; color: var(--text-color); border: 1px solid var(--border-color); }
-        .btn-success { background: var(--success-color); color: white; }
-        .btn-warning { background: var(--warning-color); color: white; }
-        .btn-danger { background: var(--error-color); color: white; }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            overflow: hidden;
-        }
-
-        .card-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--secondary-color);
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        .card-body {
-            padding: 24px;
-        }
-
-        .ticket-header {
-            padding: 30px 24px;
-            background: linear-gradient(135deg, var(--primary-color), #6366f1);
-            color: white;
-        }
-
-        .ticket-number {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .ticket-title {
-            font-size: 20px;
-            font-weight: 500;
-            opacity: 0.95;
-        }
-
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .meta-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .meta-value {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            width: fit-content;
-        }
-
-        .badge-status-open { background: #fef3c7; color: #92400e; }
-        .badge-status-in_progress { background: #dbeafe; color: #1e40af; }
-        .badge-status-resolved { background: #d1fae5; color: #065f46; }
-        .badge-status-closed { background: #f3f4f6; color: #374151; }
-
-        .badge-priority-low { background: #d1fae5; color: #065f46; }
-        .badge-priority-medium { background: #fef3c7; color: #92400e; }
-        .badge-priority-high { background: #fed7aa; color: #9a3412; }
-        .badge-priority-urgent { background: #fee2e2; color: #991b1b; }
-
-        .description {
-            background: var(--secondary-color);
-            padding: 20px;
-            border-radius: var(--radius-md);
-            white-space: pre-wrap;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .attachments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-        }
-
-        .attachment-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: var(--secondary-color);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.2s;
-        }
-
-        .attachment-item:hover {
-            background: var(--primary-light);
-            color: var(--primary-color);
-        }
-
-        .attachment-icon {
-            font-size: 20px;
-            color: var(--primary-color);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-color);
-            margin-bottom: 6px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .alert {
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-success {
-            background: #d1fae5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-
-        .alert-danger {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
-
-        .creator-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: var(--secondary-color);
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-        }
-
-        .creator-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .admin-response {
-            background: #f0f9ff;
-            border-left: 4px solid var(--info-color);
-            padding: 20px;
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-        }
-
-        .response-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            color: var(--info-color);
-            font-weight: 600;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-            }
-
+        @media (max-width: 480px) {
             .content-body {
-                padding: 20px;
+                padding: 16px;
             }
 
-            .main-grid {
+            .attachments-grid {
                 grid-template-columns: 1fr;
             }
 
-            .sidebar-toggle {
-                display: none;
+            .creator-info {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
@@ -743,13 +901,14 @@
         @include('Admin.shared.sidebar-menu')
         
         <div class="main-content">
+            <!-- Content Header -->
             <div class="content-header">
                 <div class="header-content">
-                    <div style="display: flex; align-items: center;">
+                    <div class="header-left">
                         <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <div>
+                        <div class="header-info">
                             <h1 class="page-title">Ticket Details</h1>
                             <div class="breadcrumb">
                                 <a href="{{ route('admin.tickets.index') }}">Tickets</a>
@@ -767,12 +926,13 @@
                 </div>
             </div>
 
+            <!-- Content Body -->
             <div class="content-body">
                 <!-- Success Message -->
                 @if(session('success'))
                     <div class="alert alert-success">
                         <i class="fas fa-check-circle"></i>
-                        {{ session('success') }}
+                        <div>{{ session('success') }}</div>
                     </div>
                 @endif
 
@@ -790,10 +950,11 @@
                     </div>
                 @endif
 
+                <!-- Main Grid Layout -->
                 <div class="main-grid">
-                    <!-- Main Content -->
-                    <div>
-                        <!-- Ticket Info -->
+                    <!-- Main Content Column -->
+                    <div class="main-column">
+                        <!-- Ticket Info Card -->
                         <div class="card">
                             <div class="ticket-header">
                                 <div class="ticket-number">#{{ $ticket->ticket_number }}</div>
@@ -801,6 +962,7 @@
                             </div>
 
                             <div class="card-body">
+                                <!-- Meta Information -->
                                 <div class="meta-grid">
                                     <div class="meta-item">
                                         <div class="meta-label">Status</div>
@@ -843,74 +1005,91 @@
 
                                 <!-- Creator Info -->
                                 @if($creator)
-                                    <div class="creator-info">
-                                        <div class="creator-avatar">
-                                            {{ strtoupper(substr($creator->name ?? $creator->jina ?? 'U', 0, 1)) }}
-                                        </div>
-                                        <div>
-                                            <div style="font-weight: 600;">{{ $creator->name ?? $creator->jina ?? 'Unknown User' }}</div>
-                                            <div style="font-size: 12px; color: var(--text-muted);">
-                                                {{ ucfirst($ticket->user_type) }}
-                                                @if(isset($creator->email))
-                                                    • {{ $creator->email }}
-                                                @endif
-                                                @if(isset($creator->simu))
-                                                    • {{ $creator->simu }}
-                                                @endif
+                                    <div class="content-section">
+                                        <div class="creator-info">
+                                            <div class="creator-avatar">
+                                                {{ strtoupper(substr($creator->name ?? $creator->jina ?? 'U', 0, 1)) }}
+                                            </div>
+                                            <div class="creator-details">
+                                                <div class="creator-name">{{ $creator->name ?? $creator->jina ?? 'Unknown User' }}</div>
+                                                <div class="creator-meta">
+                                                    {{ ucfirst($ticket->user_type) }}
+                                                    @if(isset($creator->email))
+                                                        • {{ $creator->email }}
+                                                    @endif
+                                                    @if(isset($creator->simu))
+                                                        • {{ $creator->simu }}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 @endif
 
                                 <!-- Description -->
-                                <h3 style="margin-bottom: 12px;">Description</h3>
-                                <div class="description">{{ $ticket->description }}</div>
+                                <div class="content-section">
+                                    <h3 class="section-title">
+                                        <i class="fas fa-align-left"></i>
+                                        Description
+                                    </h3>
+                                    <div class="description">{{ $ticket->description }}</div>
+                                </div>
 
                                 <!-- Attachments -->
                                 @if($ticket->attachments && count(json_decode($ticket->attachments, true)) > 0)
-                                    <h3 style="margin-bottom: 12px;">Attachments</h3>
-                                    <div class="attachments-grid">
-                                        @foreach(json_decode($ticket->attachments, true) as $index => $attachment)
-                                            <a href="{{ route('tickets.download-attachment', [$ticket->id, $index]) }}" class="attachment-item">
-                                                <div class="attachment-icon">
-                                                    <i class="fas fa-file"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 500;">{{ $attachment['original_name'] }}</div>
-                                                    <div style="font-size: 12px; color: var(--text-muted);">
-                                                        {{ number_format($attachment['size'] / 1024, 1) }} KB
+                                    <div class="content-section">
+                                        <h3 class="section-title">
+                                            <i class="fas fa-paperclip"></i>
+                                            Attachments
+                                        </h3>
+                                        <div class="attachments-grid">
+                                            @foreach(json_decode($ticket->attachments, true) as $index => $attachment)
+                                                <a href="{{ route('admin.tickets.download-attachment', [$ticket->id, $index]) }}" class="attachment-item">
+                                                    <div class="attachment-icon">
+                                                        <i class="fas fa-file"></i>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        @endforeach
+                                                    <div class="attachment-details">
+                                                        <div class="attachment-name">{{ $attachment['original_name'] }}</div>
+                                                        <div class="attachment-size">
+                                                            {{ number_format($attachment['size'] / 1024, 1) }} KB
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 @endif
 
                                 <!-- Admin Response -->
                                 @if($ticket->admin_response)
-                                    <div class="admin-response">
-                                        <div class="response-header">
-                                            <div>
-                                                <i class="fas fa-reply"></i>
-                                                Admin Response
+                                    <div class="content-section">
+                                        <div class="admin-response">
+                                            <div class="response-header">
+                                                <div>
+                                                    <i class="fas fa-reply"></i>
+                                                    Admin Response
+                                                </div>
+                                                <div style="font-size: 12px; font-weight: normal;">
+                                                    {{ $ticket->updated_at->format('M d, Y H:i') }}
+                                                </div>
                                             </div>
-                                            <div style="font-size: 12px; font-weight: normal;">
-                                                {{ $ticket->updated_at->format('M d, Y H:i') }}
-                                            </div>
+                                            <div class="response-content">{{ $ticket->admin_response }}</div>
                                         </div>
-                                        <div>{{ $ticket->admin_response }}</div>
                                     </div>
                                 @endif
                             </div>
                         </div>
                     </div>
 
-                    <!-- Sidebar Actions -->
-                    <div>
-                        <!-- Assignment -->
-                        <div class="card" style="margin-bottom: 24px;">
+                    <!-- Actions Column -->
+                    <div class="actions-column">
+                        <!-- Assignment Card -->
+                        <div class="action-card">
                             <div class="card-header">
-                                <h3 class="card-title">Assignment</h3>
+                                <h3 class="card-title">
+                                    <i class="fas fa-user-plus"></i>
+                                    Assignment
+                                </h3>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.tickets.assign', $ticket->id) }}" method="POST">
@@ -934,10 +1113,13 @@
                             </div>
                         </div>
 
-                        <!-- Status Update -->
-                        <div class="card" style="margin-bottom: 24px;">
+                        <!-- Status Update Card -->
+                        <div class="action-card">
                             <div class="card-header">
-                                <h3 class="card-title">Update Status</h3>
+                                <h3 class="card-title">
+                                    <i class="fas fa-edit"></i>
+                                    Update Status
+                                </h3>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.tickets.update-status', $ticket->id) }}" method="POST">
@@ -963,10 +1145,13 @@
                             </div>
                         </div>
 
-                        <!-- Admin Response -->
-                        <div class="card">
+                        <!-- Admin Response Card -->
+                        <div class="action-card">
                             <div class="card-header">
-                                <h3 class="card-title">Add Response</h3>
+                                <h3 class="card-title">
+                                    <i class="fas fa-reply"></i>
+                                    Add Response
+                                </h3>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('admin.tickets.respond', $ticket->id) }}" method="POST">
@@ -1032,14 +1217,17 @@
         });
 
         // Confirmation for status changes
-        document.querySelector('form[action*="update-status"]').addEventListener('submit', function(e) {
-            const status = this.querySelector('select[name="status"]').value;
-            if (status === 'closed') {
-                if (!confirm('Are you sure you want to close this ticket? This action cannot be undone.')) {
-                    e.preventDefault();
+        const statusForm = document.querySelector('form[action*="update-status"]');
+        if (statusForm) {
+            statusForm.addEventListener('submit', function(e) {
+                const status = this.querySelector('select[name="status"]').value;
+                if (status === 'closed') {
+                    if (!confirm('Are you sure you want to close this ticket? This action cannot be undone.')) {
+                        e.preventDefault();
+                    }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
