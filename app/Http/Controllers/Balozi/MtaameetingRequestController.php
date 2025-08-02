@@ -68,7 +68,13 @@ class MtaameetingRequestController extends Controller
      */
     public function index()
     {
-        $baloziId = Auth::id();
+        // Use the same method to get balozi_id as in store()
+        $baloziId = $this->getBaloziId();
+        
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+        
         $requests = MtaaMeetingRequest::where('balozi_id', $baloziId)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -83,8 +89,15 @@ class MtaameetingRequestController extends Controller
     {
         $request = MtaaMeetingRequest::findOrFail($id);
         
+        // Use consistent balozi_id checking
+        $baloziId = $this->getBaloziId();
+        
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+        
         // Ensure the request belongs to the current user
-        if ($request->balozi_id !== Auth::id()) {
+        if ($request->balozi_id !== $baloziId) {
             abort(403, 'Unauthorized action');
         }
 
@@ -98,8 +111,15 @@ class MtaameetingRequestController extends Controller
     {
         $meetingRequest = MtaaMeetingRequest::findOrFail($id);
         
+        // Use consistent balozi_id checking
+        $baloziId = $this->getBaloziId();
+        
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+        
         // Ensure the request belongs to the current user
-        if ($meetingRequest->balozi_id !== Auth::id()) {
+        if ($meetingRequest->balozi_id !== $baloziId) {
             abort(403, 'Unauthorized action');
         }
 
@@ -123,8 +143,15 @@ class MtaameetingRequestController extends Controller
     {
         $meetingRequest = MtaaMeetingRequest::findOrFail($id);
         
+        // Use consistent balozi_id checking
+        $baloziId = $this->getBaloziId();
+        
+        if ($baloziId instanceof \Illuminate\Http\RedirectResponse) {
+            return $baloziId;
+        }
+        
         // Ensure the request belongs to the current user
-        if ($meetingRequest->balozi_id !== Auth::id()) {
+        if ($meetingRequest->balozi_id !== $baloziId) {
             abort(403, 'Unauthorized action');
         }
 

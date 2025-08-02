@@ -699,10 +699,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                Tarehe
-                                Maelezo
-                                Maoni
-                                Vitendo
+                                <th>Tarehe</th>
+                                <th>Maelezo</th>
+                                <th>Maoni</th>
+                                <th>Vitendo</th>
                             </tr>
                         </thead>
                         <tbody>
