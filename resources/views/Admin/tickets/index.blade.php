@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: rgba(79, 70, 229, 0.1);
+            --primary-color: #4ee545;
+            --primary-hover: #4ee546;
+            --primary-light: rgba(70, 229, 118, 0.1);
             --secondary-color: #f8fafc;
             --text-color: #1e293b;
             --text-muted: #64748b;
