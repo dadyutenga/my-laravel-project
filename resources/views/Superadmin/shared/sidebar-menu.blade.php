@@ -30,11 +30,11 @@
                 <div class="menu-icon"><i class="fas fa-user-shield"></i></div>
                 <div class="menu-text">Admin Management</div>
             </a>
-            <a href="/superadmin/users" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-users"></i></div>
                 <div class="menu-text">User Accounts</div>
             </a>
-            <a href="/superadmin/roles" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-user-tag"></i></div>
                 <div class="menu-text">Roles & Permissions</div>
             </a>
@@ -42,15 +42,15 @@
 
         <div class="menu-section">
             <div class="menu-section-title">System</div>
-            <a href="/superadmin/logs" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-list-alt"></i></div>
                 <div class="menu-text">Activity Logs</div>
             </a>
-            <a href="/superadmin/security" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-lock"></i></div>
                 <div class="menu-text">Security Settings</div>
             </a>
-            <a href="/superadmin/backup" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-database"></i></div>
                 <div class="menu-text">Backup & Restore</div>
             </a>
@@ -58,11 +58,11 @@
 
         <div class="menu-section">
             <div class="menu-section-title">Support</div>
-            <a href="/superadmin/tickets" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-ticket-alt"></i></div>
                 <div class="menu-text">Support Tickets</div>
             </a>
-            <a href="/superadmin/announcements" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-bullhorn"></i></div>
                 <div class="menu-text">Announcements</div>
             </a>
@@ -70,10 +70,7 @@
 
         <div class="menu-section">
             <div class="menu-section-title">Settings</div>
-            <a href="/superadmin/profile" class="menu-item">
-                <div class="menu-icon"><i class="fas fa-user-circle"></i></div>
-                <div class="menu-text">My Profile</div>
-            </a>
+            
             <a href="/superadmin/settings" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
                 <div class="menu-text">System Settings</div>
