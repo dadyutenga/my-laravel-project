@@ -65,7 +65,7 @@ class MwenyekitiController extends Controller
         $id = $request->query('id', null);
         $selectedMwenyekiti = $id ? Mwenyekiti::with('auth')->findOrFail($id) : null;
 
-        return view('admin.mwenyekiti.manage', compact('mwenyekiti', 'mode', 'selectedMwenyekiti'));
+        return view('Admin.mwenyekiti.manage', compact('mwenyekiti', 'mode', 'selectedMwenyekiti'));
     }
 
     // Update Mwenyekiti

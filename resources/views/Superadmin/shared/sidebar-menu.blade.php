@@ -71,7 +71,7 @@
         <div class="menu-section">
             <div class="menu-section-title">Settings</div>
             
-            <a href="/superadmin/settings" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-cog"></i></div>
                 <div class="menu-text">System Settings</div>
             </a>

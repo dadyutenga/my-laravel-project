@@ -24,7 +24,7 @@ class BaloziAccountController extends Controller
     {
         // For managing existing accounts
         $baloziAccounts = BaloziAuth::with('balozi')->latest()->paginate(10);
-        return view('admin.balozi.managebaloziacc', compact('baloziAccounts'));
+        return view('Admin.balozi.managebaloziacc', compact('baloziAccounts'));
     }
 
     // For viewing account creation requests
@@ -35,7 +35,7 @@ class BaloziAccountController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('admin.balozi.createbaloziacc', compact('requests'));
+        return view('Admin.balozi.createbaloziacc', compact('requests'));
     }
 
     // View specific account request
@@ -44,7 +44,7 @@ class BaloziAccountController extends Controller
         $accountRequest = BaloziAccountRequest::with(['balozi', 'mwenyekiti'])
             ->findOrFail($requestId);
 
-        return view('admin.balozi.createbaloziacc', compact('accountRequest'));
+        return view('Admin.balozi.createbaloziacc', compact('accountRequest'));
     }
 
     // Process account creation request

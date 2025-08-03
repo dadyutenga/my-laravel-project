@@ -23,7 +23,7 @@ class ProfileController extends Controller
         // Load the details relationship or create empty one if doesn't exist
         $user->load('details');
         
-        return view('admin.profile.index', compact('user'));
+        return view('Admin.profile.index', compact('user'));
     }
 
     public function update(Request $request)
