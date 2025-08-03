@@ -657,7 +657,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <p>&copy; <span id="current-year"></span> Community Management System. Built by <span class="ditronics">Ditronics</span>.</p>
+            <p>&copy; <span id="current-year"></span> Prototype System. Built by <span class="ditronics">Ditronics</span>.</p>
         </div>
     </footer>
 
