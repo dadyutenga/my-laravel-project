@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
-class MatangazoYaKawaida extends Model
+class Matangazoyakawaida extends Model
 {
     protected $table = 'matangazo_ya_kawaida';
 
