@@ -750,7 +750,7 @@
                 <div class="logo-icon" aria-hidden="true">
                     <i class="fas fa-database"></i>
                 </div>
-                <span>Community Management System</span>
+                <span>Prototype System</span>
             </a>
         </div>
     </header>
