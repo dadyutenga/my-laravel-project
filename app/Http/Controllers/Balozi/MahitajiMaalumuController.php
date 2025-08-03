@@ -34,7 +34,7 @@ class MahitajiMaalumuController extends Controller
             return $baloziId;
         }
 
-        return view('Balozi.MahitajiMaalumu.create');
+        return view('Balozi.Mahitajimaalumu.create');
     }
 
     // Store a new Mahitaji Maalumu record
