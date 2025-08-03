@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matangazoyakawaida ;
+use App\Models\MatangazoYaKawaida ;
 use App\Models\Matangazo;
 use App\Models\MtaaMeeting;
 use Illuminate\Http\Request;
