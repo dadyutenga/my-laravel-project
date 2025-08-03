@@ -41,7 +41,7 @@ class DashboardController extends Controller
         // Get system logs
         $systemLogs = $this->getSystemLogs();
 
-        return view('superadmin.dashboard', compact(
+        return view('Superadmin.dashboard', compact(
             'totalUsers',
             'userGrowth',
             'totalAdmins',
