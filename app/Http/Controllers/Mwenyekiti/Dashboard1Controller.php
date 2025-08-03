@@ -309,7 +309,7 @@ class Dashboard1Controller extends Controller
         });
 
         // Recent announcements - ONLY by this Mwenyekiti
-        $recentAnnouncements = MatangazoYaKawaida::where('created_by', $mwenyekitiId)
+        $recentAnnouncements = Matangazoyakawaida::where('created_by', $mwenyekitiId)
             ->latest()
             ->take(3)
             ->get()
