@@ -641,7 +641,7 @@
 </head>
 <body>
     <div class="dashboard-container">
-        @include('superadmin.shared.sidebar-menu')
+        @include('Superadmin.shared.sidebar-menu')
 
         <div class="main-content">
             <header class="header">
