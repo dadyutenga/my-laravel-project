@@ -14,7 +14,7 @@ class BaloziController extends Controller
     // Show create form
     public function create()
     {
-        return view('mwenyekiti.balozi.create');
+        return view('Mwenyekiti.balozi.create');
     }
 
     // Store new Balozi
@@ -73,7 +73,7 @@ class BaloziController extends Controller
                         ->latest()
                         ->paginate(10);
 
-        return view('mwenyekiti.balozi.manage', compact('balozi'));
+        return view('Mwenyekiti.balozi.manage', compact('balozi'));
     }
 
     // Show single Balozi details
@@ -84,7 +84,7 @@ class BaloziController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('mwenyekiti.balozi.show', compact('balozi'));
+        return view('Mwenyekiti.balozi.show', compact('balozi'));
     }
 
     // Show edit form
@@ -95,7 +95,7 @@ class BaloziController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('mwenyekiti.balozi.edit', compact('balozi'));
+        return view('Mwenyekiti.balozi.edit', compact('balozi'));
     }
 
     // Update Balozi
@@ -159,7 +159,7 @@ class BaloziController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('mwenyekiti.balozi.manage', compact('balozi'));
+        return view('Mwenyekiti.balozi.manage', compact('balozi'));
     }
     
     public function requestAccount(Request $request, $id)
