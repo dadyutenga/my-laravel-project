@@ -18,7 +18,7 @@ class CreateAdminController extends Controller
     public function index()
     {
         $admins = Admin::with('details')->where('role', 'admin')->get();
-        return view('superadmin.AdminManagement.index', compact('admins'));
+        return view('Superadmin.AdminManagement.index', compact('admins'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CreateAdminController extends Controller
      */
     public function create()
     {
-        return view('superadmin.AdminManagement.create');
+        return view('Superadmin.AdminManagement.create');
     }
 
     /**
@@ -105,7 +105,7 @@ class CreateAdminController extends Controller
     public function edit(Admin $admin)
     {
         $admin->load('details');
-        return view('superadmin.adminmanagement.edit', compact('admin'));
+        return view('Superadmin.adminmanagement.edit', compact('admin'));
     }
 
     /**

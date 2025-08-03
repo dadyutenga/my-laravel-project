@@ -18,7 +18,7 @@
                 <div class="menu-icon"><i class="fas fa-tachometer-alt"></i></div>
                 <div class="menu-text">Dashboard</div>
             </a>
-            <a href="/superadmin/analytics" class="menu-item">
+            <a href="#" class="menu-item">
                 <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="menu-text">Analytics</div>
             </a>
