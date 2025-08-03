@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #14b8a6;
-            --primary-hover: #0d9488;
+            --primary-color: #0d9e4aff;
+            --primary-hover: #0f9c4aff;
             --primary-light: rgba(20, 184, 166, 0.1);
             --secondary-color: #f8fafc;
             --text-color: #1e293b;
