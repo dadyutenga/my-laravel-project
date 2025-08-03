@@ -71,7 +71,7 @@ Route::post('/login1', [UserAuthController::class, 'login'])->name('login1.submi
 // Protected Balozi/Mwenyekiti routes
 Route::middleware(['auth.balozi'])->group(function () {
     Route::get('/balozi/dashboard', function () {
-        return view('balozi.dashboard');
+        return view('Balozi.dashboard');
     })->name('balozi.dashboard');
     
     // Add Watu routes for Balozi
